@@ -1,4 +1,4 @@
-//#pragma once
+ï»¿//#pragma once
 ////#include <windows.h>
 //
 ////#include <afxinet.h>
@@ -32,7 +32,7 @@
 //public:
 //
 //
-//	//int×ªstring
+//	//intè½¬string
 //	string intToString(int n){
 //		
 //		try{
@@ -45,7 +45,7 @@
 //		}
 //		
 //	}
-//	//string×ªint
+//	//stringè½¬int
 //	int stringToInt(string  instringn){
 //		try{
 //			int index = _ttoi(instringn.c_str());
@@ -59,9 +59,9 @@
 //	
 //
 //	/**
-//	* ËµÃ÷£ºÈ¥³ıÎÄ¼şºó×º Ö»ÁôÎÄ¼şÃû
-//	* ²ÎÊı£ºÎÄ¼şÃû
-//	* ·µ»Ø£º´¿ÎÄ¼şÃû³Æ²»´øºó×º
+//	* è¯´æ˜ï¼šå»é™¤æ–‡ä»¶åç¼€ åªç•™æ–‡ä»¶å
+//	* å‚æ•°ï¼šæ–‡ä»¶å
+//	* è¿”å›ï¼šçº¯æ–‡ä»¶åç§°ä¸å¸¦åç¼€
 //	*/
 //	string getFileName(string fileName){
 //		int pos = fileName.rfind(".");
@@ -72,9 +72,9 @@
 //	}
 //
 //	/**
-//	* ËµÃ÷£º»ñµÃ×îºóÒ»¼¶Â·¾¶£¨¿ÉÒÔ»ñµÃÂ·¾¶µÄÎÄ¼şÃû£©
-//	* ²ÎÊı£º×îºóÒ»¼¶ĞÅÏ¢
-//	* ·µ»Ø£º´¿ÎÄ¼şÃû³Æ²»´øºó×º
+//	* è¯´æ˜ï¼šè·å¾—æœ€åä¸€çº§è·¯å¾„ï¼ˆå¯ä»¥è·å¾—è·¯å¾„çš„æ–‡ä»¶åï¼‰
+//	* å‚æ•°ï¼šæœ€åä¸€çº§ä¿¡æ¯
+//	* è¿”å›ï¼šçº¯æ–‡ä»¶åç§°ä¸å¸¦åç¼€
 //	*/
 //	string getPathTail(string fileName,string checkFH){
 //		int pos = fileName.rfind(checkFH);
@@ -84,9 +84,9 @@
 //			return fileName;
 //	}
 //	/**
-//	* ËµÃ÷£ºÈ¥³ı×îºóÒ»¼¶Â·¾¶£¨¿ÉÒÔÈ¥³ıÎÄ¼şÃû±£´æÂ·¾¶£©
-//	* ²ÎÊı£ºÂ·¾¶ "/" "\\"
-//	* ·µ»Ø£º´¿ÎÄ¼şÃû³Æ²»´øºó×º
+//	* è¯´æ˜ï¼šå»é™¤æœ€åä¸€çº§è·¯å¾„ï¼ˆå¯ä»¥å»é™¤æ–‡ä»¶åä¿å­˜è·¯å¾„ï¼‰
+//	* å‚æ•°ï¼šè·¯å¾„ "/" "\\"
+//	* è¿”å›ï¼šçº¯æ–‡ä»¶åç§°ä¸å¸¦åç¼€
 //	*/
 //	string removePathTail(string fileName, string checkFH){
 //		int pos = fileName.rfind(checkFH);
@@ -97,21 +97,21 @@
 //	}
 //
 //	/*
-//	* Ğ´ÈëÎÄ¼şÄÚÈİ ²»´æÔÚÔò´´½¨  ¸²¸ÇĞ´Èë
-//	* ²ÎÊıÒ»£ºÎÄ¼şÂ·¾¶
-//	* ²ÎÊı¶ş£ºÎÄ¼şÄÚÈİ
-//	* ·µ»Ø£ºtrue³É¹¦/falseÊ§°Ü
+//	* å†™å…¥æ–‡ä»¶å†…å®¹ ä¸å­˜åœ¨åˆ™åˆ›å»º  è¦†ç›–å†™å…¥
+//	* å‚æ•°ä¸€ï¼šæ–‡ä»¶è·¯å¾„
+//	* å‚æ•°äºŒï¼šæ–‡ä»¶å†…å®¹
+//	* è¿”å›ï¼štrueæˆåŠŸ/falseå¤±è´¥
 //	*/
 //	BOOL saveFileData(string filePath, char* fileData){
-//		ofstream outfile(filePath, ios::out);//ios::app±íÊ¾ÔÚÔ­ÎÄ¼şÄ©Î²×·¼Ó
+//		ofstream outfile(filePath, ios::out);//ios::appè¡¨ç¤ºåœ¨åŸæ–‡ä»¶æœ«å°¾è¿½åŠ 
 //		outfile.write(fileData, strlen(fileData));
 //		outfile.close();
 //		return true;
 //	}
 //	/**
-//	* ËµÃ÷£º×Ö·û´®Ìæ»»£¨²»Ñ­»·ÖØ¸´Ìæ»»£©
-//	* ²ÎÊı£º1×Ü×Ö·û´® 2ÒªÌæ»»µÄ×Ö·û 3Ìæ»»³ÉµÄ×Ö·û
-//	* ·µ»Ø£ºÌæ»»ºóµÄ×Ö·û´®
+//	* è¯´æ˜ï¼šå­—ç¬¦ä¸²æ›¿æ¢ï¼ˆä¸å¾ªç¯é‡å¤æ›¿æ¢ï¼‰
+//	* å‚æ•°ï¼š1æ€»å­—ç¬¦ä¸² 2è¦æ›¿æ¢çš„å­—ç¬¦ 3æ›¿æ¢æˆçš„å­—ç¬¦
+//	* è¿”å›ï¼šæ›¿æ¢åçš„å­—ç¬¦ä¸²
 //	*/
 //	string& replace_all_distinct(string& str, const string& old_value, const string& new_value)
 //	{
@@ -124,9 +124,9 @@
 //	}
 //
 //	/**
-//	* ËµÃ÷£º×Ö·û´®Ìæ»»£¨Ñ­»·ÖØ¸´Ìæ»»£©
-//	* ²ÎÊı£º1×Ü×Ö·û´® 2ÒªÌæ»»µÄ×Ö·û 3Ìæ»»³ÉµÄ×Ö·û
-//	* ·µ»Ø£ºÌæ»»ºóµÄ×Ö·û´®
+//	* è¯´æ˜ï¼šå­—ç¬¦ä¸²æ›¿æ¢ï¼ˆå¾ªç¯é‡å¤æ›¿æ¢ï¼‰
+//	* å‚æ•°ï¼š1æ€»å­—ç¬¦ä¸² 2è¦æ›¿æ¢çš„å­—ç¬¦ 3æ›¿æ¢æˆçš„å­—ç¬¦
+//	* è¿”å›ï¼šæ›¿æ¢åçš„å­—ç¬¦ä¸²
 //	*/
 //	string& replace_all(string& str, const string& old_value, const string& new_value)
 //	{
@@ -139,9 +139,9 @@
 //		return str;
 //	}
 //	/**
-//	* ËµÃ÷£º¸ù¾İID»ñµÃhtmlÖ¸¶¨IDµÄhtmlÔ´Âë
-//	* ²ÎÊı£º²ÎÊı1 web¶ÔÏó   ²ÎÊı2 ID
-//	* ·µ»Ø£ºÖ¸¶¨ID±êÇ©µÄHTMLÔªËØ
+//	* è¯´æ˜ï¼šæ ¹æ®IDè·å¾—htmlæŒ‡å®šIDçš„htmlæºç 
+//	* å‚æ•°ï¼šå‚æ•°1 webå¯¹è±¡   å‚æ•°2 ID
+//	* è¿”å›ï¼šæŒ‡å®šIDæ ‡ç­¾çš„HTMLå…ƒç´ 
 //	*/
 //	string getHtmlById(CWebBrowserUI* cWebUi,string id){
 //		if (checkState == true){
@@ -155,7 +155,7 @@
 //			CComPtr<IHTMLDocument2> spDoc = NULL;
 //			IWebBrowser2* iweb2 = cWebUi->GetWebBrowser2();
 //			if (iweb2 == NULL){
-//				log("ÄÚÈİÎª¿Õ");
+//				log("å†…å®¹ä¸ºç©º");
 //			}
 //			hr = iweb2->get_Document(&dispDoc);
 //			hr = dispDoc->QueryInterface(IID_IHTMLDocument2, (LPVOID*)&spDoc);
@@ -163,7 +163,7 @@
 //			spDoc->get_all(&spElementss);
 //			CComPtr<IDispatch>pDisp;
 //
-//			//char×ªVARIANT
+//			//charè½¬VARIANT
 //			//VARIANT myVariant;
 //		//	HRESULT hrx = InitVariantFromBuffer(id.c_str(), sizeof(id.c_str())*3, &myVariant);
 //			//myVariant.vt = VT_UI1;
@@ -195,7 +195,7 @@
 //			pElement = pDisp;
 //			pElement->get_outerHTML(&pContentA);//pElement->get_outerText(&pContentA);
 //			string dataStr((_bstr_t)pContentA);
-//			//ÊÍ·ÅÄÚ´æ
+//			//é‡Šæ”¾å†…å­˜
 //			pDisp = NULL;
 //			spElementss->Release();
 //			iweb2->Release();
@@ -211,7 +211,7 @@
 //	}
 //
 //
-//	//Ğ´Èëhtml Ö¸¶¨IDµÄ±êÇ©ÄÚÈİ
+//	//å†™å…¥html æŒ‡å®šIDçš„æ ‡ç­¾å†…å®¹
 //	string setHtmlById(CWebBrowserUI* cWebUi,string id, string value){
 //		try{
 //			VARIANT myVariant;
@@ -236,7 +236,7 @@
 //			CComPtr<IHTMLDocument2> spDoc = NULL;
 //			IWebBrowser2* iweb2 = cWebUi->GetWebBrowser2();
 //			if (iweb2 == NULL){
-//				log("Ğ´ÈëÒì³£!");
+//				log("å†™å…¥å¼‚å¸¸!");
 //			}
 //			hr = iweb2->get_Document(&dispDoc);
 //			hr = dispDoc->QueryInterface(IID_IHTMLDocument2, (LPVOID*)&spDoc);
@@ -248,26 +248,26 @@
 //			CComQIPtr<IHTMLElement, &IID_IHTMLElement>pElement;
 //			if (pDisp == NULL)
 //			{
-//				return "»ñµÃ±êÇ©Ê§°Ü£¡";
+//				return "è·å¾—æ ‡ç­¾å¤±è´¥ï¼";
 //			}
 //			CComBSTR pContentA;
 //			pElement = pDisp;
 //			pElement->put_innerText(_bstr_t(value.c_str()));
 //
-//			//ÊÍ·ÅÄÚ´æ
+//			//é‡Šæ”¾å†…å­˜
 //			spElementss->Release();
 //			iweb2->Release();
 //			delete[] mywstring;
 //			delete[] mywstring2;
-//			return "Ğ´Èë³É¹¦";
+//			return "å†™å…¥æˆåŠŸ";
 //		}
 //		catch (...){
-//			log("Ğ´ÈëÒì³£!");
+//			log("å†™å…¥å¼‚å¸¸!");
 //		}
 //	}
 //	/**
-//	*Ğ´ÈëLog±êÇ©ÄÚÈİ
-//	*²ÎÊıÒ»£ººì×Ö  ²ÎÊı¶ş£ººÚ×Ö    ¿ÉÎª"" 
+//	*å†™å…¥Logæ ‡ç­¾å†…å®¹
+//	*å‚æ•°ä¸€ï¼šçº¢å­—  å‚æ•°äºŒï¼šé»‘å­—    å¯ä¸º"" 
 //	*/
 //	string setLogById(CWebBrowserUI* cWebUi, string value, string value2){
 //		try{
@@ -301,7 +301,7 @@
 //			CComPtr<IHTMLDocument2> spDoc = NULL;
 //			IWebBrowser2* iweb2 = cWebUi->GetWebBrowser2();
 //			if (iweb2 == NULL){
-//				log("Ğ´ÈëÒì³£!");
+//				log("å†™å…¥å¼‚å¸¸!");
 //			}
 //			hr = iweb2->get_Document(&dispDoc);
 //			hr = dispDoc->QueryInterface(IID_IHTMLDocument2, (LPVOID*)&spDoc);
@@ -314,7 +314,7 @@
 //				spElementss->item(myVariant, myVarianty, &pDisp);
 //				if (pDisp == NULL)
 //				{
-//					return "»ñµÃ±êÇ©Ê§°Ü£¡";
+//					return "è·å¾—æ ‡ç­¾å¤±è´¥ï¼";
 //				}
 //				pElement = pDisp;
 //				pElement->put_innerText(_bstr_t(value.c_str()));
@@ -324,29 +324,29 @@
 //				spElementss->item(LogDivValueData, myVarianty, &pDisp);
 //				if (pDisp == NULL)
 //				{
-//					return "»ñµÃ±êÇ©Ê§°Ü£¡";
+//					return "è·å¾—æ ‡ç­¾å¤±è´¥ï¼";
 //				}
 //				pElement = pDisp;
 //				pElement->put_innerText(_bstr_t(value2.c_str()));
 //			}
 //
-//			//ÊÍ·ÅÄÚ´æ
+//			//é‡Šæ”¾å†…å­˜
 //			spElementss->Release();
 //			iweb2->Release();
 //			delete[] mywstring;
 //			delete[] mywstring2;
 //			delete[] mywstring3;
-//			return "Ğ´Èë³É¹¦";
+//			return "å†™å…¥æˆåŠŸ";
 //		}
 //		catch (...){
-//			log("Ğ´ÈëÒì³£!");
+//			log("å†™å…¥å¼‚å¸¸!");
 //		}
 //	}
 //
 //	/**
-//	* ËµÃ÷£ºÅĞ¶ÏÊÇ·ñ°üº¬×Ó´®£¨AÖĞÊÇ·ñ°üº¬B£©
-//	* ²ÎÊı£ºA×Ü×Ö·û´®  B×Ó´®
-//	* ·µ»Ø£ºtrue°üº¬ /false²»°üº¬
+//	* è¯´æ˜ï¼šåˆ¤æ–­æ˜¯å¦åŒ…å«å­ä¸²ï¼ˆAä¸­æ˜¯å¦åŒ…å«Bï¼‰
+//	* å‚æ•°ï¼šAæ€»å­—ç¬¦ä¸²  Bå­ä¸²
+//	* è¿”å›ï¼štrueåŒ…å« /falseä¸åŒ…å«
 //	*/
 //	BOOL checkIsStr(string strA, string strB){
 //		string::size_type idx = strA.find(strB);
@@ -359,9 +359,9 @@
 //		}
 //	}
 //	/**
-//	* ËµÃ÷£º½ØÈ¡×Ö·û´®£¨´ÓAµ½BÖĞ¼äµÄ×Ö·û´®£©
-//	* ²ÎÊı£ºall×Ü×Ö·û´®  a¿ªÊ¼×Ö·û´®  b½áÊø×Ö·û´®
-//	* ·µ»Ø£º´¦ÀíºóµÄ×Ö·û´®
+//	* è¯´æ˜ï¼šæˆªå–å­—ç¬¦ä¸²ï¼ˆä»Aåˆ°Bä¸­é—´çš„å­—ç¬¦ä¸²ï¼‰
+//	* å‚æ•°ï¼šallæ€»å­—ç¬¦ä¸²  aå¼€å§‹å­—ç¬¦ä¸²  bç»“æŸå­—ç¬¦ä¸²
+//	* è¿”å›ï¼šå¤„ç†åçš„å­—ç¬¦ä¸²
 //	*/
 //	string subCString(std::string all, string a, string b){
 //		int ix = all.find(a);
@@ -372,9 +372,9 @@
 //		return all;
 //	}
 //	/**
-//	* ËµÃ÷£º¶à×Ö·û´®Ìæ»»£¨²»Ñ­»·ÖØ¸´Ìæ»»£©
-//	* ²ÎÊı£ºstr×Ü×Ö·û´®  old_vlaue_ArrÒªÌæ»»µÄ×Ö·û£¨string[]ÀàĞÍ£©numÒªÌæ»»×Ö·û´®µÄ¸öÊı  new_valueÌæ»»³ÉµÄ×Ö·û
-//	* ·µ»Ø£ºÌæ»»ºóµÄ×Ö·û´®
+//	* è¯´æ˜ï¼šå¤šå­—ç¬¦ä¸²æ›¿æ¢ï¼ˆä¸å¾ªç¯é‡å¤æ›¿æ¢ï¼‰
+//	* å‚æ•°ï¼šstræ€»å­—ç¬¦ä¸²  old_vlaue_Arrè¦æ›¿æ¢çš„å­—ç¬¦ï¼ˆstring[]ç±»å‹ï¼‰numè¦æ›¿æ¢å­—ç¬¦ä¸²çš„ä¸ªæ•°  new_valueæ›¿æ¢æˆçš„å­—ç¬¦
+//	* è¿”å›ï¼šæ›¿æ¢åçš„å­—ç¬¦ä¸²
 //	*/
 //	string& replace_all_distinct_list(string& str, string old_vlaue_Arr[], int num, const string& new_value)
 //	{
@@ -389,9 +389,9 @@
 //		return   str;
 //	}
 //	/**
-//	* ËµÃ÷£º½«×Ö·û´®ÖĞµÄhtml±êÇ©×ªÒå
-//	* ²ÎÊı£ºĞèÒª×ªÒåµÄ×Ö·û´®
-//	* ·µ»Ø£º´¦ÀíºóµÄ×Ö·û´®
+//	* è¯´æ˜ï¼šå°†å­—ç¬¦ä¸²ä¸­çš„htmlæ ‡ç­¾è½¬ä¹‰
+//	* å‚æ•°ï¼šéœ€è¦è½¬ä¹‰çš„å­—ç¬¦ä¸²
+//	* è¿”å›ï¼šå¤„ç†åçš„å­—ç¬¦ä¸²
 //	*/
 //	string replaceHTML(string str){
 //		string strAryy[4]{ "</div>", "<em>", "</em>", "</p>"};
@@ -400,12 +400,12 @@
 //		replStr = replace_all_distinct(replStr, "<br />", "\r\n");
 //		return replStr.c_str();
 //	}
-//	//×Ö·û´®·Ö¸îº¯Êı
+//	//å­—ç¬¦ä¸²åˆ†å‰²å‡½æ•°
 //	std::vector<std::string> split(std::string str, std::string pattern)
 //	{
 //		std::string::size_type pos;
 //		std::vector<std::string> result;
-//		str += pattern;//À©Õ¹×Ö·û´®ÒÔ·½±ã²Ù×÷
+//		str += pattern;//æ‰©å±•å­—ç¬¦ä¸²ä»¥æ–¹ä¾¿æ“ä½œ
 //		int size = str.size();
 //
 //		for (int i = 0; i<size; i++)
@@ -434,9 +434,9 @@
 //		return isdigit(x) ? x - '0' : x - 'A' + 10;
 //	}
 //	/**
-//	* ËµÃ÷£ºÖĞÎÄ×ªÎªä¯ÀÀÆ÷Ê¶±ğµÄÌØÊâ±àÂë
-//	* ²ÎÊı£º´ø×ª»»×Ö·û´®
-//	* ·µ»Ø£º´¦ÀíºóµÄ×Ö·û´®
+//	* è¯´æ˜ï¼šä¸­æ–‡è½¬ä¸ºæµè§ˆå™¨è¯†åˆ«çš„ç‰¹æ®Šç¼–ç 
+//	* å‚æ•°ï¼šå¸¦è½¬æ¢å­—ç¬¦ä¸²
+//	* è¿”å›ï¼šå¤„ç†åçš„å­—ç¬¦ä¸²
 //	*/
 //	string  URLEncode(const char *sIn)
 //	{
@@ -460,9 +460,9 @@
 //		return sOut;
 //	};
 //	/**
-//	* ËµÃ÷£ºä¯ÀÀÆ÷Ê¶±ğµÄÌØÊâ±àÂë×ªÎªÖĞÎÄ
-//	* ²ÎÊı£º´ø×ª»»×Ö·û´®
-//	* ·µ»Ø£º´¦ÀíºóµÄ×Ö·û´®
+//	* è¯´æ˜ï¼šæµè§ˆå™¨è¯†åˆ«çš„ç‰¹æ®Šç¼–ç è½¬ä¸ºä¸­æ–‡
+//	* å‚æ•°ï¼šå¸¦è½¬æ¢å­—ç¬¦ä¸²
+//	* è¿”å›ï¼šå¤„ç†åçš„å­—ç¬¦ä¸²
 //	*/
 //	string URLDecode(const char *sIn)
 //	{

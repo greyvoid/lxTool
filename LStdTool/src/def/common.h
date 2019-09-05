@@ -24,6 +24,7 @@
     if (NULL == (x)) \
         return ; \
 }
+
 // 有返回值
 #define NOT_NULL_PTR_RET(x, ret)    \
 { \

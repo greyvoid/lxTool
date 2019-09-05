@@ -39,23 +39,23 @@ __int64 getCurHourCount();
 
 // 打印十六进制数据
 void public_print_hex(unsigned char *buff, unsigned int buff_len);
- 
+
 // 工具类
 class CTools
 {
 public:
 
 
-	// wstring 转成 utf-8 的 string
-	static string WStrToUTF8(const wstring &str);
+    // wstring 转成 utf-8 的 string
+    static string WStrToUTF8(const wstring &str);
 
-	// Unicode 转换为 UTF-8
-	static void UnicodeToUTF8(wchar_t *WStr, unsigned short wStrlen, const char *Utf8Char);
-	static std::string UnicodeToUTF8(wchar_t *pWStr);
+    // Unicode 转换为 UTF-8
+    static void UnicodeToUTF8(wchar_t *WStr, unsigned short wStrlen, const char *Utf8Char);
+    static std::string UnicodeToUTF8(wchar_t *pWStr);
 
-	// UTF-8 转换位 Unicode
-	static void UTF8ToUnicode(const char*_nickName, int wdatalength, wchar_t *&pUnicodeStr);
-	static std::shared_ptr<wchar_t> UTF8ToUnicode(const std::string &src);
+    // UTF-8 转换位 Unicode
+    static void UTF8ToUnicode(const char*_nickName, int wdatalength, wchar_t *&pUnicodeStr);
+    static std::shared_ptr<wchar_t> UTF8ToUnicode(const std::string &src);
 
 
 
@@ -63,8 +63,8 @@ public:
 
 
 private:
-	// 字符串转换方法
-	static void WStrToUTF8(string& dest, const wstring& src);
+    // 字符串转换方法
+    static void WStrToUTF8(string& dest, const wstring& src);
 };
 
 #endif //__GFUNC_H__

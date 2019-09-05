@@ -1,5 +1,6 @@
 #include "LTcpClient.h"
 #include <QFile>
+#include <QDataStream>
 
 #define PACKET_HEAD_2_BYTE      2   // 包总长度标识2字节
 #define PACKET_HEAD_BYTE        4   // 包总长度标识所占字节
