@@ -25,7 +25,6 @@ SOURCES +=\
     $$PWD/network/buffer.cc \
     $$PWD/network/LTcpClient.cpp \
     $$PWD/crypto/AES.cpp \
-    $$PWD/quiwidget.cpp \
     $$PWD/MyWidgets/CompleteLineEdit.cpp
 
 HEADERS  += \
@@ -59,5 +58,4 @@ HEADERS  += \
     $$PWD/network/LNetDef.h \
     $$PWD/crypto/AES.h \
     $$PWD/def/LCommonDef.h \
-    $$PWD/quiwidget.h \
     $$PWD/MyWidgets/CompleteLineEdit.h \

@@ -5,6 +5,9 @@
 #include <QPaintEvent>
 class QMediaPlayer;
 
+//basPotBtn = new QPushButton(QIcon(tr(":/res/ctrl/BasicCtrl/choice.ico")), tr(""), this);
+//basPotBtn->setToolTip(tr("指针")); 此函数可以显示提示
+
 class QDoubleButton:public QPushButton
 {
     Q_OBJECT

@@ -2,6 +2,20 @@
 TARGET = LStdTool
 TEMPLATE = lib
 
+DESTDIR = $$PWD/bin
+
+DEFINES += L_STD_TOOL
+
+CONFIG(debug, debug|release){
+
+    # DEBUG base name add 'd' suffix
+    TARGET = $$join(TARGET,,,d)
+}
+
+win32{
+    system(.\copy_head.bat)
+}
+
 include(LStdTool.pri)
 
 HEADERS += \
@@ -18,3 +32,6 @@ SOURCES += \
     src/global/gfunc.cpp \
     src/patterns/CSingleton.cpp \
     src/template/Utility.cpp
+
+DISTFILES += \
+    .qmake.conf

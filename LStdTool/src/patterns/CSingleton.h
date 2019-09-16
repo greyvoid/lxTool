@@ -13,7 +13,7 @@ class CSingletonBase
 			: m_bIsCleared(false)
 		{
 
-		};
+        }
 
 		~InstanceTable()
 		{

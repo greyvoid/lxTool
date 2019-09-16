@@ -21,8 +21,9 @@ CONFIG += c++11
 DEFINES += L_QT_TOOL
 
 # 指明编译的目标文件的输出路径
-#DESTDIR = $$PWD/../bin
-DESTDIR = ../bin
+#工程的所在目录
+DESTDIR = $$PWD/bin
+#DESTDIR = ../bin #编译的所在目录
 
 CONFIG(debug, debug|release){
 
@@ -35,6 +36,7 @@ include(LQtTool.pri)
 
 # 定义输出路径
 win32{
+system(.\copy_head.bat)
     CONFIG += debug_and_release
     CONFIG(release, debug|release) {
             #target_path = ./build_/dist
@@ -48,7 +50,7 @@ win32{
         #OBJECTS_DIR = $$target_path/obj
         #DEFINES  += WIN32   #vc6,nmake不会主动包含WIN32 需要手动定add
         #system(xcopy *.h ..\include /s)
-        system(.\copy_head.bat)
+
     #src_dir = $$HEADERS
     #dst_dir = $$PWD\\..\\include\\
     #dst_dir = $$DESTDIR
