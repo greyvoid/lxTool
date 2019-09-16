@@ -4,7 +4,14 @@ TEMPLATE = lib
 
 DESTDIR = $$PWD/bin
 
+#为什么qmake.conf里的内容会优先加载?
 DEFINES += L_STD_TOOL
+contains(DEFINES,L_STD_TOOL){
+    message("11")
+}else{
+    message("22")
+
+}
 
 CONFIG(debug, debug|release){
 
@@ -33,5 +40,6 @@ SOURCES += \
     src/patterns/CSingleton.cpp \
     src/template/Utility.cpp
 
+#此文件用于同一构建树中项目的依赖，如果不是同一构建树则不需要，本例QtTool依赖StdTool
 DISTFILES += \
     .qmake.conf

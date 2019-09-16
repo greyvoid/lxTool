@@ -94,6 +94,7 @@ system(.\copy_head.bat)
 #
 #infile( filename, var, val )
 
+#此文件用于同一构建树中项目的依赖，如果不是同一构建树则不需要，本例QtTool依赖StdTool
 DISTFILES += \
     .qmake.conf
 
