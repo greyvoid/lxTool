@@ -25,13 +25,19 @@ public: virtual void set##funName(varType var){ varName = var; }
 
 #define SETGETCONST(varType, varName, funName)\
 protected: varType varName; \
-public:  varType funName(void) const { return varName; }\
+public:  varType get##funName(void) const { return varName; }\
 public: void set##funName(varType var){ varName = var; }
 
 #define SETGET(varType, varName, funName)\
 protected: varType varName; \
-public:  varType funName(void) { return varName; }\
+public:  varType get##funName(void) { return varName; }\
 public: void set##funName(varType var){ varName = var; }
+
+//eg: SET_GET_BOOL(m_bOk, Ok)
+#define SET_GET_BOOL(varName, funName)\
+protected: bool varName; \
+public:  bool is##funName(void) { return varName; }\
+public: void set##funName(bool var){ varName = var; }
 
 
 

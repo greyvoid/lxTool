@@ -37,8 +37,8 @@ include(LQtTool.pri)
 # 定义输出路径
 win32{
 system(.\copy_head.bat)
-    CONFIG += debug_and_release
-    CONFIG(release, debug|release) {
+    #CONFIG += debug_and_release #一万个草泥马
+CONFIG(debug, debug|release) {
             #target_path = ./build_/dist
             #TARGET = LQtTool
         } else {
@@ -94,8 +94,29 @@ system(.\copy_head.bat)
 #
 #infile( filename, var, val )
 
+
+
+contains(DEFINES,L_STD_TOOL){
+    message("包含了stdTool")
+}else {
+    CONFIG(debug, debug|release){
+    LIBS += -L$$PWD\..\LStdTool\bin -lLStdToold
+    } else {
+    LIBS += -L$$PWD\..\LStdTool\bin -lLStdTool
+    }
+
+    INCLUDEPATH += $$PWD\..\LStdTool\include
+
+    DEPENDPATH += $$PWD\..\LStdTool\include
+}
+
 #此文件用于同一构建树中项目的依赖，如果不是同一构建树则不需要，本例QtTool依赖StdTool
+#假如你所有的应用程序都必须和一个特定的库连接，你可以把这个信息添加到相应的qmake.conf文件中。
+#验证结果证明，去掉qmake.conf， 太垃圾， 因为里面的内容最先执行，打乱次序
+#DISTFILES += \
+#    .qmake.conf
+#即使注释掉也会隐式执行.qmake.conf
 DISTFILES += \
-    .qmake.conf
+    $$files(conf/*.conf)
 
 

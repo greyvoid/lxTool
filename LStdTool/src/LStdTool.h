@@ -6,7 +6,7 @@
 #include "def/common.h"
 #include "def/func.h"
 #include "global/gfunc.h"
-#include "patterns/CSingleton.h"
+#include "patterns/Singleton.h"
 
 
 
