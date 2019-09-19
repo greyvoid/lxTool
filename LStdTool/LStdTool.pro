@@ -18,6 +18,7 @@ CONFIG(debug, debug|release){
 }
 
 system(.\copy_head.bat)
+
 win32{
 #1-在项目构建前执行命令
 #    system(.\copy_head.bat)
