@@ -1,7 +1,13 @@
+/************
+ *
+ *
+ * 宏-
+ *
+ *
+ */
 #pragma once
 
-#define CountArray(ary)		(sizeof(ary)/sizeof(ary[0]))
-#define zeromemory(x, size)	memset(x, 0, size)
+#define COUNT_ARRAY(ary)		(sizeof(ary)/sizeof(ary[0]))
 #define SAFE_DELETE(p)           do { delete (p); (p) = nullptr; } while(0)
 #define SAFE_DELETE_ARRAY(p)     do { if(p) { delete[] (p); (p) = nullptr; } } while(0)
 #define SAFE_FREE(p)             do { if(p) { free(p); (p) = nullptr; } } while(0)

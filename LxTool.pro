@@ -2,6 +2,7 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS = LStdTool \
-    LQtTool
+    LQtTool \
+    libTest
 
 

@@ -1,4 +1,10 @@
-﻿#pragma once
+﻿/***********
+ *
+ * 宏-类型
+ *
+ *
+ */
+#pragma once
 
 #include <iostream>
 

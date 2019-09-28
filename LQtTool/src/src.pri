@@ -1,15 +1,4 @@
 SOURCES +=\
-    $$PWD/DigitLineEdit.cpp \
-    $$PWD/MyWidgets/MyAction.cpp \
-    $$PWD/MyWidgets/MyButtons.cpp \
-    $$PWD/MyWidgets/MyCheckBoxes.cpp \
-    $$PWD/MyWidgets/MyComboBox.cpp \
-    $$PWD/MyWidgets/MyDateEdit.cpp \
-    $$PWD/MyWidgets/MyLabels.cpp \
-    $$PWD/MyWidgets/MyLineEdit.cpp \
-    $$PWD/MyWidgets/MyListWidget.cpp \
-    $$PWD/MyWidgets/MyMenu.cpp \
-    $$PWD/MyWidgets/MyWindows.cpp \
     $$PWD/message/LMessageListenner.cpp \
     $$PWD/message/LNotificationCenter.cpp \
     $$PWD/message/LNotifier.cpp \
@@ -25,21 +14,20 @@ SOURCES +=\
     $$PWD/network/buffer.cc \
     $$PWD/network/LTcpClient.cpp \
     $$PWD/crypto/AES.cpp \
-    $$PWD/MyWidgets/CompleteLineEdit.cpp
+    $$PWD/widgets/CompleteLineEdit.cpp \
+    $$PWD/widgets/buttons/LsxButton.cpp \
+    $$PWD/widgets/buttons/LsxRadioButton.cpp \
+    $$PWD/widgets/buttons/LSwitchButton.cpp \
+    $$PWD/widgets/buttons/ThreeImgPushButton.cpp \
+    $$PWD/widgets/buttons/MediaPushButton.cpp \
+    $$PWD/widgets/LsxCheckBox.cpp \
+    $$PWD/widgets/labels/ClickLabel.cpp \
+    $$PWD/widgets/labels/SmoothLabel.cpp \
+    $$PWD/widgets/LsxTabMenu.cpp \
+    $$PWD/widgets/buttons/mysliderbutton.cpp \
+    $$PWD/widgets/NoTitleMenuMainWidget.cpp
 
 HEADERS  += \
-    $$PWD/DigitLineEdit.h \
-    $$PWD/MyWidgets/MyAction.h \
-    $$PWD/MyWidgets/MyButtons.h \
-    $$PWD/MyWidgets/MyCheckBoxes.h \
-    $$PWD/MyWidgets/MyComboBox.h \
-    $$PWD/MyWidgets/MyDateEdit.h \
-    $$PWD/MyWidgets/MyLabels.h \
-    $$PWD/MyWidgets/MyLineEdit.h \
-    $$PWD/MyWidgets/MyListWidget.h \
-    $$PWD/MyWidgets/MyMenu.h \
-    $$PWD/MyWidgets/MyWidgets.h \
-    $$PWD/MyWidgets/MyWindows.h \
     $$PWD/message/LMessageListenner.h \
     $$PWD/message/LNotificationCenter.h \
     $$PWD/message/LNotifier.h \
@@ -58,4 +46,16 @@ HEADERS  += \
     $$PWD/network/LNetDef.h \
     $$PWD/crypto/AES.h \
     $$PWD/def/LCommonDef.h \
-    $$PWD/MyWidgets/CompleteLineEdit.h \
+    $$PWD/widgets/CompleteLineEdit.h \
+    $$PWD/widgets/widgets.h \
+    $$PWD/widgets/buttons/LsxButton.h \
+    $$PWD/widgets/buttons/LsxRadioButton.h \
+    $$PWD/widgets/buttons/LSwitchButton.h \
+    $$PWD/widgets/buttons/ThreeImgPushButton.h \
+    $$PWD/widgets/buttons/MediaPushButton.h \
+    $$PWD/widgets/LsxCheckBox.h \
+    $$PWD/widgets/labels/ClickLabel.h \
+    $$PWD/widgets/labels/SmoothLabel.h \
+    $$PWD/widgets/LsxTabMenu.h \
+    $$PWD/widgets/buttons/mysliderbutton.h \
+    $$PWD/widgets/NoTitleMenuMainWidget.h
