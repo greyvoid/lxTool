@@ -1,5 +1,6 @@
 #include "LsxRadioButton.h"
-
+#include <QPainter>
+#include <QMouseEvent>
 
 CLsxRadioButton::CLsxRadioButton(const QString text, QWidget *parent)
     : QWidget(parent)
@@ -102,7 +103,7 @@ void CLsxRadioButton::paintEvent(QPaintEvent *e)
         p.drawEllipse(m_rect); //  有4个参数，分别是位置和长宽，如果长和宽相等就是一个标准的圆了
     }
     p.drawText(m_rect,m_text,QTextOption(Qt::AlignCenter)); //设置文本有三个参数，分别是 对象，文本，文本位置
-    qDebug() << "111111111" << rect().size().width() << rect().size().height();
+
 }
 
 void CLsxRadioButton::enterEvent(QEvent *e)

@@ -1,4 +1,6 @@
 #include "LsxButton.h"
+#include <QPaintEvent>
+#include <QPainter>
 
 CLsxButton::CLsxButton(const QString text, QWidget *parent)
     : QWidget(parent)

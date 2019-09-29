@@ -3,8 +3,6 @@ SOURCES +=\
     $$PWD/message/LNotificationCenter.cpp \
     $$PWD/message/LNotifier.cpp \
     $$PWD/delegate/LDelegateSpinbox.cpp \
-    $$PWD/LPicTool.cpp \
-    $$PWD/LFunc.cpp \
     $$PWD/network/LHttpClient.cpp \
     $$PWD/network/LHttpDownload.cpp \
     $$PWD/network/LTcpConnection.cpp \
@@ -25,15 +23,16 @@ SOURCES +=\
     $$PWD/widgets/labels/SmoothLabel.cpp \
     $$PWD/widgets/LsxTabMenu.cpp \
     $$PWD/widgets/buttons/mysliderbutton.cpp \
-    $$PWD/widgets/NoTitleMenuMainWidget.cpp
+    $$PWD/widgets/NoTitleMenuMainWidget.cpp \
+    $$PWD/widgets/labels/LHoverLabel.cpp \
+    $$PWD/widgets/labels/LTipLabel.cpp \
+    $$PWD/LQtFunc.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
     $$PWD/message/LNotificationCenter.h \
     $$PWD/message/LNotifier.h \
     $$PWD/delegate/LDelegateSpinbox.h \
-    $$PWD/LPicTool.h \
-    $$PWD/LFunc.h \
     $$PWD/network/LHttpClient.h \
     $$PWD/network/LHttpDownload.h \
     $$PWD/network/LTcpConnection.h \
@@ -45,7 +44,6 @@ HEADERS  += \
     $$PWD/network/LTcpClient.h \
     $$PWD/network/LNetDef.h \
     $$PWD/crypto/AES.h \
-    $$PWD/def/LCommonDef.h \
     $$PWD/widgets/CompleteLineEdit.h \
     $$PWD/widgets/widgets.h \
     $$PWD/widgets/buttons/LsxButton.h \
@@ -58,4 +56,7 @@ HEADERS  += \
     $$PWD/widgets/labels/SmoothLabel.h \
     $$PWD/widgets/LsxTabMenu.h \
     $$PWD/widgets/buttons/mysliderbutton.h \
-    $$PWD/widgets/NoTitleMenuMainWidget.h
+    $$PWD/widgets/NoTitleMenuMainWidget.h \
+    $$PWD/widgets/labels/LHoverLabel.h \
+    $$PWD/widgets/labels/LTipLabel.h \
+    $$PWD/LQtFunc.h

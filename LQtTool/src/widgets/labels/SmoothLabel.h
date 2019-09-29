@@ -1,6 +1,9 @@
 #ifndef CSMOOTHLABEL_H
 #define CSMOOTHLABEL_H
 
+#include <QLabel>
+class QPaintEvent;
+
 class CSmoothLabel : public QLabel
 {
     Q_OBJECT

@@ -1,4 +1,5 @@
 #include "SmoothLabel.h"
+#include <QPainter>
 
 CSmoothLabel::CSmoothLabel(QWidget *parent) :
     QLabel(parent)

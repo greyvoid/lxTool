@@ -8,7 +8,6 @@ class QVBoxLayout;
 class QMenuBar;
 class QToolBar;
 class QLabel;
-class QWhiteTextLabel;
 
 class CNoTitleMenuMainWidget : public QWidget
 {
@@ -64,7 +63,7 @@ private:
     QToolBar* m_toolBar;
     QWidget* m_centralWidget;
     QLabel *m_labelTitleIcon;
-    QWhiteTextLabel *labelTitleText;
+    QLabel *labelTitleText;
 
 };
 

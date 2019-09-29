@@ -33,7 +33,7 @@ CONFIG(debug, debug|release){
 
 include(LQtTool.pri)
 
-
+# 要执行copy_head.bat需要清除项目重新构建
 # 定义输出路径
 win32{
 system(.\copy_head.bat)
@@ -95,6 +95,7 @@ CONFIG(debug, debug|release) {
 #infile( filename, var, val )
 
 
+INCLUDEPATH += $$PWD\src
 
 contains(DEFINES,L_STD_TOOL){
     message("包含了stdTool")

@@ -1,5 +1,6 @@
 #include "ThreeImgPushButton.h"
-
+#include <QMouseEvent>
+#include <QPainter>
 
 CThreeImgPushButton::CThreeImgPushButton(QWidget *parent)
     :QPushButton(parent)

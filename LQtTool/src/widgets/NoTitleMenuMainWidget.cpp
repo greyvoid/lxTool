@@ -106,7 +106,7 @@ void CNoTitleMenuMainWidget::initTitleBar()
     QHBoxLayout *hLay = new QHBoxLayout;
     m_labelTitleIcon = new QLabel;
     m_labelTitleIcon->resize(TITLE_ICON_HEIGHT,TITLE_ICON_HEIGHT);
-    labelTitleText = new QWhiteTextLabel();
+    labelTitleText = new QLabel();
     QFont font("Helvetica [Cronyx]", 20);
     labelTitleText->setFont(font);
     CMediaPushButton *smallBtn=new CMediaPushButton(tr("_"));
