@@ -56,13 +56,15 @@ HEADERS += \
     src/patterns/Singleton.h \
     src/global/bin.h \
     src/def/platform.h \
-    src/LStdFunc.h
+    src/LStdFunc.h \
+    src/crypto/LAes.h
 
 SOURCES += \
     src/patterns/CSingleton.cpp \
     src/template/Utility.cpp \
     src/global/bin.c \
-    src/LStdFunc.cpp
+    src/LStdFunc.cpp \
+    src/crypto/LAes.cpp
 
 #此文件用于同一构建树中项目的依赖，如果不是同一构建树则不需要，本例QtTool依赖StdTool
 #验证结果证明，去掉qmake.conf太垃圾， 因为里面的内容最先执行，打乱次序

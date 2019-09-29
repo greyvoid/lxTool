@@ -11,7 +11,6 @@ SOURCES +=\
     $$PWD/network/LEncrypt.cpp \
     $$PWD/network/buffer.cc \
     $$PWD/network/LTcpClient.cpp \
-    $$PWD/crypto/AES.cpp \
     $$PWD/widgets/CompleteLineEdit.cpp \
     $$PWD/widgets/buttons/LsxButton.cpp \
     $$PWD/widgets/buttons/LsxRadioButton.cpp \
@@ -43,7 +42,6 @@ HEADERS  += \
     $$PWD/network/base_types.h \
     $$PWD/network/LTcpClient.h \
     $$PWD/network/LNetDef.h \
-    $$PWD/crypto/AES.h \
     $$PWD/widgets/CompleteLineEdit.h \
     $$PWD/widgets/widgets.h \
     $$PWD/widgets/buttons/LsxButton.h \

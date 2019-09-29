@@ -10,6 +10,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     //lstd::saveFileData("hello.txt", "1234443");
+
+    ///
+    ///
+    /************
+     *
+     * 需要验证的功能
+     *
+     */
+    //  加密功能
+    // NoTitleMenuMainWidget优化
+    // MessageBox 遮罩
+    // mysliderbutton优化
+    // Tomast控件
 }
 
 MainWindow::~MainWindow()
