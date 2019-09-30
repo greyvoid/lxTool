@@ -50,8 +50,8 @@ private:
 	unsigned char FFmul(unsigned char a, unsigned char b);
 
 	void SubBytes(unsigned char state[][4]);
-	void ShiftRows(unsigned char state[][4]);
-	void MixColumns(unsigned char state[][4]);
+    void shiftRows(unsigned char state[][4]);
+    void mixColumns(unsigned char state[][4]);
 	void AddRoundKey(unsigned char state[][4], unsigned char k[][4]);
 
 	void InvSubBytes(unsigned char state[][4]);
@@ -59,7 +59,7 @@ private:
 	void InvMixColumns(unsigned char state[][4]);
 
 private:
-    unsigned char Sbox[256];
+    unsigned char m_aSbox[256];
     unsigned char InvSbox[256];
     unsigned char w[11][4][4];
 

@@ -22,7 +22,9 @@ HEADERS  += mainwindow.h \
 
 FORMS    += mainwindow.ui
 
-LIBS += -L$$PWD/../../../../../thirdparty/openssl/lib/ -llibeay32 -lssleay32
 
-INCLUDEPATH += $$PWD/../../../../../thirdparty/openssl/inc32
-DEPENDPATH += $$PWD/../../../../../thirdparty/openssl/inc32
+
+LIBS += -L$$PWD/../../../../work_media/MideaDisk/openssl/lib/ -llibeay32 -lssleay32
+
+INCLUDEPATH += $$PWD/../../../../work_media/MideaDisk/openssl/include
+DEPENDPATH += $$PWD/../../../../work_media/MideaDisk/openssl/include

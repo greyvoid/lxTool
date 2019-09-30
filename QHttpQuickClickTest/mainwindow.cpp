@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_strName("ex_leisx")
-    , m_strPasswd("leisx123456789111")
+    , m_strPasswd("leisx12345678911")
 {
     ui->setupUi(this);
 
@@ -128,8 +128,8 @@ int aesCbcEncrypt(const char* pSource, const char* key, unsigned char* ivec, cha
     strcpy(buffSrc, pSource);
     nLengthSrc = strlen(buffSrc);
 
-    memset(keyTemp, 0x00, sizeof(keyTemp));
-    memcpy(keyTemp, key, AES_BLOCK_SIZE);
+    //memset(keyTemp, 0x00, sizeof(keyTemp));
+    //memcpy(keyTemp, key, AES_BLOCK_SIZE);
 
     memcpy(ivecTmp, ivec, AES_BLOCK_SIZE);
 
@@ -139,6 +139,9 @@ int aesCbcEncrypt(const char* pSource, const char* key, unsigned char* ivec, cha
     QByteArray bytesKeyMD5 = QCryptographicHash::hash(bytesKey, QCryptographicHash::Md5);
     QByteArray bytesKeyMD5Hex = bytesKeyMD5.toHex().mid(8, 16);	//md5:mid(8, 16) 32位转16位,字符截断
     //QByteArray bytesKeyMD5Hex = bytesKeyMD5.mid(8).toHex();
+
+    // test 不使用md5，自定义key
+    bytesKeyMD5Hex = "asdfwetyhjuytrfd";
 
     // 设置加密密钥
     AES_KEY AesKey;
@@ -314,6 +317,9 @@ void MainWindow::autoLogin()
     //QString strMsTime = "1564478453454";
     //m_strPasswd = "@，130uuqrooqr,2"; //--1564478453454 --17b2a5f3b4f53757a764bca9d0f45812400475a35d002a61f69107e4c27796ad
 
+    // test3
+    //QString strMsTime = "1564478453454";
+    //m_strPasswd = "ningning";
 
     //aTest();
 
@@ -355,6 +361,7 @@ void MainWindow::autoLogin()
     //QString strPassword = QByteArray(aesPwd, 16).toHex();	//16位长度
     QString strPassword = bytesPasswdEncrypt.toHex();	//16位长度
     //QString strPassword = "0180a3a1d7b654d90bc773e833c8595b0180a3a1d7b654d90bc773e833c8595b";
+    qDebug() << "encrypt rusult" << bytesPasswdEncrypt.toBase64() << "  " << strPassword;
 
     QJsonObject jsonObj;
     jsonObj["userAccount"] = m_strName;

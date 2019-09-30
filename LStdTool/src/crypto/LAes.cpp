@@ -2,6 +2,9 @@
 #include "string.h"
 #include "LAes.h"
 
+///
+/// \brief CLAes::CLAes 参考书籍<<密码编码学与网络安全>>
+///
 CLAes::CLAes()
 {
 
@@ -9,6 +12,8 @@ CLAes::CLAes()
 
 CLAes::CLAes(unsigned char* key)
 {
+    // 定义了一个S盒，它是由16×16个字节组成是矩阵，包含了8位所能表示的256个数的一个置换
+    // AES的S盒的原理是运用了GF(28)的乘法逆和矩阵的可逆运算来保证加密与解密过程的可逆性
 	unsigned char sBox[] =
 	{ /*  0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f */ 
 		0x63,0x7c,0x77,0x7b,0xf2,0x6b,0x6f,0xc5,0x30,0x01,0x67,0x2b,0xfe,0xd7,0xab,0x76, /*0*/  
@@ -28,6 +33,7 @@ CLAes::CLAes(unsigned char* key)
 		0xe1,0xf8,0x98,0x11,0x69,0xd9,0x8e,0x94,0x9b,0x1e,0x87,0xe9,0xce,0x55,0x28,0xdf, /*e*/ 
 		0x8c,0xa1,0x89,0x0d,0xbf,0xe6,0x42,0x68,0x41,0x99,0x2d,0x0f,0xb0,0x54,0xbb,0x16  /*f*/
 	};
+    // 逆S盒的构造
 	unsigned char invsBox[256] = 
 	{ /*  0    1    2    3    4    5    6    7    8    9    a    b    c    d    e    f  */  
 		0x52,0x09,0x6a,0xd5,0x30,0x36,0xa5,0x38,0xbf,0x40,0xa3,0x9e,0x81,0xf3,0xd7,0xfb, /*0*/ 
@@ -46,8 +52,10 @@ CLAes::CLAes(unsigned char* key)
 		0x60,0x51,0x7f,0xa9,0x19,0xb5,0x4a,0x0d,0x2d,0xe5,0x7a,0x9f,0x93,0xc9,0x9c,0xef, /*d*/ 
 		0xa0,0xe0,0x3b,0x4d,0xae,0x2a,0xf5,0xb0,0xc8,0xeb,0xbb,0x3c,0x83,0x53,0x99,0x61, /*e*/ 
 		0x17,0x2b,0x04,0x7e,0xba,0x77,0xd6,0x26,0xe1,0x69,0x14,0x63,0x55,0x21,0x0c,0x7d  /*f*/
-	}; 
-	memcpy(Sbox, sBox, 256);
+    };
+    // 映射关系是sBox数组的sBox[0][0]的值是invsBox的行下标列下标，sBox数组的行下标列下标则存放invsBox的值
+    // State中每个字节按照如下方式映射为一个新的字节：把该字节的高4位作为行值，低4位作为列值
+    memcpy(m_aSbox, sBox, 256);
 	memcpy(InvSbox, invsBox, 256);
 	KeyExpansion(key, w);
 }
@@ -56,6 +64,17 @@ CLAes::~CLAes()
 {
 
 }
+
+//加密解密算法的输入是一个128位分组。这些分组被描述成4×4的字节方阵，这个分组被复制到state数组中，
+//并在加密和解密的每一阶段都被修改。在字节方阵中，每一格都是一个字，包含了4字节。在矩阵中字是按列排序的。
+/*
+ *
+ * S0 S4 S8  S12
+ * S1 S5 S9  S13
+ * S2 S6 S10 S14
+ * S3 S7 S11 S15
+ *
+ */
 
 unsigned char* CLAes::cipher(unsigned char* input)
 {
@@ -76,8 +95,8 @@ unsigned char* CLAes::cipher(unsigned char* input)
 	for(i=1; i<=10; i++)
 	{
 		SubBytes(state);
-		ShiftRows(state);
-		if(i!=10)MixColumns(state);
+        shiftRows(state);
+        if(i!=10)mixColumns(state);
 		AddRoundKey(state,w[i]);
 	}
 
@@ -187,9 +206,9 @@ void CLAes::KeyExpansion(unsigned char* key, unsigned char w[][4][4])
 				unsigned char temp = t[0];
 				for(r=0; r<3; r++)
 				{
-					t[r] = Sbox[t[(r+1)%4]];
+                    t[r] = m_aSbox[t[(r+1)%4]];
 				}
-				t[3] = Sbox[temp];
+                t[3] = m_aSbox[temp];
 				t[0] ^= rc[i-1];
 			}
 			for(r=0; r<4; r++)
@@ -224,8 +243,13 @@ unsigned char CLAes::FFmul(unsigned char a, unsigned char b)
 	return res;
 }
 
-// ByteSubstitution（字节替代）  --常用加密手段
-// (如逆置换表)
+
+///
+/// \brief CLAes::SubBytes ByteSubstitution（字节替代--常用加密手段
+/// 字节代替变换是一个简单的查表操作
+///
+/// \param state
+///
 void CLAes::SubBytes(unsigned char state[][4])
 {
 	int r,c;
@@ -233,34 +257,55 @@ void CLAes::SubBytes(unsigned char state[][4])
 	{
 		for(c=0; c<4; c++)
 		{
-			state[r][c] = Sbox[state[r][c]];
+            state[r][c] = m_aSbox[state[r][c]];
 		}
 	}
 }
 
-// ShiftRows（行移位变换）--常用加密手段
-//即行移位变换作用于行上，第0行不变，第1行循环左移1个字节，第2行循环左移2个字节，第3行循环左移3个字节。
-void CLAes::ShiftRows(unsigned char state[][4])
+
+///
+/// \brief CLAes::shiftRows （行移位变换）--常用加密手段
+/// 即行移位变换作用于行上，第0行不变，第1行循环左移1个字节，第2行循环左移2个字节，第3行循环左移3个字节。
+///
+/// \param state
+///
+void CLAes::shiftRows(unsigned char state[][4])
 {
-	unsigned char t[4];
-	int r,c;
-	for(r=1; r<4; r++)
+    unsigned char temp[4]; // 临时保存单行变换后的数据
+    int row,c;
+    for(row=1; row<4; row++)
 	{
 		for(c=0; c<4; c++)
 		{
-			t[c] = state[r][(c+r)%4];
+            temp[c] = state[row][(c+row)%4];
 		}
+
 		for(c=0; c<4; c++)
 		{
-			state[r][c] = t[c];
+            state[row][c] = temp[c];
 		}
+        // 注意两个循环不能合并哦，因为后面一行的可能用到前面行的数据，前面行的数据在变换前要保持原值
 	}
 }
 
 // MixColumns（列混淆变换） --常用加密手段
 // 逐列混合
-void CLAes::MixColumns(unsigned char state[][4])
+///
+/// \brief CLAes::mixColumns 在AES算法中，需要模多项式m(x)=x^8+x^4+x^3+x+1。
+/// 列混合即是用一个常矩阵乘以第二步变换后的矩阵，以达到矩阵中每一个元素都是该元素原所在列所有元素的加权和。
+/// 列混淆变换实际上是使用乘法矩阵（注意：其运算中涉及的加法和乘法都是定义在GF(28)上的加法和乘法，目的就是为了确保运算结果不会溢出定义域）
+/// \param state
+///
+void CLAes::mixColumns(unsigned char state[][4])
 {
+    //常矩阵
+    /*
+     * 02 03 01 01
+     * 01 02 03 01
+     * 01 01 02 03
+     * 03 01 01 02
+     *
+     */
 	unsigned char t[4];
 	int r,c;
 	for(c=0; c< 4; c++)
