@@ -220,12 +220,15 @@ void CLAes::KeyExpansion(unsigned char* key, unsigned char w[][4][4])
 }
 
 ///
-/// \brief CLAes::FFmul
-/// \param a
+/// \brief CLAes::FFmul 大于不大于0x80其实指的最高位是不是1,因为小于1x80的数只要左移（乘2）就可以了,不涉及到进位,
+/// 而大于或等于0x80的数,最高位是1,左移就会溢出了,而溢出后的数就不在有限域里了,为了实现进位溢出和仍然停留在有限域里的矛盾
+/// 就要找个方法结果就是溢出的时候与0x1b异或,0x1b怎么来的呢,你肯定知道GF（28）的不可约多项式吧
+/// ,m（x）=x8+x4+x3+x+1,它的二进制就是0x1b
+/// \param multiple 倍数
 /// \param b
 /// \return
 ///
-unsigned char CLAes::FFmul(unsigned char a, unsigned char b)
+unsigned char CLAes::GF28Multi(unsigned char multiple, unsigned char b)
 {
 	unsigned char bw[4];
 	unsigned char res=0;
@@ -241,7 +244,7 @@ unsigned char CLAes::FFmul(unsigned char a, unsigned char b)
 	}
 	for(i=0; i<4; i++)
 	{
-		if((a>>i)&0x01)
+        if((multiple>>i)&0x01)
 		{
 			res ^= bw[i];
 		}
@@ -322,10 +325,10 @@ void CLAes::mixColumns(unsigned char state[][4])
 		}
 		for(r=0; r<4; r++)
 		{
-			state[r][c] = FFmul(0x02, t[r])
-						^ FFmul(0x03, t[(r+1)%4])
-						^ FFmul(0x01, t[(r+2)%4])
-						^ FFmul(0x01, t[(r+3)%4]);
+            state[r][c] = GF28Multi(0x02, t[r])
+                        ^ GF28Multi(0x03, t[(r+1)%4])
+                        ^ GF28Multi(0x01, t[(r+2)%4])
+                        ^ GF28Multi(0x01, t[(r+3)%4]);
 		}
 	}
 }
@@ -384,10 +387,10 @@ void CLAes::InvMixColumns(unsigned char state[][4])
 		}
 		for(r=0; r<4; r++)
 		{
-			state[r][c] = FFmul(0x0e, t[r])
-						^ FFmul(0x0b, t[(r+1)%4])
-						^ FFmul(0x0d, t[(r+2)%4])
-						^ FFmul(0x09, t[(r+3)%4]);
+            state[r][c] = GF28Multi(0x0e, t[r])
+                        ^ GF28Multi(0x0b, t[(r+1)%4])
+                        ^ GF28Multi(0x0d, t[(r+2)%4])
+                        ^ GF28Multi(0x09, t[(r+3)%4]);
 		}
 	}
 }

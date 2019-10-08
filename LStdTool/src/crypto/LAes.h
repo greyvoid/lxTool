@@ -50,7 +50,7 @@ private:
 
 
 	void KeyExpansion(unsigned char* key, unsigned char w[][4][4]);
-	unsigned char FFmul(unsigned char a, unsigned char b);
+    unsigned char GF28Multi(unsigned char multiple, unsigned char b);
 
 	void SubBytes(unsigned char state[][4]);
     void shiftRows(unsigned char state[][4]);
