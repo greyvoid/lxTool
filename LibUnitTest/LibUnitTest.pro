@@ -17,3 +17,13 @@ TEMPLATE = app
 
 SOURCES += tst_libunittesttest.cpp
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
+
+LIBS += -L$$PWD/../LStdTool/bin/ -lLStdToold
+
+INCLUDEPATH += $$PWD/../LStdTool/include
+DEPENDPATH += $$PWD/../LStdTool/include
+
+LIBS += -L$$PWD/../LQtTool/bin/ -lLQtToold
+
+INCLUDEPATH += $$PWD/../LQtTool/include
+DEPENDPATH += $$PWD/../LQtTool/include

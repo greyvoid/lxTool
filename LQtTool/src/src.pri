@@ -25,7 +25,8 @@ SOURCES +=\
     $$PWD/widgets/NoTitleMenuMainWidget.cpp \
     $$PWD/widgets/labels/LHoverLabel.cpp \
     $$PWD/widgets/labels/LTipLabel.cpp \
-    $$PWD/LQtFunc.cpp
+    $$PWD/LQtFunc.cpp \
+    $$PWD/widgets/LMessageBox.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -57,4 +58,8 @@ HEADERS  += \
     $$PWD/widgets/NoTitleMenuMainWidget.h \
     $$PWD/widgets/labels/LHoverLabel.h \
     $$PWD/widgets/labels/LTipLabel.h \
-    $$PWD/LQtFunc.h
+    $$PWD/LQtFunc.h \
+    $$PWD/widgets/LMessageBox.h
+
+FORMS += \
+    $$PWD/widgets/LMessageBox.ui
