@@ -8,6 +8,9 @@ AES算法（即 Rijndael 算法）是一个对称分组密码算法。数据分�
 对于三种不同密钥长度的 AES 算法，分别称为“AES-128”、“AES-192”、“AES-256”。（Rijndael 的设计还可以处理其它的分组长度和密钥长度，
 但 AES 标准中没有采用）
 */
+///
+/// \brief The CLAes class AES的ECB加解密方法
+///
 class CLAes
 {
 public:

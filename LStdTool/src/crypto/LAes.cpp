@@ -219,6 +219,12 @@ void CLAes::KeyExpansion(unsigned char* key, unsigned char w[][4][4])
 	}
 }
 
+///
+/// \brief CLAes::FFmul
+/// \param a
+/// \param b
+/// \return
+///
 unsigned char CLAes::FFmul(unsigned char a, unsigned char b)
 {
 	unsigned char bw[4];
