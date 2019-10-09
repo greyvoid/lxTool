@@ -30,6 +30,7 @@ void CLMoveWidget::initUI()
 {
     setWindowFlags(Qt::FramelessWindowHint);
     setMouseTracking(true);
+    setMinimumSize(100, 50);
     // 要检测窗口是否可以拖动大小形状改变需要让控件在鼠标未按下都能响应鼠标应当事件mouseMoveEvent
     QList<QWidget*> widgetList = findChildren<QWidget*>();
     foreach(QWidget* widget, widgetList)

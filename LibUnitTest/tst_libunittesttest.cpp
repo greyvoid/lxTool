@@ -3,6 +3,7 @@
 #include <QtDebug>
 #include "crypto/LAesEx.h"
 #include "crypto/Base64.h"
+#include "crypto/LMd5.h"
 
 /// ---   结果可视化-AutoTest插件 --------
 //每一个私有槽都是一个测试函数，但有4种私有槽不能作为测试函数，它们由测试框架执行，可为整个测试程序或当前测试函数进行初始化和清除操作。
@@ -25,6 +26,7 @@ public:
 private Q_SLOTS:
     void testCase1();
     void testAesBcb();
+    void testMD5();
 };
 
 
@@ -121,6 +123,19 @@ void LibUnitTestTest::testAesBcb()
     delete[] szDataOut;
     return strDest;
     */
+}
+
+void LibUnitTestTest::testMD5()
+{
+    CLMd5 md5;
+    md5.update("abc");
+    qDebug() << "finish md5:" << md5.toString().c_str();
+
+    ifstream in;
+    in.open("D:\\test.txt");
+    md5.reset();
+    md5.update(in);
+    qDebug() << "finish md5:" << md5.toString().c_str();
 }
 
 

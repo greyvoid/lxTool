@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QApplication>
+#include <vector>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
     // MessageBox 遮罩
     // mysliderbutton优化
     // Tomast控件
+
+
 }
 
 MainWindow::~MainWindow()
