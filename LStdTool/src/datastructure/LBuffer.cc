@@ -1,13 +1,12 @@
 
-#include "buffer.h"
+#include "LBuffer.h"
 #include <stdlib.h>
 #include <string.h>
 
 #pragma warning(disable:4996)
 
-namespace v
-{
-	Buffer::Buffer(int nDefaultSize)
+
+    CLBuffer::CLBuffer(int nDefaultSize)
 	{
 		m_nBeginPos = 0;
 		m_nEndPos = 0;
@@ -23,7 +22,7 @@ namespace v
 		}
 	}
 
-	Buffer::Buffer(const Buffer& src)
+    CLBuffer::CLBuffer(const CLBuffer& src)
 	{
 		m_nBeginPos = 0;
 		m_nEndPos = 0;
@@ -31,23 +30,23 @@ namespace v
 		m_nBufferSize = 0;
 		m_nBeginPos = 0;
 		m_nEndPos = 0;
-		this->Write((Buffer&)src);
+        this->Write((CLBuffer&)src);
 	}
 
-	Buffer::~Buffer()
+    CLBuffer::~CLBuffer()
 	{
 		if (m_pData != NULL)
 			free(m_pData);
 	}
 
-	Buffer& Buffer::operator<<(std::string & str)
+    CLBuffer& CLBuffer::operator<<(std::string & str)
 	{
 		if (str.length() > 0)
 			Write((const unsigned char*)(str.c_str()), str.length());
 		return *this;
 	}
 
-	Buffer&  Buffer::operator<<(char* str)
+    CLBuffer&  CLBuffer::operator<<(char* str)
 	{
 		int len = strlen(str);
 		if (len > 0)
@@ -55,67 +54,67 @@ namespace v
 		return *this;
 	}
 
-	unsigned char* Buffer::Begin()
+    unsigned char* CLBuffer::Begin()
 	{
 		return m_pData + m_nBeginPos;
 	}
 
-	unsigned char* Buffer::End()
+    unsigned char* CLBuffer::End()
 	{
 		return m_pData + m_nEndPos;
 	}
 
-	void Buffer::MoveEndPos(int nPos)
+    void CLBuffer::MoveEndPos(int nPos)
 	{
 		m_nEndPos += nPos;
 	}
 
-	void Buffer::MoveBeginPos(int nPos)
+    void CLBuffer::MoveBeginPos(int nPos)
 	{
 		m_nBeginPos += nPos;
 	}
 
-	void Buffer::Skip(int nPos)
+    void CLBuffer::Skip(int nPos)
 	{
 		MoveBeginPos(nPos);
 	}
 
-	void Buffer::SetBeginPos(int nPos)
+    void CLBuffer::SetBeginPos(int nPos)
 	{
 		m_nBeginPos = nPos;
 	}
 
-	void Buffer::SetEndPos(int nPos)
+    void CLBuffer::SetEndPos(int nPos)
 	{
 		m_nEndPos = nPos;
 	}
 
-	int Buffer::GetBeginPos()
+    int CLBuffer::GetBeginPos()
 	{
 		return m_nBeginPos;
 	}
 
-	int Buffer::GetEndPos()
+    int CLBuffer::GetEndPos()
 	{
 		return m_nEndPos;
 	}
 
-	int Buffer::DataSize()
+    int CLBuffer::DataSize()
 	{
 		return m_nEndPos - m_nBeginPos;
 	}
 
-	int Buffer::FreeSize()
+    int CLBuffer::FreeSize()
 	{
 		return m_nBufferSize - m_nEndPos;
 	}
 
-	int Buffer::Capacity()
+    int CLBuffer::Capacity()
 	{
 		return m_nBufferSize;
 	}
 
-	bool Buffer::EnsureFreeSpace(int size)
+    bool CLBuffer::EnsureFreeSpace(int size)
 	{
 		if (FreeSize() < size)
 		{
@@ -139,14 +138,14 @@ namespace v
 		return true;
 	}
 
-	void Buffer::Clear()
+    void CLBuffer::Clear()
 	{
 		memset(m_pData, 0, m_nBufferSize);
 		m_nEndPos = 0;
 		m_nBeginPos = 0;
 	}
 
-	void Buffer::Erase(int nPos)
+    void CLBuffer::Erase(int nPos)
 	{
 		if (nPos == 0)
 			return;
@@ -161,18 +160,18 @@ namespace v
 		memset(m_pData + m_nEndPos, 0, m_nBufferSize - m_nEndPos);
 	}
 
-	void Buffer::Write(std::string& str)
+    void CLBuffer::Write(std::string& str)
 	{
 		Write((const unsigned char*)str.c_str(), str.length());
 	}
 
-	void Buffer::WriteLine(std::string str)
+    void CLBuffer::WriteLine(std::string str)
 	{
 		str.append("\r\n");
 		Write(str);
 	}
 
-	void Buffer::Write(const unsigned char* pBuf, int length)
+    void CLBuffer::Write(const unsigned char* pBuf, int length)
 	{
 		if (length <= 0)
 			return;
@@ -184,25 +183,25 @@ namespace v
 		MoveEndPos(length);
 	}
 
-	void Buffer::WriteChar(unsigned char c)
+    void CLBuffer::WriteChar(unsigned char c)
 	{
 		Write((unsigned char*)&c, 1);
 	}
 
-	void Buffer::WriteUInt16(unsigned int i)
+    void CLBuffer::WriteUInt16(unsigned int i)
 	{
 		WriteChar(*((unsigned char*)&i + 1));
 		WriteChar(*((unsigned char*)&i));
 	}
 
-	void Buffer::WriteUInt24(unsigned int i)
+    void CLBuffer::WriteUInt24(unsigned int i)
 	{
 		WriteChar(*((unsigned char*)&i + 2));
 		WriteChar(*((unsigned char*)&i + 1));
 		WriteChar(*((unsigned char*)&i));
 	}
 
-	void Buffer::WriteUInt32(unsigned int i)
+    void CLBuffer::WriteUInt32(unsigned int i)
 	{
 		WriteChar(*((unsigned char*)&i + 3));
 		WriteChar(*((unsigned char*)&i + 2));
@@ -210,19 +209,19 @@ namespace v
 		WriteChar(*((unsigned char*)&i));
 	}
 
-	void Buffer::WriteUInt32ToString(unsigned int i)
+    void CLBuffer::WriteUInt32ToString(unsigned int i)
 	{
 		char val[10] = { 0 };
 		sprintf(val, "%d", i);
 		Write((const unsigned char*)val, strlen(val));
 	}
 
-	void Buffer::WriteReverseUInt32(unsigned int i)
+    void CLBuffer::WriteReverseUInt32(unsigned int i)
 	{
 		Write((unsigned char*)&i, 4);
 	}
 
-	void Buffer::WriteInt64(int64 i)
+    void CLBuffer::WriteInt64(int64 i)
 	{
 		WriteChar(*((unsigned char*)&i + 7));
 		WriteChar(*((unsigned char*)&i + 6));
@@ -234,7 +233,7 @@ namespace v
 		WriteChar(*((unsigned char*)&i));
 	}
 
-	void Buffer::WriteDouble(double d)
+    void CLBuffer::WriteDouble(double d)
 	{
 		WriteChar(*((unsigned char*)&d + 7));
 		WriteChar(*((unsigned char*)&d + 6));
@@ -246,25 +245,25 @@ namespace v
 		WriteChar(*((unsigned char*)&d));
 	}
 
-	void Buffer::Write(Buffer& pBuffer)
+    void CLBuffer::Write(CLBuffer& pBuffer)
 	{
 		unsigned char* pBegin = pBuffer.Begin();
 		Write(pBegin, pBuffer.DataSize());
 	}
 
-	char Buffer::ReadChar()
+    char CLBuffer::ReadChar()
 	{
 		char c = *Begin();
 		MoveBeginPos(1);
 		return c;
 	}
 
-	unsigned char Buffer::ReadUChar()
+    unsigned char CLBuffer::ReadUChar()
 	{
 		return ReadChar();
 	}
 
-	int Buffer::ReadInt16()
+    int CLBuffer::ReadInt16()
 	{
 		unsigned char* p = (unsigned char*)Begin();
 		unsigned int ret = (p[0] << 8) | p[1];
@@ -272,12 +271,12 @@ namespace v
 		return ret;
 	}
 
-	unsigned int Buffer::ReadUInt16()
+    unsigned int CLBuffer::ReadUInt16()
 	{
 		return ReadInt16();
 	}
 
-	unsigned int Buffer::ReadUInt24()
+    unsigned int CLBuffer::ReadUInt24()
 	{
 		unsigned char* p = (unsigned char*)Begin();
 		unsigned int ret = (p[0] << 16) | (p[1] << 8) | p[2];
@@ -285,7 +284,7 @@ namespace v
 		return ret;
 	}
 
-	int Buffer::ReadInt32()
+    int CLBuffer::ReadInt32()
 	{
 		unsigned char* p = (unsigned char*)Begin();
 		unsigned int ret = (p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3];
@@ -293,12 +292,12 @@ namespace v
 		return ret;
 	}
 
-	unsigned int Buffer::ReadUInt32()
+    unsigned int CLBuffer::ReadUInt32()
 	{
 		return ReadInt32();
 	}
 
-	unsigned int Buffer::ReadReverseUInt24()
+    unsigned int CLBuffer::ReadReverseUInt24()
 	{
 		unsigned char* p = (unsigned char *)Begin();
 		unsigned int ret = (p[2] << 16) | (p[1] << 8) | p[0];
@@ -306,7 +305,7 @@ namespace v
 		return ret;
 	}
 
-	unsigned int Buffer::ReadReverseUInt32()
+    unsigned int CLBuffer::ReadReverseUInt32()
 	{
 		unsigned char* p = (unsigned char*)Begin();
 		unsigned int ret = (p[3] << 24) | (p[2] << 16) | (p[1] << 8) | p[0];
@@ -314,7 +313,7 @@ namespace v
 		return ret;
 	}
 
-	double Buffer::ReadDouble()
+    double CLBuffer::ReadDouble()
 	{
 		unsigned char* p = (unsigned char*)Begin();
 		double ret;
@@ -331,27 +330,27 @@ namespace v
 		return ret;
 	}
 
-	v::int64 Buffer::ReadInt64()
+    int64 CLBuffer::ReadInt64()
 	{
 		unsigned char* p = (unsigned char*)Begin();
-		v::int64 ret = p[0] * 0x100000000000000 + p[1] * 0x1000000000000 + p[2] * 0x10000000000 + p[3] * 0x100000000 + p[4] * 0x1000000 + p[5] * 0x10000 + p[6] * 0x100 + p[7];
+        int64 ret = p[0] * 0x100000000000000 + p[1] * 0x1000000000000 + p[2] * 0x10000000000 + p[3] * 0x100000000 + p[4] * 0x1000000 + p[5] * 0x10000 + p[6] * 0x100 + p[7];
 		MoveBeginPos(8);
 		return ret;
 	}
 
-	v::uint64 Buffer::ReadUInt64()
+    uint64 CLBuffer::ReadUInt64()
 	{
 		return ReadInt64();
 	}
 
-	std::string Buffer::ReadString(int length)
+    std::string CLBuffer::ReadString(int length)
 	{
 		std::string str((char*)Begin(), length);
 		MoveBeginPos(length);
 		return str;
 	}
 
-	std::string Buffer::ReadLine()
+    std::string CLBuffer::ReadLine()
 	{
 		unsigned char* p = (unsigned char*)Begin();
 		unsigned int index = 0;
@@ -382,7 +381,7 @@ namespace v
 		return (char*)"";
 	}
 
-	bool Buffer::IsFindValue(char* pValue, int nSize)
+    bool CLBuffer::IsFindValue(char* pValue, int nSize)
 	{
 		if (this->DataSize() < nSize)
 			return false;
@@ -392,7 +391,7 @@ namespace v
 		return false;
 	}
 
-	int Buffer::FindValue(char* pValue, int pos)
+    int CLBuffer::FindValue(char* pValue, int pos)
 	{
 		int nSize = strlen(pValue);
 		if (this->DataSize() < nSize)
@@ -410,40 +409,40 @@ namespace v
 		return -1;
 	}
 
-	unsigned char Buffer::GetUChar(int start)
+    unsigned char CLBuffer::GetUChar(int start)
 	{
 		return Begin()[start];
 	}
 
-	int64 Buffer::GetInt64(int start)
+    int64 CLBuffer::GetInt64(int start)
 	{
 		unsigned char* p = (unsigned char*)Begin() + start;
 		int64 ret = p[0] * 0x100000000000000 + p[1] * 0x1000000000000 + p[2] * 0x10000000000 + p[3] * 0x100000000 + p[4] * 0x1000000 + p[5] * 0x10000 + p[6] * 0x100 + p[7];
 		return ret;
 	}
 
-	unsigned int Buffer::GetUInt32(int start)
+    unsigned int CLBuffer::GetUInt32(int start)
 	{
 		unsigned char* p = (unsigned char*)Begin() + start;
 		unsigned int ret = (p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3];
 		return ret;
 	}
 
-	unsigned int Buffer::GetUInt16(int start)
+    unsigned int CLBuffer::GetUInt16(int start)
 	{
 		unsigned char* p = (unsigned char*)Begin() + start;
 		unsigned int ret = (p[0] << 8) | p[1];
 		return ret;
 	}
 
-	unsigned int Buffer::GetUInt24(int start)
+    unsigned int CLBuffer::GetUInt24(int start)
 	{
 		unsigned char* p = (unsigned char*)Begin() + start;
 		unsigned int ret = (p[0] << 16) | (p[1] << 8) | p[2];
 		return ret;
 	}
 
-	bool Buffer::GetBuffer(int pos, int nReadSize, Buffer* pBuffer)
+    bool CLBuffer::GetBuffer(int pos, int nReadSize, CLBuffer* pBuffer)
 	{
 		if (pos > DataSize() || nReadSize > DataSize() - pos)
 			return false;
@@ -451,7 +450,7 @@ namespace v
 		return true;
 	}
 
-	std::string Buffer::GetString(int pos, int nReadSize)
+    std::string CLBuffer::GetString(int pos, int nReadSize)
 	{
 		if (pos > DataSize() || nReadSize > DataSize() - pos)
 			return "";
@@ -459,4 +458,4 @@ namespace v
 		return str;
 	}
 
-} // namespace v
+

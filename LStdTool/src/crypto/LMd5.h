@@ -4,10 +4,7 @@
 
 #include <string>
 #include <fstream>
-
-/* Type define */
-typedef unsigned char byte;
-typedef unsigned int uint32;
+#include "def/type.h"
 
 using std::string;
 using std::ifstream;

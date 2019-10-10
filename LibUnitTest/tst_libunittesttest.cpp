@@ -5,6 +5,7 @@
 #include "crypto/Base64.h"
 #include "crypto/LMd5.h"
 
+
 /// ---   结果可视化-AutoTest插件 --------
 //每一个私有槽都是一个测试函数，但有4种私有槽不能作为测试函数，它们由测试框架执行，可为整个测试程序或当前测试函数进行初始化和清除操作。
 //initTestCase()：在第一个测试函数执行前调用。
@@ -27,6 +28,7 @@ private Q_SLOTS:
     void testCase1();
     void testAesBcb();
     void testMD5();
+
 };
 
 
@@ -137,6 +139,7 @@ void LibUnitTestTest::testMD5()
     md5.update(in);
     qDebug() << "finish md5:" << md5.toString().c_str();
 }
+
 
 
 

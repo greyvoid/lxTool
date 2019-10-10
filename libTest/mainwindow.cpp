@@ -24,7 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // MessageBox 遮罩
     // mysliderbutton优化
     // Tomast控件
-
+    ui->widget->addItem("123123");
+    ui->widget->addItem("text");
+    ui->widget->addItem("dfdff");
 
 }
 

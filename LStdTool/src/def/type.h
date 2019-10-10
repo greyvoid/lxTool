@@ -6,6 +6,7 @@
  */
 #pragma once
 
+#include <stdint.h>
 #include <iostream>
 
 //1.1    编译器运行操作系统
@@ -44,6 +45,8 @@
 //vs 32bit: sizeof(pointer) == 4 bytes
 //vs 64bit: sizeof(pointer) == 8 bytes
 
+
+
 //////////////////////////////////////////////////////////////////////////
 // 小写风格
 typedef signed char			int8;
@@ -57,6 +60,7 @@ typedef unsigned int		uint32;
 typedef unsigned long long	uint64;
 
 typedef unsigned char		byte;
+typedef unsigned char       uchar;
 typedef unsigned int		uint;
 typedef unsigned short		word;
 typedef unsigned int		dword;
@@ -64,6 +68,7 @@ typedef long long			longlong;
 
 typedef wchar_t				wchar;
 
+///////////////////////////////////////////////////////////////////////////////
 // 大写风格
 typedef unsigned char       UCHAR;
 typedef char                CHAR;

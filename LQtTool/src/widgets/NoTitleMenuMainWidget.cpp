@@ -1,47 +1,25 @@
 #include "NoTitleMenuMainWidget.h"
-#include<QMouseEvent>
-#include <QToolButton>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QStyle>
-#include <QMenuBar>
-#include <QMenu>
-#include <QAction>
-#include <QLabel>
-#include <QToolBar>
-#include "widgets.h"
-#define TITLE_ICON_HEIGHT 40
-#define TITLE_BAR_HEIGHT 50
-#define DEFULT_WINDWO_WIDTH 1300
+#include <QMouseEvent>
+#include <QResizeEvent>
+#include <QApplication>
+#include <QtDebug>
 
-using namespace std;
+//CLMoveWidget::CLMoveWidget(QWidget *parent)
+//    : QWidget(parent)
+//    //, m_wgtRoot(NULL)
+//{
 
-//标题栏的长度
-const static int pos_min_x = 0;
-const static int pos_max_x = DEFULT_WINDWO_WIDTH - 120;  //为最小化和关闭按钮留空间
-const static int pos_min_y = 0;
-const static int pos_max_y = TITLE_BAR_HEIGHT;
+//}
 
-CNoTitleMenuMainWidget::CNoTitleMenuMainWidget(QWidget *parent)
-    : QWidget(parent)
-    , m_vLayMain( new QVBoxLayout())
-    , m_menuBar(new QMenuBar)
-    , m_toolBar(new QToolBar)
-    , m_centralWidget(new QWidget)
+CNoTitleMenuMainWidget::CNoTitleMenuMainWidget(QWidget *parent, Qt::WindowFlags f)
+: QWidget(parent, f)
+, m_bCanDrag(false)
+, m_pWgtDrag(NULL)
+, m_bCanResize(false)
+, m_nCanResizeBorder(6)
+, m_bCanDragFromChild(false)
 {
-
-    setWindowFlags(Qt::FramelessWindowHint);//去掉窗口标题栏
-
-    resize(1300,739);
-    initTitleBar();
-    initMenuBar();
-    //initToolBar();
-    initCentralWidget();
-
-    m_vLayMain->addStretch();
-    m_vLayMain->setMargin(0);
-    m_vLayMain->setContentsMargins(QMargins(0,0,0,0));
-    setLayout(m_vLayMain);
+    initUI();
 }
 
 CNoTitleMenuMainWidget::~CNoTitleMenuMainWidget()
@@ -49,168 +27,244 @@ CNoTitleMenuMainWidget::~CNoTitleMenuMainWidget()
 
 }
 
-void CNoTitleMenuMainWidget::setTitleOperateIcon(QString strImgClose, QString strImgNormal, QString strImgMin)
+void CNoTitleMenuMainWidget::initUI()
 {
-    //    m_strImgClose = strImgClose;
-    //    m_strImgNormal = strImgNormal;
-    //    m_strImgMin = strImgMin;
-    //    m_tBtnMin->setIcon(QPixmap(m_strImgMin));
-    //    m_tBtnClose->setIcon(QPixmap(m_strImgClose));
-    //    m_tBtnNormal->setIcon(QPixmap(m_strImgMin));
+    setWindowFlags(Qt::FramelessWindowHint);
+    setMouseTracking(true);
+    setMinimumSize(100, 50);
+    // 要检测窗口是否可以拖动大小形状改变需要让控件在鼠标未按下都能响应鼠标应当事件mouseMoveEvent
+    QList<QWidget*> widgetList = findChildren<QWidget*>();
+    foreach(QWidget* widget, widgetList)
+    {
+        widget->setMouseTracking(true);
+    }
+    qApp->installEventFilter(this);
 }
 
-void CNoTitleMenuMainWidget::setTitleIcon(QString strIcon)
+///
+/// \brief CLMoveWidget::mouseMoveFunc 本类和子类移动事件公有方法
+/// \param object 拥有区分是本类调用还是子类调用
+/// \param event
+///
+void CNoTitleMenuMainWidget::mouseMoveFunc(QObject *object, QMouseEvent *event)
 {
-    m_labelTitleIcon->setPixmap(QPixmap(strIcon).scaled(m_labelTitleIcon->size()));
+    // 优先考虑窗口大小改变
+    if (Qt::LeftButton & event->buttons())
+    {
+        if (m_bCanResize)                    //如果左键按住移动且在拖拽状态
+        {
+            const QPoint point_offset = event->globalPos() - m_ptGlobalResizeStart;
+            m_ptGlobalResizeStart = event->globalPos();
+            int nOffsetX1 = ED_LockRight == m_emHorizontal ? point_offset.x() : 0;
+            int nOffsetY1 = DR_LockBottom == m_emVertical ? point_offset.y() : 0;
+            int nOffsetX2 = ED_LockLeft == m_emHorizontal ? point_offset.x() : 0;
+            int nOffsetY2 = ED_LockTop == m_emVertical ? point_offset.y() : 0;
+            setGeometry(geometry().adjusted(nOffsetX1, nOffsetY1, nOffsetX2, nOffsetY2));
+        }
+    }
+    else if (Qt::NoButton == event->button())
+    {
+        //先判断是否光标在可拖拽大小的窗口位置
+
+        // 获取相对于主窗口CNoTitleMenuMainWidget的坐标
+        //const QPoint& pos = event->pos(); // 返回的坐标是相对于鼠标所在的这个widget（如QPushButton）的坐标
+        /* 方法一
+        QPoint posRelative;
+        QWidget* widget = qobject_cast<QWidget*>(object);
+        if (widget)
+        {
+        posRelative = widget->mapTo(this, pos); // 将当前窗口坐标转换成指定parent坐标
+        }
+        */
+
+        // 方法二
+        const QPoint& posGlobal= event->globalPos(); // 返回相对于屏幕左上角的全局坐标
+        const QPoint& posRelative = mapFromGlobal(posGlobal); // 转换为相对于当前窗口this的窗口坐标
+
+        //qDebug() << pos << posRelative << posGlobal;
+
+        bool bHorLeft = posRelative.x() < m_nCanResizeBorder;
+        bool bHorRight = posRelative.x() > rect().right() - m_nCanResizeBorder;
+        bool bVertTop = posRelative.y() < m_nCanResizeBorder;
+        bool bVertBottom = posRelative.y() > rect().bottom() - m_nCanResizeBorder;
+        if (bHorLeft || bHorRight || bVertTop || bVertBottom)
+        {
+            m_bCanResize = true;
+            if (bHorLeft && bVertTop)        //左上角拖拽
+            {
+                setCursor(Qt::SizeFDiagCursor);
+                m_emHorizontal = ED_LockRight;
+                m_emVertical = DR_LockBottom;
+            }
+            else if (bHorLeft && bVertBottom)    //左下角拖拽
+            {
+                setCursor(Qt::SizeBDiagCursor);
+                m_emHorizontal = ED_LockRight;
+                m_emVertical = ED_LockTop;
+            }
+            else if (bHorRight && bVertTop)        //右上角拖拽
+            {
+                setCursor(Qt::SizeBDiagCursor);
+                m_emHorizontal = ED_LockLeft;
+                m_emVertical = DR_LockBottom;
+            }
+            else if (bHorRight && bVertBottom)    //右下角拖拽
+            {
+                setCursor(Qt::SizeFDiagCursor);
+                m_emHorizontal = ED_LockLeft;
+                m_emVertical = ED_LockTop;
+            }
+            else if (bHorLeft)                    //左边框拖拽
+            {
+                setCursor(Qt::SizeHorCursor);
+                m_emHorizontal = ED_LockRight;
+                m_emVertical = ED_RemainUnchanged;
+            }
+            else if (bHorRight)                    //右边框拖拽
+            {
+                setCursor(Qt::SizeHorCursor);
+                m_emHorizontal = ED_LockLeft;
+                m_emVertical = ED_RemainUnchanged;
+            }
+            else if (bVertTop)                    //上边框拖拽
+            {
+                setCursor(Qt::SizeVerCursor);
+                m_emHorizontal = ED_RemainUnchanged;
+                m_emVertical = DR_LockBottom;
+            }
+            else if (bVertBottom)                //下边框拖拽
+            {
+                setCursor(Qt::SizeVerCursor);
+                m_emHorizontal = ED_RemainUnchanged;
+                m_emVertical = ED_LockTop;
+            }
+        }
+        else if (m_bCanResize)
+        {
+            m_bCanResize = false;
+            setCursor(Qt::ArrowCursor);            //如果上一次判断修改了光标，不再是拖拽的状态把光标改回来
+        }
+    }
+    if (m_bCanResize)
+    {
+        return;
+    }
+
+    // 考虑窗口移动
+    // 如果来自子控件的拖动且不允许子控件移动主窗口则直接返回
+    if (!m_bCanDragFromChild && (object != this))
+    {
+        return;
+    }
+
+    if ( m_bCanDrag )
+    {
+        QPoint movePot = event->globalPos() - m_ptMousePress;
+
+        // move是移动的位置是相对于全局而言(即屏幕)
+        QApplication::activeWindow()->move(movePot);
+        return;
+    }
 }
 
-void CNoTitleMenuMainWidget::setTitle(QString strTitle)
+void CNoTitleMenuMainWidget::mousePressFuc(QObject *object, QMouseEvent *event)
 {
-    labelTitleText->setText(strTitle);
+    // 优先判断是否可以触发窗口形态变化
+    if (Qt::LeftButton == event->button() && m_bCanResize)
+    {
+        m_ptGlobalResizeStart = event->globalPos();
+        return;
+    }
+
+    // 判断是否可以触发拖动
+    // 如果来自子控件的拖动且不允许子控件移动主窗口则直接返回
+    if (!m_bCanDragFromChild && (object != this))
+    {
+        return;
+    }
+
+    if (m_pWgtDrag == NULL)
+    {
+        m_pWgtDrag = this;
+    }
+
+    // 同意需要转换为父窗口为本类实例的坐标
+    //m_ptMousePress = event->pos(); // 错误
+    const QPoint& posGlobal= event->globalPos(); // 返回相对于屏幕左上角的全局坐标
+    m_ptMousePress = this->mapFromGlobal(posGlobal); // 转换为相对于当前窗口this的窗口坐标
+    QRect rectDrag = m_pWgtDrag->rect();
+    if (rectDrag.contains(m_ptMousePress))
+    {
+        m_bCanDrag = true;
+    }
 }
 
-
-//自己实现的窗口拖动操作
-void CNoTitleMenuMainWidget::mousePressEvent(QMouseEvent *event)
+void CNoTitleMenuMainWidget::mouseReleaseFuc(QObject *object, QMouseEvent *event)
 {
-    //当鼠标单击窗体准备拖动时，初始化鼠标在窗体中的相对位置
-    mousePosition = event->pos();
-    //只对标题栏范围内的鼠标事件进行处理
-    if (mousePosition.x()<=pos_min_x)
-        return;
-    if ( mousePosition.x()>=pos_max_x)
-        return;
-    if (mousePosition.y()<=pos_min_y )
-        return;
-    if (mousePosition.y()>=pos_max_y)
-        return;
-    isMousePressed = true;
+    m_bCanDrag=false;
 }
+
 
 void CNoTitleMenuMainWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if ( isMousePressed==true )
-    {
-        QPoint movePot = event->globalPos() - mousePosition;
-        //move是移动的位置是相对于全局而言(即屏幕)
-        move(movePot);
-    }
+    QWidget::mouseMoveEvent(event);
+    mouseMoveFunc(this, event);
 }
+
+void CNoTitleMenuMainWidget::mousePressEvent(QMouseEvent *event)
+{
+    QWidget::mousePressEvent(event);
+    mousePressFuc(this, event);
+}
+
 void CNoTitleMenuMainWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-    isMousePressed=false;
+    QWidget::mouseReleaseEvent(event);
+    mouseReleaseFuc(this, event);
 }
 
-void CNoTitleMenuMainWidget::initTitleBar()
+void CNoTitleMenuMainWidget::resizeEvent(QResizeEvent *event)
 {
-    QHBoxLayout *hLay = new QHBoxLayout;
-    m_labelTitleIcon = new QLabel;
-    m_labelTitleIcon->resize(TITLE_ICON_HEIGHT,TITLE_ICON_HEIGHT);
-    labelTitleText = new QLabel();
-    QFont font("Helvetica [Cronyx]", 20);
-    labelTitleText->setFont(font);
-    CMediaPushButton *smallBtn=new CMediaPushButton(tr("_"));
-    CMediaPushButton *closeBtn=new CMediaPushButton(tr("X"));
-    connect(smallBtn,SIGNAL(clicked()),this,SLOT(showMinimized()));
-    connect(closeBtn,SIGNAL(clicked()),this,SLOT(close()));
-
-    smallBtn->setFixedSize(30,30);
-    closeBtn->setFixedSize(30,30);
-
-    hLay->addWidget(m_labelTitleIcon);
-    hLay->addWidget(labelTitleText);
-    hLay->addStretch();
-    hLay->addWidget(smallBtn);
-    hLay->addWidget(closeBtn);
-
-    QWidget *widget = new QWidget;
-    widget->setFixedHeight(TITLE_BAR_HEIGHT);
-    widget->setStyleSheet("background-color:rgb(40,40,40);");
-    widget->setLayout(hLay);
-
-    //m_vLayMain->addLayout(hLay);
-    m_vLayMain->addWidget(widget);
-
-    //    //int width = this->width();//获取界面的宽度
-    //    m_tBtnMin = new QToolButton(this);   //最小按钮
-    //    m_tBtnClose= new QToolButton(this);  //关闭按钮
-    //    m_tBtnNormal = new QToolButton(this);
-
-
-    //    connect(m_tBtnMin, SIGNAL(clicked()), this, SLOT(showMinimized()));
-    //    connect(m_tBtnClose, SIGNAL(clicked()), this, SLOT(close()));
-    //    connect(m_tBtnNormal, SIGNAL(clicked()), this, SLOT(showNormal()));
-
-    //    //获取最小化、关闭按钮图标
-    //    QPixmap minPix = style()->standardPixmap(QStyle::SP_TitleBarMinButton);
-    //    QPixmap closePix = style()->standardPixmap(QStyle::SP_TitleBarCloseButton);
-    //    QPixmap normalPix = style()->standardPixmap(QStyle::SP_TitleBarNormalButton);
-
-    //    //设置最小化、关闭按钮图标
-    //    m_tBtnMin->setIcon(minPix);
-    //    m_tBtnClose->setIcon(closePix);
-    //    m_tBtnNormal->setIcon(normalPix);
-
-    //    //设置最小化、关闭按钮在界面的位置
-    ////    m_tBtnNormal->setGeometry(width-160, 0, 20, 20);
-    ////    m_tBtnMin->setGeometry(width-120,0,20,20);
-    ////    m_tBtnClose->setGeometry(width-100,0,20,20);
-
-
-    //    //设置鼠标移至按钮上的提示信息
-    //    m_tBtnMin->setToolTip("最小化");
-    //    m_tBtnClose->setToolTip("关闭");
-    //    m_tBtnNormal->setToolTip("还原");
-
-    //    //设置最小化、关闭等按钮的样式
-    //    m_tBtnMin->setStyleSheet("background-color:transparent;");
-    //    m_tBtnClose->setStyleSheet("background-color:transparent;");
-    //    m_tBtnNormal->setStyleSheet("background-color:transparent;");
+    QWidget::resizeEvent(event);
 }
 
-void CNoTitleMenuMainWidget::initMenuBar()
+// 当子窗体覆盖当前主窗体时mouseMoveEvent没有被调用
+bool CNoTitleMenuMainWidget::eventFilter(QObject *object, QEvent *event)
 {
-//    QMenu *menuFile = new QMenu("文件");
-//    //menuFile->setStyleSheet("background-color:transparent;");
-//    menuFile->setIcon(QPixmap(":/img/btn_style_normal.png").scaled(menuFile->size()));
-//    QMenu *menuEdit = new QMenu("编辑");
-//    QMenu *menuHelp = new QMenu("帮助");
-//    //QAction *actFile = new QAction("文件");
-//    //QAction *actEdit = new QAction("编辑");
-//    // QAction *actHelp = new QAction("帮助");
-//    m_menuBar->addMenu(menuFile);
-//        //actInput->setIcon(QIcon(":/img/btn_style_normal.png"));
-//    //m_menuBar->addSeparator();
-//    m_menuBar->addMenu(menuEdit);
-//    //m_menuBar->addSeparator();
-//    m_menuBar->addMenu(menuHelp);
-//    m_menuBar->setStyleSheet("background-color:rgb(40,40,40);");
-//    m_vLayMain->addWidget(m_menuBar);
+    if (event == nullptr)
+    {
+        return false;
+    }
+    if (event->type() == QEvent::None)
+    {
+        return false;
+    }
+    if (object == this)
+    {
+        return QObject::eventFilter(object, event);
+    }
+//    if (event->type() == QEvent::HoverMove)
+//    {
+//        mouseMoveFunc(event);
+//    }
+    // 监听子类的鼠标事件
+    if(event->type()==QEvent::MouseButtonPress)
+    {
+        QMouseEvent *mouseEvent = (QMouseEvent *)event;
+        mousePressFuc(object, mouseEvent);
+    }
+    if(event->type()==QEvent::MouseMove)
+    {
+        QMouseEvent *mouseEvent = (QMouseEvent *)event;
+        mouseMoveFunc(object, mouseEvent);
+    }
+    if(event->type()==QEvent::MouseButtonRelease)
+    {
+        QMouseEvent *mouseEvent = (QMouseEvent *)event;
+        mouseReleaseFuc(object, mouseEvent);
+    }
+    return QObject::eventFilter(object, event);
 }
 
-
-
-void CNoTitleMenuMainWidget::initToolBar()
-{
-    QAction *actInput = new QAction("司机实名制信息输入", m_toolBar);
-    QAction *actSherch = new QAction("信息查询", m_toolBar);
-    QAction *actSend = new QAction("数据推送", m_toolBar);
-    QAction *actUrgencyEvent = new QAction("紧急事件", m_toolBar);
-
-    m_toolBar->addAction(actInput);
-    m_toolBar->addSeparator();
-    m_toolBar->addAction(actSherch);
-    m_toolBar->addSeparator();
-    m_toolBar->addAction(actSend);
-    m_toolBar->addSeparator();
-    m_toolBar->addAction(actUrgencyEvent);
-    m_vLayMain->addWidget(m_toolBar);
-}
-
-void CNoTitleMenuMainWidget::initCentralWidget()
-{
-    m_centralWidget->resize(width(), height() - 30 - m_menuBar->height() - m_toolBar->height());
-    m_vLayMain->addWidget(m_centralWidget);
-}
 
 

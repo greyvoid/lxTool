@@ -8,8 +8,6 @@ SOURCES +=\
     $$PWD/network/LTcpConnection.cpp \
     $$PWD/network/LTcpServer.cpp \
     $$PWD/network/LTcpThread.cpp \
-    $$PWD/network/LEncrypt.cpp \
-    $$PWD/network/buffer.cc \
     $$PWD/network/LTcpClient.cpp \
     $$PWD/widgets/CompleteLineEdit.cpp \
     $$PWD/widgets/buttons/LsxButton.cpp \
@@ -21,12 +19,12 @@ SOURCES +=\
     $$PWD/widgets/labels/ClickLabel.cpp \
     $$PWD/widgets/labels/SmoothLabel.cpp \
     $$PWD/widgets/LsxTabMenu.cpp \
-    $$PWD/widgets/buttons/mysliderbutton.cpp \
     $$PWD/widgets/NoTitleMenuMainWidget.cpp \
     $$PWD/widgets/labels/LHoverLabel.cpp \
     $$PWD/widgets/labels/LTipLabel.cpp \
     $$PWD/LQtFunc.cpp \
-    $$PWD/widgets/LMessageBox.cpp
+    $$PWD/widgets/LMessageBox.cpp \
+    $$PWD/widgets/buttons/LSliderButton.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -38,9 +36,6 @@ HEADERS  += \
     $$PWD/network/LTcpConnection.h \
     $$PWD/network/LTcpServer.h \
     $$PWD/network/LTcpThread.h \
-    $$PWD/network/LEncrypt.h \
-    $$PWD/network/buffer.h \
-    $$PWD/network/base_types.h \
     $$PWD/network/LTcpClient.h \
     $$PWD/network/LNetDef.h \
     $$PWD/widgets/CompleteLineEdit.h \
@@ -54,12 +49,13 @@ HEADERS  += \
     $$PWD/widgets/labels/ClickLabel.h \
     $$PWD/widgets/labels/SmoothLabel.h \
     $$PWD/widgets/LsxTabMenu.h \
-    $$PWD/widgets/buttons/mysliderbutton.h \
     $$PWD/widgets/NoTitleMenuMainWidget.h \
     $$PWD/widgets/labels/LHoverLabel.h \
     $$PWD/widgets/labels/LTipLabel.h \
     $$PWD/LQtFunc.h \
-    $$PWD/widgets/LMessageBox.h
+    $$PWD/widgets/LMessageBox.h \
+    $$PWD/widgets/buttons/LSliderButton.h \
+    $$PWD/LQtDefine.h
 
 FORMS += \
     $$PWD/widgets/LMessageBox.ui

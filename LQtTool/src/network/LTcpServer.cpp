@@ -1,6 +1,6 @@
 #include "LTcpServer.h"
 #include "LTcpConnection.h"
-#include "buffer.h"
+#include "datastructure/LBuffer.h"
 
 LTcpServer::LTcpServer(QObject *parent)
     : QTcpServer(parent)
@@ -44,7 +44,7 @@ void LTcpServer::sendData(unsigned int cmd, char *data, unsigned int unSize)
 
 void LTcpServer::sendData(qintptr handle, unsigned int cmd, char *data, unsigned int unSize)
 {
-    v::Buffer sendBuf;
+    CLBuffer sendBuf;
     sendBuf.WriteUInt32(0);
     sendBuf.WriteUInt32(cmd);
     sendBuf.Write((const unsigned char*)data, unSize);
