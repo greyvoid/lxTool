@@ -2,7 +2,8 @@
 #define L_TCP_CONNECTION_H
 #include <QTcpSocket>
 
-class LTcpConnection : public QTcpSocket {
+class LTcpConnection : public QTcpSocket
+{
     Q_OBJECT
 public:
 

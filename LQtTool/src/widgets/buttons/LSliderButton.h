@@ -57,12 +57,12 @@ private:
 
     bool m_bForward;            // 选择项改变时，前行或后退的方向
     bool m_bShrink;             // 选择项改变时，由于每一项的文本长度可能不一样，决定是否收缩或扩张
-    bool m_bVirgin;
+    bool m_bVirgin;             // 是否初次
 
     QTimer* m_timerSlide;   // 滑动定时器
     QTimer* m_timerShrink;  // 收缩定时器
 
-    unsigned int m_unTotalIncrement; // 基于二次函数的总增量
+    unsigned int m_unTotalIncrement; // 逐渐衰减的增量，本例实现效果的重点
 
 
 

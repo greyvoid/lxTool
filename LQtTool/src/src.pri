@@ -24,7 +24,8 @@ SOURCES +=\
     $$PWD/widgets/labels/LTipLabel.cpp \
     $$PWD/LQtFunc.cpp \
     $$PWD/widgets/LMessageBox.cpp \
-    $$PWD/widgets/buttons/LSliderButton.cpp
+    $$PWD/widgets/buttons/LSliderButton.cpp \
+    $$PWD/widgets/LShadeWidget.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -55,7 +56,8 @@ HEADERS  += \
     $$PWD/LQtFunc.h \
     $$PWD/widgets/LMessageBox.h \
     $$PWD/widgets/buttons/LSliderButton.h \
-    $$PWD/LQtDefine.h
+    $$PWD/LQtDefine.h \
+    $$PWD/widgets/LShadeWidget.h
 
 FORMS += \
     $$PWD/widgets/LMessageBox.ui

@@ -213,7 +213,9 @@ void CLSliderButton::setSlideIncrement(unsigned int nInc)
 }
 
 ///
-/// \brief CLSliderButton::createSlideIncrement 根据二次函数产生一个增量
+/// \brief CLSliderButton::createSlideIncrement 根据二次函数产生一个增量，原理:如果x^2 > n, y = 2^(1/2)x, 证明1+2+3+4+……+y > n
+/// 证明: z = 1+2+3+4+……+y = (y+1)*y/2 = (2^(1/2)x + 1)*(2^(1/2)x) /2 = ((2n)^(1/2) + 1)*((2n)^(1/2)) / 2
+///  = (2n + (2n)^(1/2)) /2 = n + (2n)^(1/2) /2 > n
 /// \param nDistance
 /// \return
 ///
@@ -231,7 +233,7 @@ unsigned int CLSliderButton::createSlideIncrement(unsigned int nDistance)
             n++;
         }
     }
-    return n * 1.4;
+    return n * 1.414;
 }
 
 void CLSliderButton::doSliding()
