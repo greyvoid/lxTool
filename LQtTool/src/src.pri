@@ -26,7 +26,9 @@ SOURCES +=\
     $$PWD/widgets/LMessageBox.cpp \
     $$PWD/widgets/buttons/LSliderButton.cpp \
     $$PWD/widgets/LShadeWidget.cpp \
-    $$PWD/widgets/LScrollBar.cpp
+    $$PWD/widgets/LScrollBar.cpp \
+    $$PWD/widgets/PageNavigator.cpp \
+    $$PWD/widgets/LProgressIndicator.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -59,7 +61,10 @@ HEADERS  += \
     $$PWD/widgets/buttons/LSliderButton.h \
     $$PWD/LQtDefine.h \
     $$PWD/widgets/LShadeWidget.h \
-    $$PWD/widgets/LScrollBar.h
+    $$PWD/widgets/LScrollBar.h \
+    $$PWD/widgets/PageNavigator.h \
+    $$PWD/widgets/LProgressIndicator.h
 
 FORMS += \
-    $$PWD/widgets/LMessageBox.ui
+    $$PWD/widgets/LMessageBox.ui \
+    $$PWD/widgets/PageNavigator.ui
