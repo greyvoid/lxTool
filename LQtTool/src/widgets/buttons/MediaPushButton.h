@@ -5,6 +5,9 @@
 
 class QMediaPlayer;
 
+///
+/// \brief The CMediaPushButton class 声音按钮
+///
 class CMediaPushButton : public QPushButton
 {
     Q_OBJECT
