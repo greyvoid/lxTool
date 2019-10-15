@@ -1,5 +1,5 @@
 #include "LTcpConnection.h"
-#include "LEncrypt.h"
+#include "crypto/LEncrypt.h"
 #include <QDataStream>
 #include <QtDebug>
 #include <QThread>

@@ -6,31 +6,42 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>802</width>
+    <height>469</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="CLSliderButton" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>30</y>
-      <width>120</width>
-      <height>80</height>
-     </rect>
-    </property>
-   </widget>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="CCompleteLineEdit" name="completeLineEdit"/>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="CLsxTabMenu" name="lsxTabMenu" native="true"/>
+      </item>
+      <item>
+       <widget class="CLSliderButton" name="sliderButton" native="true"/>
+      </item>
+      <item>
+       <widget class="CLProgressIndicator" name="progressIndicator" native="true"/>
+      </item>
+      <item>
+       <widget class="CPageNavigator" name="pageNavigator" native="true"/>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>802</width>
      <height>23</height>
     </rect>
    </property>
@@ -51,6 +62,29 @@
    <class>CLSliderButton</class>
    <extends>QWidget</extends>
    <header location="global">widgets/buttons/LSliderButton.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CCompleteLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>widgets/CompleteLineEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CLProgressIndicator</class>
+   <extends>QWidget</extends>
+   <header>widgets/LProgressIndicator.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CPageNavigator</class>
+   <extends>QWidget</extends>
+   <header>widgets/PageNavigator.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CLsxTabMenu</class>
+   <extends>QWidget</extends>
+   <header>widgets/LsxTabMenu.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -7,6 +7,7 @@ namespace Ui {
 class MainWindow;
 }
 
+class CCustomMainWidget;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -17,6 +18,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    CCustomMainWidget* m_pCustomMainWidget;
 };
+
+
 
 #endif // MAINWINDOW_H

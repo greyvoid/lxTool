@@ -5,7 +5,7 @@
 #include <QColor>
 
 ///
-/// \brief The CLProgressIndicator class 进程指示器
+/// \brief The CLProgressIndicator class 等待提示框(进程指示器)
 ///
 class CLProgressIndicator : public QWidget
 {
@@ -13,37 +13,43 @@ class CLProgressIndicator : public QWidget
     Q_PROPERTY(int delay READ animationDelay WRITE setAnimationDelay)
     Q_PROPERTY(bool displayedWhenStopped READ isDisplayedWhenStopped WRITE setDisplayedWhenStopped)
     Q_PROPERTY(QColor color READ color WRITE setColor)
+
 public:
     CLProgressIndicator(QWidget* parent = 0);
 
+    ///属性函数
     int animationDelay() const { return m_nDelay; }
-
-    bool isAnimated () const;
+    void setAnimationDelay(int delay);
 
     bool isDisplayedWhenStopped() const;
+    void setDisplayedWhenStopped(bool state);
 
     const QColor & color() const { return m_color; }
+    void setColor(const QColor & color);
 
-    //virtual QSize sizeHint() const;
+    // 是否正在动画
+    bool isAnimated () const;
 
-    void setBackground(const QString& _icon) {
-        m_pixCurrent = QPixmap(_icon);
-    }
-signals:
-    void Finished(void);
+    virtual QSize sizeHint() const;
+
+
 public slots:
 
     void startAnimation();
 
     void stopAnimation();
 
-    void setAnimationDelay(int delay);
 
-    void setDisplayedWhenStopped(bool state);
 
-    void setColor(const QColor & color);
+
+
+
 
     void onProgress(short progress) { m_nProgress = progress; }
+
+signals:
+    void finished(void);
+
 protected:
 
     virtual void timerEvent(QTimerEvent * event);
@@ -51,15 +57,15 @@ protected:
 
 private:
     QRect rectDraw();
+
 private:
 
-    unsigned int m_unAngle;
-    int m_nIdTimer;
-    int m_nDelay;
-    bool m_bDisplayedWhenStopped;
-    QColor m_color;
-    short m_nProgress;
-    QPixmap m_pixCurrent;
+    unsigned int m_unAngle;             // 当前选择角度
+    int m_nIdTimer;                     // 定时器id
+    int m_nDelay;                       // 定时器触发时间间隔
+    bool m_bDisplayedWhenStopped;       // 动画结束sh是否隐藏本进程指示器实例
+    QColor m_color;                     // 进程指示器颜色
+    short m_nProgress;                  // 进程指示器的进度值
 };
 
 

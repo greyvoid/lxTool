@@ -17,7 +17,7 @@ class CPageNavigator : public QWidget
     Q_OBJECT
 
 public:
-    explicit CPageNavigator(int blockSize = 3, QWidget *parent = nullptr);
+    explicit CPageNavigator(QWidget *parent = nullptr, int blockSize = 3);
     ~CPageNavigator();
 
     int getBlockSize() const;

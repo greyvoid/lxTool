@@ -4,79 +4,118 @@
 #include <QStringListModel>
 #include <QDebug>
 
+CCompleteLineEdit::CCompleteLineEdit(QWidget *parent)
+: QLineEdit(parent)
+{
+    init();
+}
+
 CCompleteLineEdit::CCompleteLineEdit(QStringList words, QWidget *parent)
-    : QLineEdit(parent), words(words) {
+    : QLineEdit(parent)
+    , m_strlstWords(words)
+{
+    init();
+}
+
+void CCompleteLineEdit::init()
+{
     listView = new QListView(this);
-    model = new QStringListModel(this);
     listView->setWindowFlags(Qt::ToolTip);
+
+    model = new QStringListModel(this);
+
 
     connect(this, SIGNAL(textChanged(const QString &)), this, SLOT(setCompleter(const QString &)));
     connect(listView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(completeText(const QModelIndex &)));
 }
 
-void CCompleteLineEdit::focusOutEvent(QFocusEvent *e) {
+void CCompleteLineEdit::focusOutEvent(QFocusEvent *e)
+{
     //listView->hide();
 }
 
-void CCompleteLineEdit::keyPressEvent(QKeyEvent *e) {
-    if (!listView->isHidden()) {
+
+
+void CCompleteLineEdit::keyPressEvent(QKeyEvent *e)
+{
+    if (!listView->isHidden())
+    {
         int key = e->key();
         int count = listView->model()->rowCount();
         QModelIndex currentIndex = listView->currentIndex();
 
-        if (Qt::Key_Down == key) {
+        if (Qt::Key_Down == key)
+        {
             // 按向下方向键时，移动光标选中下一个完成列表中的项
             int row = currentIndex.row() + 1;
-            if (row >= count) {
+            if (row >= count)
+            {
                 row = 0;
             }
 
             QModelIndex index = listView->model()->index(row, 0);
             listView->setCurrentIndex(index);
-        } else if (Qt::Key_Up == key) {
+        }
+        else if (Qt::Key_Up == key)
+        {
             // 按向下方向键时，移动光标选中上一个完成列表中的项
             int row = currentIndex.row() - 1;
-            if (row < 0) {
+            if (row < 0)
+            {
                 row = count - 1;
             }
 
             QModelIndex index = listView->model()->index(row, 0);
             listView->setCurrentIndex(index);
-        } else if (Qt::Key_Escape == key) {
+        }
+        else if (Qt::Key_Escape == key)
+        {
             // 按下Esc键时，隐藏完成列表
             listView->hide();
-        } else if (Qt::Key_Enter == key || Qt::Key_Return == key) {
+        }
+        else if (Qt::Key_Enter == key || Qt::Key_Return == key)
+        {
             // 按下回车键时，使用完成列表中选中的项，并隐藏完成列表
-            if (currentIndex.isValid()) {
+            if (currentIndex.isValid())
+            {
                 QString text = listView->currentIndex().data().toString();
                 setText(text);
             }
 
             listView->hide();
-        } else {
+        }
+        else
+        {
             // 其他情况，隐藏完成列表，并使用QLineEdit的键盘按下事件
             listView->hide();
             QLineEdit::keyPressEvent(e);
         }
-    } else {
+    }
+    else
+    {
         QLineEdit::keyPressEvent(e);
     }
 }
 
-void CCompleteLineEdit::setCompleter(const QString &text) {
-    if (text.isEmpty()) {
+void CCompleteLineEdit::setCompleter(const QString &text)
+{
+    if (text.isEmpty())
+    {
         listView->hide();
         return;
     }
 
-    if ((text.length() > 1) && (!listView->isHidden())) {
+    if ((text.length() > 1) && (!listView->isHidden()))
+    {
         return;
     }
 
     // 如果完整的完成列表中的某个单词包含输入的文本，则加入要显示的完成列表串中
     QStringList sl;
-    foreach(QString word, words) {
-        if (word.contains(text)) {
+    foreach(QString word, m_strlstWords)
+    {
+        if (word.contains(text))
+        {
             sl << word;
         }
     }
@@ -84,7 +123,8 @@ void CCompleteLineEdit::setCompleter(const QString &text) {
     model->setStringList(sl);
     listView->setModel(model);
 
-    if (model->rowCount() == 0) {
+    if (model->rowCount() == 0)
+    {
         return;
     }
 
@@ -100,7 +140,8 @@ void CCompleteLineEdit::setCompleter(const QString &text) {
     listView->show();
 }
 
-void CCompleteLineEdit::completeText(const QModelIndex &index) {
+void CCompleteLineEdit::completeText(const QModelIndex &index)
+{
     QString text = index.data().toString();
     setText(text);
     listView->hide();

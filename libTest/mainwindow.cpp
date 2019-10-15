@@ -3,6 +3,8 @@
 #include <QApplication>
 #include <vector>
 
+#include "CustomMainWidget.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,27 +12,38 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //lstd::saveFileData("hello.txt", "1234443");
 
-    ///
-    ///
     /************
      *
-     * 需要验证的功能
+     * 需要验证的控件
      *
      */
-    //  加密功能
-    // NoTitleMenuMainWidget优化
-    // MessageBox 遮罩
-    // mysliderbutton优化
+
+    // test CLSliderButton
+    ui->sliderButton->addItem("123123");
+    ui->sliderButton->addItem("text");
+    ui->sliderButton->addItem("dfdff");
+
+    // test NoTitleMenuMainWidget
+    //m_pCustomMainWidget = new CCustomMainWidget;
+    //CCustomMainWidget.show();
+
+    // test CLShadeWidget 遮罩
+
+    // test CLSliderButton
+
+    // test CCompleteLineEdit
+    ui->completeLineEdit->setListWords({"hello", "about", "you", "youuuuu"});
+
+    //
+    ui->progressIndicator->startAnimation();
+
     // Tomast控件
-    ui->widget->addItem("123123");
-    ui->widget->addItem("text");
-    ui->widget->addItem("dfdff");
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    //m_pCustomMainWidget->deleteLater();
 }

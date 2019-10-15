@@ -7,8 +7,8 @@ CLScrollBar::CLScrollBar(QWidget *parent)
     init();
 }
 
-CLScrollBar::CLScrollBar(Qt::Orientation, QWidget *parent)
-    : QScrollBar(Qt::Orientation, parent)
+CLScrollBar::CLScrollBar(Qt::Orientation ori, QWidget *parent)
+    : QScrollBar(ori, parent)
 {
     init();
 }

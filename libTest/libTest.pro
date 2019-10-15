@@ -13,11 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    CustomMainWidget.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    CustomMainWidget.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    CustomMainWidget.ui
 
 LIBS += -L$$PWD/../LStdTool/bin/ -lLStdToold
 

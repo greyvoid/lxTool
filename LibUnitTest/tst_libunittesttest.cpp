@@ -4,6 +4,7 @@
 #include "crypto/LAesEx.h"
 #include "crypto/Base64.h"
 #include "crypto/LMd5.h"
+#include "LStdFunc.h"
 
 
 /// ---   结果可视化-AutoTest插件 --------
@@ -28,6 +29,7 @@ private Q_SLOTS:
     void testCase1();
     void testAesBcb();
     void testMD5();
+    void testLstdFunc();
 
 };
 
@@ -138,6 +140,11 @@ void LibUnitTestTest::testMD5()
     md5.reset();
     md5.update(in);
     qDebug() << "finish md5:" << md5.toString().c_str();
+}
+
+void LibUnitTestTest::testLstdFunc()
+{
+    //lstd::saveFileData("hello.txt", "1234443");
 }
 
 

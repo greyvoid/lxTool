@@ -10,7 +10,7 @@
 #include <QDebug>
 
 
-CPageNavigator::CPageNavigator(int blockSize/* = 3*/, QWidget *parent/* = nullptr*/)
+CPageNavigator::CPageNavigator(QWidget *parent/* = nullptr*/, int blockSize/* = 3*/)
 	: QWidget(parent)
     , ui(new Ui::CPageNavigator)
 {

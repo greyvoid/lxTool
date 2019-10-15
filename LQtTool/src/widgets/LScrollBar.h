@@ -10,13 +10,15 @@
 #include <QScrollBar>
 
 ///
-/// \brief The CLScrollBar class
+/// \brief The CLScrollBar class 用于滚动分页器的滚动条定制
+/// --滚动条滚动到底部是触发信号
 ///
 class CLScrollBar : public QScrollBar
 {
+    Q_OBJECT
 public:
     explicit CLScrollBar(QWidget *parent = Q_NULLPTR);
-    explicit CLScrollBar(Qt::Orientation, QWidget *parent = Q_NULLPTR);
+    explicit CLScrollBar(Qt::Orientation ori, QWidget *parent = Q_NULLPTR);
 
 signals:
     void reachedBottom();
