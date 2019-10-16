@@ -9,7 +9,11 @@
 struct Location
 {
 public:
-    explicit Location(float _x,float _y){x=_x;y=_y;}
+    explicit Location(float _x,float _y)
+    {
+        x=_x;
+        y=_y;
+    }
     float x;
     float y;
 };

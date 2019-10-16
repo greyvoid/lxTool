@@ -53,6 +53,10 @@ QString Lqt::strRecombine(const QString & strSrc, const QString & strSplit, int 
 ///
 QString Lqt::strRecombineLine(const QString & strSrc, const QWidget* pWidget)
 {
+    if (!pWidget)
+    {
+        return strSrc;
+    }
     QString strResult;
     QFontMetrics fm(pWidget->fontMetrics());
     int nTextTotalWidthInPxs = fm.width(strSrc);

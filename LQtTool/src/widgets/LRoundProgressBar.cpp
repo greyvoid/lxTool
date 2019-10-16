@@ -1,9 +1,9 @@
-﻿#include "roundprogressbar.h"
+﻿#include "LRoundProgressBar.h"
 #include "qmath.h"
 #include <QPropertyAnimation>
 #include <QDebug>
 
-RoundProgressBar::RoundProgressBar(QWidget *parent) :
+CLRoundProgressBar::CLRoundProgressBar(QWidget *parent) :
     QWidget(parent),_value(0),_min(0),_max(100),_precision(0)
 {
     //设置初始角度，顺时针逆时针
@@ -25,34 +25,34 @@ RoundProgressBar::RoundProgressBar(QWidget *parent) :
     //设置默认精度
     setPrecision(0);
     //设置内圈默认文字样式
-    setInnerDefaultTextStyle(RoundProgressBar::percent);
+    setInnerDefaultTextStyle(CLRoundProgressBar::percent);
 }
 
-RoundProgressBar::~RoundProgressBar()
+CLRoundProgressBar::~CLRoundProgressBar()
 {
 }
 
 //********************************************** 外部接口 ****************************************
 //设置初始角度，顺时针逆时针
-void RoundProgressBar::setdefault(int startAngle,bool clockWise)
+void CLRoundProgressBar::setdefault(int startAngle,bool clockWise)
 {
     _startAngle=startAngle;
     _clockWise=clockWise;
 }
 
 //设置外圈宽度
-void RoundProgressBar::setOutterBarWidth(float width)
+void CLRoundProgressBar::setOutterBarWidth(float width)
 {
     _outterBarWidth=width;
 }
 //设置内圈宽度
-void RoundProgressBar::setInnerBarWidth(float width)
+void CLRoundProgressBar::setInnerBarWidth(float width)
 {
     _innerBarWidth=width;
 }
 
 //设置值的范围
-void RoundProgressBar::setRange(float min,float max)
+void CLRoundProgressBar::setRange(float min,float max)
 {
     //todo 和value比较
     if(max<min)
@@ -68,7 +68,7 @@ void RoundProgressBar::setRange(float min,float max)
 }
 
 //设置当前值
-void RoundProgressBar::setValue(float value)
+void CLRoundProgressBar::setValue(float value)
 {
     QPropertyAnimation* animation=new QPropertyAnimation(this,"_value");
     animation->setDuration(500);
@@ -78,50 +78,50 @@ void RoundProgressBar::setValue(float value)
     animation->start();
 }
 
-void RoundProgressBar::_setValue(float value)
+void CLRoundProgressBar::_setValue(float value)
 {
     _value=value;
     repaint();
 }
 
 //设置外圈颜色
-void RoundProgressBar::setOutterColor(const QColor& outterColor)
+void CLRoundProgressBar::setOutterColor(const QColor& outterColor)
 {
     _outterColor=outterColor;
 }
 
 //设置内圈渐变色
-void RoundProgressBar::setInnerColor(const QColor& startColor,const QColor& endColor)
+void CLRoundProgressBar::setInnerColor(const QColor& startColor,const QColor& endColor)
 {
     _startColor=startColor;
     _endColor=endColor;
 }
 
 //设置内圈渐变色
-void RoundProgressBar::setInnerColor(const QColor& startColor)
+void CLRoundProgressBar::setInnerColor(const QColor& startColor)
 {
     _startColor=startColor;
 }
 
-void RoundProgressBar::setDefaultTextColor(const QColor& textColor)
+void CLRoundProgressBar::setDefaultTextColor(const QColor& textColor)
 {
     _textColor=textColor;
 }
 
 //设置控制
-void RoundProgressBar::setControlFlags(int flags)
+void CLRoundProgressBar::setControlFlags(int flags)
 {
     this->_controlFlags|=flags;
 }
 
 //设置显示数字精度
-void RoundProgressBar::setPrecision(int precision)
+void CLRoundProgressBar::setPrecision(int precision)
 {
     _precision=precision;
 }
 
 //********************************************** 内部绘制部分 ****************************************
-void RoundProgressBar::resizeEvent(QResizeEvent *event)
+void CLRoundProgressBar::resizeEvent(QResizeEvent *event)
 {
     //根据内外圈宽度设置控件最小大小
     if(_outterBarWidth>_innerBarWidth)
@@ -132,7 +132,7 @@ void RoundProgressBar::resizeEvent(QResizeEvent *event)
     caculateSquare();
 }
 
-void RoundProgressBar::paintEvent(QPaintEvent *)
+void CLRoundProgressBar::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -148,7 +148,7 @@ void RoundProgressBar::paintEvent(QPaintEvent *)
 }
 
 //计算绘制正方形区域信息
-void RoundProgressBar::caculateSquare()
+void CLRoundProgressBar::caculateSquare()
 {
     int minWidth=qMin(this->width(),this->height());
     float barWidth=qMax(_outterBarWidth,_innerBarWidth);
@@ -159,7 +159,7 @@ void RoundProgressBar::caculateSquare()
 }
 
 //绘制外圈
-void RoundProgressBar::paintOutterBar(QPainter &painter)
+void CLRoundProgressBar::paintOutterBar(QPainter &painter)
 {
     if(!(_controlFlags&outterCirle))
         return;
@@ -173,7 +173,7 @@ void RoundProgressBar::paintOutterBar(QPainter &painter)
 }
 
 //绘制内圈
-void RoundProgressBar::paintInnerBar(QPainter& painter)
+void CLRoundProgressBar::paintInnerBar(QPainter& painter)
 {
     QPen pen;
     if(!(_controlFlags&linearColor))
@@ -199,7 +199,7 @@ void RoundProgressBar::paintInnerBar(QPainter& painter)
 }
 
 //绘制装饰圆点
-void RoundProgressBar::paintDot(QPainter& painter)
+void CLRoundProgressBar::paintDot(QPainter& painter)
 {
     if(!(_controlFlags&decorateDot))
         return;
@@ -213,7 +213,7 @@ void RoundProgressBar::paintDot(QPainter& painter)
 }
 
 //绘制默认内置文字
-void RoundProgressBar::paintText(QPainter& painter)
+void CLRoundProgressBar::paintText(QPainter& painter)
 {
     if(!(_controlFlags&defaultText))
         return;

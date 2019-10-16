@@ -6,14 +6,15 @@
 
 #define Abs(x) ((x)>=0?(x):-(x))
 
-class RoundProgressBar : public QWidget
+class CLRoundProgressBar : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(float _value READ getValue WRITE _setValue)
 
 public:
-    explicit RoundProgressBar(QWidget *parent = 0);
-    ~RoundProgressBar();
+    explicit CLRoundProgressBar(QWidget *parent = 0);
+    ~CLRoundProgressBar();
+
     //控制变量
     enum SwitchFlags
     {
@@ -30,6 +31,7 @@ public:
         //显示所有效果
         all         =0xffffffff
     };
+
     //内部文字展示样式
     enum InnerDefaultTextStyle
     {

@@ -27,6 +27,9 @@
        <widget class="CLSliderButton" name="sliderButton" native="true"/>
       </item>
       <item>
+       <widget class="CLLoadingWidget" name="loadingWidget" native="true"/>
+      </item>
+      <item>
        <widget class="CLProgressIndicator" name="progressIndicator" native="true"/>
       </item>
       <item>
@@ -85,6 +88,12 @@
    <class>CLsxTabMenu</class>
    <extends>QWidget</extends>
    <header>widgets/LsxTabMenu.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CLLoadingWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/LLoadingWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

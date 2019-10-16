@@ -38,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //
     ui->progressIndicator->startAnimation();
 
+    ui->loadingWidget->start();
+
     // Tomast控件
 
 }
