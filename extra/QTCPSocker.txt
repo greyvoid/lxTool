@@ -1,0 +1,15 @@
+QTcpSocket的基本能操作：
+1、调用connectToHost连接服务器。
+2、调用waitForConnected判断是否连接成功。
+3、连接信号readyRead槽函数，异步读取数据。
+4、调用waitForReadyRead，阻塞读取数据。
+
+
+用Qt的TCP的write之后，是不会直接从网口发送出去，而是写到了本地缓冲区了。因为Qt采用的是异步方式，write不会阻塞，是直接返回的，数据并没有真正立即从网口发出去，而这时如果write的频率过高则会将数据全部写入缓冲区（我测试的时候大概估计1000微妙以上的间隔才会发送，要不会一直写缓存），当频度降到一个值之后才会发送。所以一般如果有循环write，都是在write后面调用waitForBytesWritten阻塞，等待数据从网口发出，触发 bytesWritten()信号之后在继续程序。
+
+waitForConnected() 等待链接的建立
+waitForReadyRead() 等待新数据的到来
+waitForBytesWritten() 等待数据写入socket
+waitForDisconnected() 等待链接断开
+
+tcpsocket->write((char *)&mesg, sizeof(mesginfo));mesg是一个结构体typedef struct mesginfo{    mesgMode MESGMODE;      //消息模式    Info info;                              //消息信息    QString mesg;                   //消息内容【主要内容】    QString mesgadd;            //消息附加内容【接收者|发送者|发送时间】}mesginfo;服务器端read读取：tempsocket->read((char*)&mesg, sizeof(mesginfo));

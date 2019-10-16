@@ -9,7 +9,6 @@ SOURCES +=\
     $$PWD/network/LTcpServer.cpp \
     $$PWD/network/LTcpThread.cpp \
     $$PWD/network/LTcpClient.cpp \
-    $$PWD/widgets/CompleteLineEdit.cpp \
     $$PWD/widgets/buttons/LsxButton.cpp \
     $$PWD/widgets/buttons/LsxRadioButton.cpp \
     $$PWD/widgets/buttons/LSwitchButton.cpp \
@@ -30,7 +29,11 @@ SOURCES +=\
     $$PWD/widgets/PageNavigator.cpp \
     $$PWD/widgets/LProgressIndicator.cpp \
     $$PWD/widgets/LLoadingWidget.cpp \
-    $$PWD/widgets/LRoundProgressBar.cpp
+    $$PWD/widgets/LRoundProgressBar.cpp \
+    $$PWD/widgets/lineEdits/CompleteLineEdit.cpp \
+    $$PWD/widgets/lineEdits/LSearchEdit.cpp \
+    $$PWD/widgets/LHeadView.cpp \
+    $$PWD/widgets/TextMovingWidget.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -44,7 +47,6 @@ HEADERS  += \
     $$PWD/network/LTcpThread.h \
     $$PWD/network/LTcpClient.h \
     $$PWD/network/LNetDef.h \
-    $$PWD/widgets/CompleteLineEdit.h \
     $$PWD/widgets/widgets.h \
     $$PWD/widgets/buttons/LsxButton.h \
     $$PWD/widgets/buttons/LsxRadioButton.h \
@@ -67,7 +69,11 @@ HEADERS  += \
     $$PWD/widgets/PageNavigator.h \
     $$PWD/widgets/LProgressIndicator.h \
     $$PWD/widgets/LLoadingWidget.h \
-    $$PWD/widgets/LRoundProgressBar.h
+    $$PWD/widgets/LRoundProgressBar.h \
+    $$PWD/widgets/lineEdits/CompleteLineEdit.h \
+    $$PWD/widgets/lineEdits/LSearchEdit.h \
+    $$PWD/widgets/LHeadView.h \
+    $$PWD/widgets/TextMovingWidget.h
 
 FORMS += \
     $$PWD/widgets/LMessageBox.ui \

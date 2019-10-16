@@ -18,6 +18,8 @@ TEMPLATE = lib
 #vclib - create a lib of Visual Studio project
 
 CONFIG += c++11
+
+#预处理程序定义
 DEFINES += L_QT_TOOL
 
 # 指明编译的目标文件的输出路径
@@ -35,6 +37,7 @@ include(LQtTool.pri)
 
 # 要执行copy_head.bat需要清除项目重新构建
 # 定义输出路径
+#{不可换行
 win32{
 system(.\copy_head.bat)
     #CONFIG += debug_and_release #一万个草泥马
