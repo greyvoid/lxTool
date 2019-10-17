@@ -4,26 +4,8 @@
 #include <QWidget>
 #include <QHBoxLayout>
 #include <QMenu>
-#include <QCommonStyle>
 
 #include "buttons/LsxRadioButton.h"
-
-class CustomIconStyle : public QCommonStyle
-{
-    Q_OBJECT
-
-public:
-    CustomIconStyle();
-    ~CustomIconStyle();
-
-    void SetCustomSize(int);
-
-    //protected:
-    virtual int pixelMetric(PixelMetric metric, const QStyleOption * option, const QWidget * widget) const;
-
-private:
-    int mSize;
-};
 
 
 class CLsxTabMenu: public QWidget
@@ -51,13 +33,6 @@ private:
     int m_nLastSelectedIndex; //last select
     int m_nIndex; //current select
 };
-
-
-///
-/// \brief The Menu class
-///
-
-
 
 
 

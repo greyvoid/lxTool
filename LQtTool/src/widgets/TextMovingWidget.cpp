@@ -1,5 +1,8 @@
 #include "TextMovingWidget.h"
 
+#include <QTimer>
+#include <QPainter>
+
 TextMovingWidget::TextMovingWidget(const QString str ,QWidget *parent)
     : QWidget(parent),_text(str),m_direction(1),m_x(0)
 {

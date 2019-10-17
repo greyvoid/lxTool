@@ -1,5 +1,9 @@
 #ifndef TEXTMOVINGWIDGET_H
 #define TEXTMOVINGWIDGET_H
+#include <QWidget>
+
+class QTimer;
+
 
 ///
 /// \brief The TextMovingWidget class 跑马灯（走马灯）horse race lamp

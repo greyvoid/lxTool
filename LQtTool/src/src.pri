@@ -33,7 +33,10 @@ SOURCES +=\
     $$PWD/widgets/lineEdits/CompleteLineEdit.cpp \
     $$PWD/widgets/lineEdits/LSearchEdit.cpp \
     $$PWD/widgets/LHeadView.cpp \
-    $$PWD/widgets/TextMovingWidget.cpp
+    $$PWD/widgets/TextMovingWidget.cpp \
+    $$PWD/widgets/LNumKeyBoard.cpp \
+    $$PWD/styles/LIconStyle.cpp \
+    $$PWD/util/L9GridImageUtil.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -73,8 +76,12 @@ HEADERS  += \
     $$PWD/widgets/lineEdits/CompleteLineEdit.h \
     $$PWD/widgets/lineEdits/LSearchEdit.h \
     $$PWD/widgets/LHeadView.h \
-    $$PWD/widgets/TextMovingWidget.h
+    $$PWD/widgets/TextMovingWidget.h \
+    $$PWD/widgets/LNumKeyBoard.h \
+    $$PWD/styles/LIconStyle.h \
+    $$PWD/util/L9GridImageUtil.h
 
 FORMS += \
     $$PWD/widgets/LMessageBox.ui \
-    $$PWD/widgets/PageNavigator.ui
+    $$PWD/widgets/PageNavigator.ui \
+    $$PWD/widgets/LNumKeyBoard.ui
