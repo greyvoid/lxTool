@@ -36,7 +36,12 @@ SOURCES +=\
     $$PWD/widgets/TextMovingWidget.cpp \
     $$PWD/widgets/LNumKeyBoard.cpp \
     $$PWD/styles/LIconStyle.cpp \
-    $$PWD/util/L9GridImageUtil.cpp
+    $$PWD/util/L9GridImageUtil.cpp \
+    $$PWD/LFileSysOperate.cpp \
+    $$PWD/LOperateTip.cpp \
+    $$PWD/LVersion.cpp \
+    $$PWD/lversioninfo.cpp \
+    $$PWD/LXmlOperate.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -79,7 +84,12 @@ HEADERS  += \
     $$PWD/widgets/TextMovingWidget.h \
     $$PWD/widgets/LNumKeyBoard.h \
     $$PWD/styles/LIconStyle.h \
-    $$PWD/util/L9GridImageUtil.h
+    $$PWD/util/L9GridImageUtil.h \
+    $$PWD/LFileSysOperate.h \
+    $$PWD/LOperateTip.h \
+    $$PWD/LVersion.h \
+    $$PWD/lversioninfo.h \
+    $$PWD/LXmlOperate.h
 
 FORMS += \
     $$PWD/widgets/LMessageBox.ui \
