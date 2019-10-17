@@ -23,6 +23,26 @@
     int pixelMetric ( PixelMetric pm, const QStyleOption * opt, const QWidget * widget) const;
 */
 // QProxyStyle实现了QStyle所有的抽象接口,并且默认保持系统风格
+
+
+//根据QT4文档的说明，windows下支持 "windows", "motif", "cde", "plastique" and "cleanlooks"
+//而QT5文档说明，windows下只支持 "windows" and "fusion"
+//int main(int argc, char *argv[])
+//{
+//    QApplication a(argc, argv);
+
+//    QStringList keyList = QStyleFactory::keys();
+
+//        for(int i = 0; i < keyList.length(); i++)
+//        {
+//            qDebug(keyList.at(i).toUtf8());
+//        }
+
+
+//    //QApplication::setStyle(QStyleFactory::create("fusion"));
+//    //QApplication::setStyle(QStyleFactory::create("Windows"));
+//    //QApplication::setStyle(QStyleFactory::create("WindowsXP"));
+//    QApplication::setStyle(QStyleFactory::create("WindowsVista"));
 class CLIconStyle : public QCommonStyle
 {
     Q_OBJECT

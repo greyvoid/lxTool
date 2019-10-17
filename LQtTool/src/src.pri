@@ -41,7 +41,8 @@ SOURCES +=\
     $$PWD/LOperateTip.cpp \
     $$PWD/LVersion.cpp \
     $$PWD/lversioninfo.cpp \
-    $$PWD/LXmlOperate.cpp
+    $$PWD/LXmlOperate.cpp \
+    $$PWD/styles/bronzestyle.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -89,7 +90,8 @@ HEADERS  += \
     $$PWD/LOperateTip.h \
     $$PWD/LVersion.h \
     $$PWD/lversioninfo.h \
-    $$PWD/LXmlOperate.h
+    $$PWD/LXmlOperate.h \
+    $$PWD/styles/bronzestyle.h
 
 FORMS += \
     $$PWD/widgets/LMessageBox.ui \
