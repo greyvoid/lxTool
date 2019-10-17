@@ -65,7 +65,6 @@ HEADERS += \
     src/datastructure/LBuffer.h
 
 SOURCES += \
-    src/patterns/CSingleton.cpp \
     src/template/Utility.cpp \
     src/global/bin.c \
     src/LStdFunc.cpp \
@@ -74,7 +73,8 @@ SOURCES += \
     src/crypto/LAesEx.cpp \
     src/crypto/LMd5.cpp \
     src/crypto/LEncrypt.cpp \
-    src/datastructure/LBuffer.cc
+    src/datastructure/LBuffer.cc \
+    src/patterns/Singleton.cpp
 
 INCLUDEPATH += $$PWD\src
 
