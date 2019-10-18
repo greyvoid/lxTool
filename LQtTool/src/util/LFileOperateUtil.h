@@ -2,8 +2,8 @@
  * 一些常用的文件操作
  *
  * *******************************************************************************/
-#ifndef LFILESYSOPERATE_H
-#define LFILESYSOPERATE_H
+#ifndef L_FILE_OPERATE_UTIL_H
+#define L_FILE_OPERATE_UTIL_H
 
 #include <QObject>
 
@@ -15,12 +15,12 @@
 // 完整基础文件名 completeBaseName
 // qt常用文件系统操作类有QFile、QFileInfo、QDir
 
-class LFileSysOperate : public QObject
+class CLFileOperateUtil : public QObject
 {
     Q_OBJECT
 public:
-    explicit LFileSysOperate(QObject *parent = 0);
-    ~LFileSysOperate();
+    explicit CLFileOperateUtil(QObject *parent = 0);
+    ~CLFileOperateUtil();
 
 signals:
 
@@ -50,4 +50,4 @@ private:
 
 };
 
-#endif // LFILESYSOPERATE_H
+#endif // L_FILE_OPERATE_UTIL_H

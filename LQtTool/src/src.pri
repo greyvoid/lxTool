@@ -37,12 +37,11 @@ SOURCES +=\
     $$PWD/widgets/LNumKeyBoard.cpp \
     $$PWD/styles/LIconStyle.cpp \
     $$PWD/util/L9GridImageUtil.cpp \
-    $$PWD/LFileSysOperate.cpp \
-    $$PWD/LOperateTip.cpp \
-    $$PWD/LVersion.cpp \
-    $$PWD/lversioninfo.cpp \
-    $$PWD/LXmlOperate.cpp \
-    $$PWD/styles/bronzestyle.cpp
+    $$PWD/styles/bronzestyle.cpp \
+    $$PWD/util/LFileOperateUtil.cpp \
+    $$PWD/widgets/LOperateTip.cpp \
+    $$PWD/core/LVersion.cpp \
+    $$PWD/util/LXmlOperateUtil.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -86,12 +85,11 @@ HEADERS  += \
     $$PWD/widgets/LNumKeyBoard.h \
     $$PWD/styles/LIconStyle.h \
     $$PWD/util/L9GridImageUtil.h \
-    $$PWD/LFileSysOperate.h \
-    $$PWD/LOperateTip.h \
-    $$PWD/LVersion.h \
-    $$PWD/lversioninfo.h \
-    $$PWD/LXmlOperate.h \
-    $$PWD/styles/bronzestyle.h
+    $$PWD/styles/bronzestyle.h \
+    $$PWD/util/LFileOperateUtil.h \
+    $$PWD/widgets/LOperateTip.h \
+    $$PWD/core/LVersion.h \
+    $$PWD/util/LXmlOperateUtil.h
 
 FORMS += \
     $$PWD/widgets/LMessageBox.ui \

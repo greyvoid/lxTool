@@ -8,8 +8,8 @@
 // 通过DOM方式 -- 本类使用此方法
 // 通过QXmlSimpleReader
 
-#ifndef MY_XML_OPERATE_H
-#define MY_XML_OPERATE_H
+#ifndef L_XML_OPERATE_UTIL_H
+#define L_XML_OPERATE_UTIL_H
 
 
 #include <QObject>
@@ -17,14 +17,14 @@
 #include <QDomElement>
 #include <QDomNode>
 
-class LXmlOperate : public QObject
+class CLXmlOperateUtil : public QObject
 {
     Q_OBJECT
 
 public:
-    LXmlOperate(QObject *parent = 0);
-    LXmlOperate(const QString strXmlFile, QObject *parent = 0);
-    ~LXmlOperate();
+    CLXmlOperateUtil(QObject *parent = 0);
+    CLXmlOperateUtil(const QString strXmlFile, QObject *parent = 0);
+    ~CLXmlOperateUtil();
 
     // 静态方法
 
@@ -43,5 +43,5 @@ private:
     QDomElement m_elementRoot;  //根节点
 };
 
-#endif
+#endif //L_XML_OPERATE_UTIL_H
 

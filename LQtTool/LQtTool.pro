@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia axcontainer
+QT       += core gui multimedia axcontainer xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

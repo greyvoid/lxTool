@@ -1,25 +1,25 @@
-#include "LXmlOperate.h"
+#include "LXmlOperateUtil.h"
 #include <QFile>
 #include <QtDebug>
 
 
-LXmlOperate::LXmlOperate(QObject *parent)
+CLXmlOperateUtil::CLXmlOperateUtil(QObject *parent)
 {
 
 }
 
-LXmlOperate::LXmlOperate(const QString strXmlFile, QObject *parent)
+CLXmlOperateUtil::CLXmlOperateUtil(const QString strXmlFile, QObject *parent)
 {
     loadXmlFile(strXmlFile);
 }
 
-LXmlOperate::~LXmlOperate()
+CLXmlOperateUtil::~CLXmlOperateUtil()
 {
 
 }
 
 // 把xml文件中的内容加载后生成QDomDocument
-bool LXmlOperate::loadXmlFile(const QString strXmlFile)
+bool CLXmlOperateUtil::loadXmlFile(const QString strXmlFile)
 {
     QFile file(strXmlFile);
     if (!file.open(QIODevice::ReadOnly))
@@ -40,7 +40,7 @@ bool LXmlOperate::loadXmlFile(const QString strXmlFile)
 
 
 // 将QDomDocument中的xml信息保存到文件中
-bool LXmlOperate::saveXmlFile(const QString strXmlFile)
+bool CLXmlOperateUtil::saveXmlFile(const QString strXmlFile)
 {
     QFile file(strXmlFile);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate))
@@ -57,7 +57,7 @@ bool LXmlOperate::saveXmlFile(const QString strXmlFile)
 }
 
 // 在xml文档根节点寻找指定tagName的一级节点list，找到，则返回该节点list的第一个的内容
-QString LXmlOperate::getFirstElementTextByTagName(const QString &tagName)
+QString CLXmlOperateUtil::getFirstElementTextByTagName(const QString &tagName)
 {
     QString strContent = "";
     QDomNodeList nodeList = m_doc.documentElement().elementsByTagName(tagName);
@@ -70,7 +70,7 @@ QString LXmlOperate::getFirstElementTextByTagName(const QString &tagName)
 }
 
 // 在指定的xml节点的子节点cmdElem中寻找指定tagName的第一个节点，找到，则修改该节点的text
-void LXmlOperate::setFirstElementTextByTagName(const QString &tagName, const QString &text)
+void CLXmlOperateUtil::setFirstElementTextByTagName(const QString &tagName, const QString &text)
 {
     // 根节点
     m_elementRoot = m_doc.documentElement();
@@ -84,7 +84,7 @@ void LXmlOperate::setFirstElementTextByTagName(const QString &tagName, const QSt
 }
 
 // 删除所有子节点
-void LXmlOperate::clearAllChildNodes()
+void CLXmlOperateUtil::clearAllChildNodes()
 {
    // m_nodeRoot.clear();
     while (!(m_nodeRoot.firstChild().isNull()))

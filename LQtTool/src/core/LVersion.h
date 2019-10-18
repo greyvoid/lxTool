@@ -12,15 +12,15 @@
 //主版本号 . 子版本号 [. 修正版本号 [. 编译版本号 ]]
 //Major_Version_Number.Minor_Version_Number[.Revision_Number[.Build_Number]]
 //示例 : 1.2.1, 2.0, 5.0.0 build-13124
-class LVersion : public QObject
+class CLVersion : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit LVersion(QString strVersion, QObject *parent = 0);
-    ~LVersion();
+    explicit CLVersion(QString strVersion, QObject *parent = 0);
+    ~CLVersion();
 
-    bool operator > (const LVersion & rhs);
+    bool operator > (const CLVersion & rhs);
 
 
 public:
@@ -33,7 +33,7 @@ public:
 
 
 
-int CompareVersion(QString strVer1, QString strVer2);
+int compareVersion(QString strVer1, QString strVer2);
 
 
 

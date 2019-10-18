@@ -30,9 +30,9 @@ static const char *c_szWaring = QT_TRANSLATE_NOOP("GMPOperateTip", "操作失败
 *@param[in]   parent：父窗口；strText：提示框内容；nShowTime：显示时长； nAnimationTime：消失动画时长
 *@return       void
 */
-void LOperateTip::fadeOut(QWidget * parent, QString strText, const unsigned int nShowTime, const unsigned int nAnimationTime)
+void CLOperateTip::fadeOut(QWidget * parent, QString strText, const unsigned int nShowTime, const unsigned int nAnimationTime)
 {
-    LOperateTip * tipWidget = new LOperateTip(parent);
+    CLOperateTip * tipWidget = new CLOperateTip(parent);
 	tipWidget->setAnimationMode(AM_FADEOUT);
 	tipWidget->setText(strText);
 	tipWidget->setStayTime(nShowTime);
@@ -46,10 +46,10 @@ void LOperateTip::fadeOut(QWidget * parent, QString strText, const unsigned int 
 *@param[in]   parent：父窗口；strText：提示框内容；direction：飞出方向；nShowTime：显示时长； nAnimationTime：消失动画时长
 *@return       void
 */
-void LOperateTip::flyOut(QWidget * parent, QString strText, Direction direction, const unsigned int nShowTime,
+void CLOperateTip::flyOut(QWidget * parent, QString strText, Direction direction, const unsigned int nShowTime,
                         const unsigned int nAnimationTime)
 {
-    LOperateTip * tipWidget = new LOperateTip(parent);
+    CLOperateTip * tipWidget = new CLOperateTip(parent);
 	tipWidget->setAnimationMode(AM_FLYOUT);
 	tipWidget->setStyleSheet(c_szStyleSheet.arg("#12B33D").arg("#2ABB51"));
 	tipWidget->setText(strText);
@@ -65,10 +65,10 @@ void LOperateTip::flyOut(QWidget * parent, QString strText, Direction direction,
 *@param[in]   parent：父窗口；strText：提示框内容；color：背景色；animation：动画模式；direction：飞出方向；nShowTime：显示时长； nAnimationTime：消失动画时长
 *@return       void
 */
-void LOperateTip::colorize(QWidget * parent, QString strText, const QColor & color, AnimationMode animation,
+void CLOperateTip::colorize(QWidget * parent, QString strText, const QColor & color, AnimationMode animation,
                           Direction direction, const unsigned int nShowTime, const unsigned int nAnimationTime)
 {
-    LOperateTip * tipWidget = new LOperateTip(parent);
+    CLOperateTip * tipWidget = new CLOperateTip(parent);
 	tipWidget->setText(strText);
 	tipWidget->setBackgroundColor(color);
 	tipWidget->setAnimationMode(animation);
@@ -84,9 +84,9 @@ void LOperateTip::colorize(QWidget * parent, QString strText, const QColor & col
 *@param[in]   parent：父窗口；strText：提示框内容；nShowTime：显示时长； nAnimationTime：消失动画时长
 *@return       void
 */
-void LOperateTip::waring(QWidget * parent, QString strText, const unsigned int nShowTime, const unsigned int nAnimationTime)
+void CLOperateTip::waring(QWidget * parent, QString strText, const unsigned int nShowTime, const unsigned int nAnimationTime)
 {
-    LOperateTip * tipWidget = new LOperateTip(parent);
+    CLOperateTip * tipWidget = new CLOperateTip(parent);
 	tipWidget->setAnimationMode(AM_FLYOUT);
 	tipWidget->setFlyoutDirection(D_TOP);
     tipWidget->setIcon(":/Resources/image/warning.png");
@@ -110,9 +110,9 @@ void LOperateTip::waring(QWidget * parent, QString strText, const unsigned int n
 *@param[in]   parent：父窗口；strText：提示框内容；nShowTime：显示时长； nAnimationTime：消失动画时长
 *@return       void
 */
-void LOperateTip::success(QWidget * parent, QString strText, const unsigned int nShowTime, const unsigned int nAnimationTime)
+void CLOperateTip::success(QWidget * parent, QString strText, const unsigned int nShowTime, const unsigned int nAnimationTime)
 {
-    LOperateTip * tipWidget = new LOperateTip(parent);
+    CLOperateTip * tipWidget = new CLOperateTip(parent);
 	tipWidget->setStyleSheet(c_szStyleSheet.arg("#12B33D").arg("#2ABB51"));
 	tipWidget->setAnimationMode(AM_FLYOUT);
 	tipWidget->setFlyoutDirection(D_TOP);
@@ -130,7 +130,7 @@ void LOperateTip::success(QWidget * parent, QString strText, const unsigned int 
 	tipWidget->show();
 }
 
-LOperateTip::LOperateTip(QWidget * parent)
+CLOperateTip::CLOperateTip(QWidget * parent)
 	: QWidget(parent)
 	, m_eMode(AM_FLYOUT)
 	, m_eDirection(D_TOP)
@@ -157,7 +157,7 @@ LOperateTip::LOperateTip(QWidget * parent)
 	m_StayTimer.setSingleShot(true);
 }
 
-LOperateTip::~LOperateTip()
+CLOperateTip::~CLOperateTip()
 {
     m_pLabelIcon = nullptr;
     m_pLabelText = nullptr;
@@ -168,7 +168,7 @@ LOperateTip::~LOperateTip()
 }
 
 // 设置文本内容
-void LOperateTip::setText(const QString & text)
+void CLOperateTip::setText(const QString & text)
 {
     if (m_pLabelText)
 	{
@@ -177,7 +177,7 @@ void LOperateTip::setText(const QString & text)
 }
 
 // 设置图标
-void LOperateTip::setIcon(const QString & icon)
+void CLOperateTip::setIcon(const QString & icon)
 {
     if (m_pLabelIcon)
 	{
@@ -186,7 +186,7 @@ void LOperateTip::setIcon(const QString & icon)
 }
 
 // 设置背景色
-void LOperateTip::setBackgroundColor(const QColor & color)
+void CLOperateTip::setBackgroundColor(const QColor & color)
 {
 	QColor border = color;
 	border.setAlpha(255 * 0.1);
@@ -195,7 +195,7 @@ void LOperateTip::setBackgroundColor(const QColor & color)
 }
 
 // 消失动画模式
-void LOperateTip::setAnimationMode(AnimationMode mode)
+void CLOperateTip::setAnimationMode(AnimationMode mode)
 {
 	if (m_eMode == mode)
 	{
@@ -206,7 +206,7 @@ void LOperateTip::setAnimationMode(AnimationMode mode)
 }
 
 // 消失动画为飞出时有效 设置飞出方向
-void LOperateTip::setFlyoutDirection(Direction direction)
+void CLOperateTip::setFlyoutDirection(Direction direction)
 {
 	if (m_eDirection == direction)
 	{
@@ -217,7 +217,7 @@ void LOperateTip::setFlyoutDirection(Direction direction)
 }
 
 // 设置是否启用提示框阴影
-void LOperateTip::setShadowEnable(bool enable)
+void CLOperateTip::setShadowEnable(bool enable)
 {
     if (!m_pDropShadowEffect)
 	{
@@ -231,19 +231,19 @@ void LOperateTip::setShadowEnable(bool enable)
 }
 
 // 设置提示框消失动画时长
-void LOperateTip::setAnimationdDuration(int duration)
+void CLOperateTip::setAnimationdDuration(int duration)
 {
 	m_DurationTime = duration;
 }
 
 // 设置提示框停留时长
-void LOperateTip::setStayTime(int time)
+void CLOperateTip::setStayTime(int time)
 {
 	m_iStayDuration = time;
 }
 
 //  重写窗口事件函数，当窗口显示时启动定时器
-bool LOperateTip::event(QEvent * e)
+bool CLOperateTip::event(QEvent * e)
 {
 	if (e->type() == QEvent::Show)
 	{
@@ -260,13 +260,13 @@ bool LOperateTip::event(QEvent * e)
     return QWidget::event(e);
 }
 
-void LOperateTip::paintEvent(QPaintEvent *)
+void CLOperateTip::paintEvent(QPaintEvent *)
 {
 
 }
 
 // 提示框内部布局，可重写
-void LOperateTip::layoutIconAndLabel(QHBoxLayout * layout)
+void CLOperateTip::layoutIconAndLabel(QHBoxLayout * layout)
 {
     m_pLabelIcon = new QLabel(this);
     QPixmap pixmap(":/Resources/image/success.png");
@@ -285,7 +285,7 @@ void LOperateTip::layoutIconAndLabel(QHBoxLayout * layout)
 }
 
 // 初始化住界面布局
-void LOperateTip::initUI()
+void CLOperateTip::initUI()
 {
     QHBoxLayout *hLay = new QHBoxLayout;
     hLay->setContentsMargins(10, 4, 11, 6);
@@ -307,12 +307,12 @@ void LOperateTip::initUI()
 }
 
 // 初始化动画，并添加定时器槽函数
-void LOperateTip::initConnect()
+void CLOperateTip::initConnect()
 {
     m_pPropertyAnim = new QPropertyAnimation(this);
     m_pPropertyAnim->setTargetObject(this);
 
-    connect(m_pPropertyAnim, &QPropertyAnimation::finished, this, &LOperateTip::close);
+    connect(m_pPropertyAnim, &QPropertyAnimation::finished, this, &CLOperateTip::close);
 
 	connect(&m_StayTimer, &QTimer::timeout, this, [this]{
         m_pPropertyAnim->setDuration(m_DurationTime);
@@ -336,7 +336,7 @@ void LOperateTip::initConnect()
 }
 
 // 提示框缩小动画
-void LOperateTip::zoomIn()
+void CLOperateTip::zoomIn()
 {
     m_pPropertyAnim->setPropertyName("geometry");
 
@@ -349,7 +349,7 @@ void LOperateTip::zoomIn()
 }
 
 // 提示框飞出动画
-void LOperateTip::moveOut()
+void CLOperateTip::moveOut()
 {
     m_pPropertyAnim->setTargetObject(m_pMoveWidget);
     m_pPropertyAnim->setPropertyName("pos");
@@ -375,7 +375,7 @@ void LOperateTip::moveOut()
 }
 
 // 提示框淡出动画
-void LOperateTip::fade()
+void CLOperateTip::fade()
 {
     m_pOpacityEffect = new QGraphicsOpacityEffect(this);
     m_pOpacityEffect->setOpacity(1);

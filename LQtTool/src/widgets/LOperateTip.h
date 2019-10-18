@@ -13,7 +13,7 @@ class QHBoxLayout;
 class QPropertyAnimation;
 
 
-class LOperateTip : public QWidget
+class CLOperateTip : public QWidget
 {
     Q_OBJECT
 
@@ -49,8 +49,8 @@ public:
                         const unsigned int nAnimationTime = 500);
 
 public:
-    LOperateTip(QWidget *parent = 0);
-    virtual ~LOperateTip();
+    CLOperateTip(QWidget *parent = 0);
+    virtual ~CLOperateTip();
 
 public:
     void setText(const QString & text);

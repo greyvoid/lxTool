@@ -1,20 +1,20 @@
-#include "LFileSysOperate.h"
+#include "LFileOperateUtil.h"
 #include <QFileInfo>
 #include <QFile>
 #include <QDir>
 #include <QtDebug>
 
-LFileSysOperate::LFileSysOperate(QObject *parent) : QObject(parent)
+CLFileOperateUtil::CLFileOperateUtil(QObject *parent) : QObject(parent)
 {
 
 }
 
-LFileSysOperate::~LFileSysOperate()
+CLFileOperateUtil::~CLFileOperateUtil()
 {
 
 }
 
-QString LFileSysOperate::getExpandedName(QString strFilePath)
+QString CLFileOperateUtil::getExpandedName(QString strFilePath)
 {
     //    //method1
     //    int first = strFilePath.lastIndexOf (".");
@@ -26,7 +26,7 @@ QString LFileSysOperate::getExpandedName(QString strFilePath)
 }
 
 
-QString LFileSysOperate::getFileNameByFilePath(QString strFilePath)
+QString CLFileOperateUtil::getFileNameByFilePath(QString strFilePath)
 {
     //    //method1
     //    QFileInfo fInfo(strFilePath);
@@ -45,7 +45,7 @@ QString LFileSysOperate::getFileNameByFilePath(QString strFilePath)
     // return strFilePath.section('/', -1);
 }
 
-QString LFileSysOperate::getFileBaseName(QString strFilePath)
+QString CLFileOperateUtil::getFileBaseName(QString strFilePath)
 {
     QString strFileName = getFileNameByFilePath(strFilePath);
     int index = strFileName.lastIndexOf(".");
@@ -53,12 +53,12 @@ QString LFileSysOperate::getFileBaseName(QString strFilePath)
     return strFileName;
 }
 
-bool LFileSysOperate::s_copyFileToPath(const QString &strFileName, const QString &strDirDest, bool bCover)
+bool CLFileOperateUtil::s_copyFileToPath(const QString &strFileName, const QString &strDirDest, bool bCover)
 {
     return QFile::copy(strFileName, strDirDest);
 }
 
-bool LFileSysOperate::s_copyDirFiles(const QString &strDirSrc, const QString &strDirDest, bool bCover)
+bool CLFileOperateUtil::s_copyDirFiles(const QString &strDirSrc, const QString &strDirDest, bool bCover)
 {
     //strDirDest.replace("\\","/");
     QDir dirSrc(strDirSrc);
@@ -83,7 +83,7 @@ bool LFileSysOperate::s_copyDirFiles(const QString &strDirSrc, const QString &st
 
 
 //
-bool LFileSysOperate::copyDirFiles(const QString &strDirSrc, const QString &strDirDest, bool bCover)
+bool CLFileOperateUtil::copyDirFiles(const QString &strDirSrc, const QString &strDirDest, bool bCover)
 {
     QDir dirSrc(strDirSrc);
     QDir dirDest(strDirDest);
@@ -124,7 +124,7 @@ bool LFileSysOperate::copyDirFiles(const QString &strDirSrc, const QString &strD
 }
 
 // 递归创建目录拷贝文件
-bool LFileSysOperate::s_copyRecursionNoSignal(const QString &strDirSrc, const QString &strDirDest, bool bCover)
+bool CLFileOperateUtil::s_copyRecursionNoSignal(const QString &strDirSrc, const QString &strDirDest, bool bCover)
 {
     QDir dirSrc(strDirSrc);
     QDir dirDest(strDirDest);
@@ -170,7 +170,7 @@ bool LFileSysOperate::s_copyRecursionNoSignal(const QString &strDirSrc, const QS
 }
 
 
-bool LFileSysOperate::copyRecursion(const QString &strDirSrc, const QString &strDirDest, bool bCover)
+bool CLFileOperateUtil::copyRecursion(const QString &strDirSrc, const QString &strDirDest, bool bCover)
 {
     // 拷贝进度
     m_dirAreadyCopy++;
