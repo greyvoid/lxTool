@@ -23,7 +23,6 @@ SOURCES +=\
     $$PWD/widgets/labels/LTipLabel.cpp \
     $$PWD/LQtFunc.cpp \
     $$PWD/widgets/LMessageBox.cpp \
-    $$PWD/widgets/buttons/LSliderButton.cpp \
     $$PWD/widgets/LShadeWidget.cpp \
     $$PWD/widgets/LScrollBar.cpp \
     $$PWD/widgets/PageNavigator.cpp \
@@ -41,7 +40,10 @@ SOURCES +=\
     $$PWD/util/LFileOperateUtil.cpp \
     $$PWD/widgets/LOperateTip.cpp \
     $$PWD/core/LVersion.cpp \
-    $$PWD/util/LXmlOperateUtil.cpp
+    $$PWD/util/LXmlOperateUtil.cpp \
+    $$PWD/widgets/buttons/LSliderButtons.cpp \
+    $$PWD/widgets/buttons/LIconTextButton.cpp \
+    $$PWD/widgets/buttons/LButtonGroup.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -70,7 +72,6 @@ HEADERS  += \
     $$PWD/widgets/labels/LTipLabel.h \
     $$PWD/LQtFunc.h \
     $$PWD/widgets/LMessageBox.h \
-    $$PWD/widgets/buttons/LSliderButton.h \
     $$PWD/LQtDefine.h \
     $$PWD/widgets/LShadeWidget.h \
     $$PWD/widgets/LScrollBar.h \
@@ -89,7 +90,10 @@ HEADERS  += \
     $$PWD/util/LFileOperateUtil.h \
     $$PWD/widgets/LOperateTip.h \
     $$PWD/core/LVersion.h \
-    $$PWD/util/LXmlOperateUtil.h
+    $$PWD/util/LXmlOperateUtil.h \
+    $$PWD/widgets/buttons/LSliderButtons.h \
+    $$PWD/widgets/buttons/LIconTextButton.h \
+    $$PWD/widgets/buttons/LButtonGroup.h
 
 FORMS += \
     $$PWD/widgets/LMessageBox.ui \

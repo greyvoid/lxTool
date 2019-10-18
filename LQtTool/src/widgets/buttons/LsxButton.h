@@ -7,7 +7,11 @@ class CLsxButton: public QWidget
 {
     Q_OBJECT
 public:
-    CLsxButton(const QString text,QWidget *parent = 0);
+    CLsxButton(const QString text, QWidget *parent = 0);
+
+signals:
+    void clicked();
+
 
 protected:
     void paintEvent(QPaintEvent *e);

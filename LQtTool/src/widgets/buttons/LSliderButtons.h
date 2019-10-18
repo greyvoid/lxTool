@@ -10,13 +10,16 @@
 #include <QMouseEvent>
 #include "LQtDefine.h"
 
-
-class CLSliderButton : public QWidget
+///
+/// \brief The CLSliderButtons class 滑动按钮组
+/// 可以滑动的单选按钮组合，滑动效果为逐渐衰弱
+///
+class CLSliderButtons : public QWidget
 {
     Q_OBJECT
 public:
-    explicit CLSliderButton(QWidget *parent = 0);
-    ~CLSliderButton();
+    explicit CLSliderButtons(QWidget *parent = 0);
+    ~CLSliderButtons();
 
 public:
     void addItem(const QString& str);

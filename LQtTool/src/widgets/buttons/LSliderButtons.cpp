@@ -1,4 +1,4 @@
-#include "LSliderButton.h"
+#include "LSliderButtons.h"
 
 #define ITEM_SPACE 15           // 项之间的间隔
 #define PYSB_RECT_RADIUS 8      // 项和widget的弧度值
@@ -30,7 +30,7 @@
 #define PYSB_BAR_END_COLOR QColor(133,229,73)
 #endif
 
-CLSliderButton::CLSliderButton(QWidget *parent) :
+CLSliderButtons::CLSliderButtons(QWidget *parent) :
     QWidget(parent)
 {
     m_colorItemPoint0=QColor::fromRgb(46,132,243);
@@ -52,13 +52,13 @@ CLSliderButton::CLSliderButton(QWidget *parent) :
     setAttribute(Qt::WA_TranslucentBackground);
 }
 
-CLSliderButton::~CLSliderButton()
+CLSliderButtons::~CLSliderButtons()
 {
 
 }
 
 
-void CLSliderButton::mousePressEvent(QMouseEvent *event)
+void CLSliderButtons::mousePressEvent(QMouseEvent *event)
 {
     int nCountItem = m_vecStrRect.count();
     QString strText;
@@ -107,7 +107,7 @@ void CLSliderButton::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void CLSliderButton::paintEvent(QPaintEvent *)
+void CLSliderButtons::paintEvent(QPaintEvent *)
 {
     QPainter painter(this);
     painter.setRenderHints(QPainter::Antialiasing|QPainter::HighQualityAntialiasing);
@@ -116,7 +116,7 @@ void CLSliderButton::paintEvent(QPaintEvent *)
     drawText(&painter);
 }
 
-void CLSliderButton::setSelectItemBGColor(QColor c1, QColor c2)
+void CLSliderButtons::setSelectItemBGColor(QColor c1, QColor c2)
 {
     m_colorItemPoint0=c1;
     m_colorItemPoint1=c2;
@@ -126,7 +126,7 @@ void CLSliderButton::setSelectItemBGColor(QColor c1, QColor c2)
 /// \brief CLSliderButton::drawBar
 /// \param painter
 ///
-void CLSliderButton::drawBar(QPainter *painter)
+void CLSliderButtons::drawBar(QPainter *painter)
 {
     painter->save();
     painter->setPen(Qt::NoPen);
@@ -144,7 +144,7 @@ void CLSliderButton::drawBar(QPainter *painter)
 /// \brief CLSliderButton::drawBg 画背景 渐变色
 /// \param painter
 ///
-void CLSliderButton::drawBg(QPainter *painter)
+void CLSliderButtons::drawBg(QPainter *painter)
 {
     painter->save();
     painter->setPen(Qt::NoPen);
@@ -161,7 +161,7 @@ void CLSliderButton::drawBg(QPainter *painter)
 /// \brief CLSliderButton::drawText
 /// \param painter
 ///
-void CLSliderButton::drawText(QPainter *painter)
+void CLSliderButtons::drawText(QPainter *painter)
 {
     painter->save();
 
@@ -199,7 +199,7 @@ void CLSliderButton::drawText(QPainter *painter)
     painter->restore();
 }
 
-unsigned int CLSliderButton::getSlideIncrement()
+unsigned int CLSliderButtons::getSlideIncrement()
 {
     if(m_unTotalIncrement > 1)
         m_unTotalIncrement --;
@@ -207,7 +207,7 @@ unsigned int CLSliderButton::getSlideIncrement()
     return m_unTotalIncrement;
 }
 
-void CLSliderButton::setSlideIncrement(unsigned int nInc)
+void CLSliderButtons::setSlideIncrement(unsigned int nInc)
 {
     m_unTotalIncrement = nInc;
 }
@@ -219,7 +219,7 @@ void CLSliderButton::setSlideIncrement(unsigned int nInc)
 /// \param nDistance
 /// \return
 ///
-unsigned int CLSliderButton::createSlideIncrement(unsigned int nDistance)
+unsigned int CLSliderButtons::createSlideIncrement(unsigned int nDistance)
 {
     unsigned int n = 1;
     while(1)
@@ -236,7 +236,7 @@ unsigned int CLSliderButton::createSlideIncrement(unsigned int nDistance)
     return n * 1.414;
 }
 
-void CLSliderButton::doSliding()
+void CLSliderButtons::doSliding()
 {
 
     qreal BarX = m_rectItemDisplayer.topLeft().x();
@@ -264,7 +264,7 @@ void CLSliderButton::doSliding()
     update();
 }
 
-void CLSliderButton::doShrinking()
+void CLSliderButtons::doShrinking()
 {
     qreal BarX = m_rectItemDisplayer.topLeft().x();
     qreal BarWidth = m_rectItemDisplayer.width();
@@ -292,7 +292,7 @@ void CLSliderButton::doShrinking()
     update();
 }
 
-void CLSliderButton::addItem(const QString &str)
+void CLSliderButtons::addItem(const QString &str)
 {
     // 检查是否已经存在该项
     int nCountItem = m_vecStrRect.count();
