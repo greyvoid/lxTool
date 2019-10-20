@@ -45,56 +45,7 @@ QString Lqt::strRecombine(const QString & strSrc, const QString & strSplit, int 
     return strResult;
 }
 
-///
-/// \brief Lx::strRecombineLine 对传入的文本strSrc根据控件pWidget的宽度自动换行
-/// \param strSrc
-/// \param pWidget
-/// \return
-///
-QString Lqt::strRecombineLine(const QString & strSrc, const QWidget* pWidget)
-{
-    if (!pWidget)
-    {
-        return strSrc;
-    }
-    QString strResult;
-    QFontMetrics fm(pWidget->fontMetrics());
-    int nTextTotalWidthInPxs = fm.width(strSrc);
-    if (nTextTotalWidthInPxs <= pWidget->width())
-    {
-        strResult = strSrc;
-        return strResult;
-    }
-    // CharNum <==> bytes
-    const int nTotalCharNum = strSrc.length();
-    int nPickUpStartPos = 0;
-    int nOffset = 1;
-    QString strPickUp;
-    unsigned int nPickUpCharNum = 0;
-    unsigned int unPickUpWidthPxs = 0;
-    while (nOffset <= nTotalCharNum)
-    {
-        nPickUpCharNum = nOffset - nPickUpStartPos;
-        strPickUp = strSrc.mid(nPickUpStartPos, nPickUpCharNum);
-        unPickUpWidthPxs = fm.width(strPickUp);
-        if (unPickUpWidthPxs >= pWidget->width())
-        {
-            // 换行
-            strResult += strPickUp + "\n";
-            nPickUpStartPos = nOffset;
-            unPickUpWidthPxs = 0;
-        }
-        ++nOffset;
-    }
 
-    // 加上最后一段
-    if (!strPickUp.isEmpty())
-    {
-        strResult += strPickUp;
-    }
-
-    return strResult;
-}
 
 QString Lqt::formatBytes(quint64 qu64Size, quint8 u8ValidDigit)
 {

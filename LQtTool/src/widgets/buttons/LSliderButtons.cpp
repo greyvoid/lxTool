@@ -67,7 +67,7 @@ void CLSliderButtons::mousePressEvent(QMouseEvent *event)
         if(m_vecStrRect.at(nIndex).second.contains(event->pos()))
         {
             strText = m_vecStrRect.at(nIndex).first;
-            DEBUG_VAR(strText);
+            //DEBUG_VAR(strText);
 
             emit sig_itemClicked(strText);
 
@@ -97,7 +97,7 @@ void CLSliderButtons::mousePressEvent(QMouseEvent *event)
                 distance = 0 - distance;
             }
             QString tmp = QString("%1").arg(distance);
-            DEBUG_VAR(tmp);
+            //DEBUG_VAR(tmp);
 
 
             setSlideIncrement(createSlideIncrement((unsigned int)distance)/*PYSB_BAR_SLIDE_INCREMENT_INIT*/);

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/CLProgressIndicator.png</file>
+    </qresource>
+</RCC>

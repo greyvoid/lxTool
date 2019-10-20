@@ -11,11 +11,12 @@ contains(DEFINES,L_STD_TOOL){
 
 }
 
-CONFIG(debug, debug|release){
+#ok 换另一种方法试一试
+#CONFIG(debug, debug|release){
 
-    # DEBUG base name add 'd' suffix
-    TARGET = $$join(TARGET,,,d)
-}
+#    # DEBUG base name add 'd' suffix
+#    TARGET = $$join(TARGET,,,d)
+#}
 
 system(.\copy_head.bat)
 
@@ -47,34 +48,6 @@ win32{
 
 include(LStdTool.pri)
 
-HEADERS += \
-    src/LStdTool.h \
-    src/def/common.h \
-    src/def/func.h \
-    src/def/type.h \
-    src/template/Utility.h \
-    src/patterns/Singleton.h \
-    src/global/bin.h \
-    src/def/platform.h \
-    src/LStdFunc.h \
-    src/crypto/LAes.h \
-    src/crypto/Base64.h \
-    src/crypto/LAesEx.h \
-    src/crypto/LMd5.h \
-    src/crypto/LEncrypt.h \
-    src/datastructure/LBuffer.h
-
-SOURCES += \
-    src/template/Utility.cpp \
-    src/global/bin.c \
-    src/LStdFunc.cpp \
-    src/crypto/LAes.cpp \
-    src/crypto/Base64.cpp \
-    src/crypto/LAesEx.cpp \
-    src/crypto/LMd5.cpp \
-    src/crypto/LEncrypt.cpp \
-    src/datastructure/LBuffer.cc \
-    src/patterns/Singleton.cpp
 
 INCLUDEPATH += $$PWD\src
 

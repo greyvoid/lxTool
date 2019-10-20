@@ -8,7 +8,7 @@ namespace Lqt {
 
 void delayTime(int s);
 QString strRecombine(const QString &strSrc, const QString &strSplit, int nSplitSize);
-QString strRecombineLine(const QString &strSrc, const QWidget *pWidget);
+
 QString formatBytes(quint64 qu64Size, quint8 u8ValidDigit);
 
 // 图片处理

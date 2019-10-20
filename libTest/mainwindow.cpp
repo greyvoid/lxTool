@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include <QApplication>
 #include <vector>
+#include <QMessageBox>
+
 
 #include "CustomMainWidget.h"
 
@@ -12,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+//QMessageBox
 
     /************
      *
@@ -35,8 +38,10 @@ MainWindow::MainWindow(QWidget *parent) :
     // test CCompleteLineEdit
     ui->completeLineEdit->setListWords({"hello", "about", "you", "youuuuu"});
 
-    //
+    // 提升的部件
     ui->progressIndicator->startAnimation();
+    //自定义的插件
+    ui->progressIndicator_2->startAnimation();
 
     ui->loadingWidget->start();
 

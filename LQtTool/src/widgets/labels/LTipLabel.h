@@ -16,6 +16,8 @@ public:
         m_strReal = strReal;
     }
 
+    QString strRecombineLine(const QString &strSrc);
+
 private:
     QString m_strReal;
 

@@ -24,13 +24,23 @@
        <widget class="CLsxTabMenu" name="lsxTabMenu" native="true"/>
       </item>
       <item>
-       <widget class="CLSliderButton" name="sliderButton" native="true"/>
+       <widget class="CLSliderButtons" name="sliderButton" native="true"/>
       </item>
       <item>
        <widget class="CLLoadingWidget" name="loadingWidget" native="true"/>
       </item>
       <item>
-       <widget class="CLProgressIndicator" name="progressIndicator" native="true"/>
+       <widget class="CLProgressIndicator" name="progressIndicator"/>
+      </item>
+      <item>
+       <widget class="CLTipLabel" name="tipLabel">
+        <property name="text">
+         <string>很长的文本东方丽景水电费数量的房间里湿漉漉的第三方</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="CLProgressIndicator" name="progressIndicator_2"/>
       </item>
       <item>
        <widget class="CPageNavigator" name="pageNavigator" native="true"/>
@@ -45,7 +55,7 @@
      <x>0</x>
      <y>0</y>
      <width>802</width>
-     <height>23</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>
@@ -62,21 +72,21 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>CLSliderButton</class>
+   <class>CLProgressIndicator</class>
    <extends>QWidget</extends>
-   <header location="global">widgets/buttons/LSliderButton.h</header>
+   <header>LxWidgets/LProgressIndicator.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CLSliderButtons</class>
+   <extends>QWidget</extends>
+   <header>widgets/buttons/LSliderButtons.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>CCompleteLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>widgets/CompleteLineEdit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>CLProgressIndicator</class>
-   <extends>QWidget</extends>
-   <header>widgets/LProgressIndicator.h</header>
-   <container>1</container>
+   <header>widgets/lineEdits/CompleteLineEdit.h</header>
   </customwidget>
   <customwidget>
    <class>CPageNavigator</class>
@@ -95,6 +105,11 @@
    <extends>QWidget</extends>
    <header>widgets/LLoadingWidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CLTipLabel</class>
+   <extends>QLabel</extends>
+   <header>widgets/labels/LTipLabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

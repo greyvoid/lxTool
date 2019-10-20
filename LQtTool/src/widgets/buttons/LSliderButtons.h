@@ -8,7 +8,6 @@
 #include <QPaintEvent>
 #include <QTimer>
 #include <QMouseEvent>
-#include "LQtDefine.h"
 
 ///
 /// \brief The CLSliderButtons class 滑动按钮组
