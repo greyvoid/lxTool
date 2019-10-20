@@ -12,11 +12,11 @@ contains(DEFINES,L_STD_TOOL){
 }
 
 #ok 换另一种方法试一试
-#CONFIG(debug, debug|release){
+CONFIG(debug, debug|release){
 
-#    # DEBUG base name add 'd' suffix
-#    TARGET = $$join(TARGET,,,d)
-#}
+    # DEBUG base name add 'd' suffix
+    TARGET = $$join(TARGET,,,d)
+}
 
 system(.\copy_head.bat)
 
