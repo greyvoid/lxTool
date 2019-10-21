@@ -30,17 +30,23 @@
        <widget class="CLLoadingWidget" name="loadingWidget" native="true"/>
       </item>
       <item>
-       <widget class="CLProgressIndicator" name="progressIndicator"/>
+       <widget class="CLProgressIndicator" name="progressIndicator" native="true"/>
       </item>
       <item>
        <widget class="CLTipLabel" name="tipLabel">
+        <property name="maximumSize">
+         <size>
+          <width>30</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>很长的文本东方丽景水电费数量的房间里湿漉漉的第三方</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="CLProgressIndicator" name="progressIndicator_2"/>
+       <widget class="CLProgressIndicator" name="progressIndicator_2" native="true"/>
       </item>
       <item>
        <widget class="CPageNavigator" name="pageNavigator" native="true"/>
@@ -55,7 +61,7 @@
      <x>0</x>
      <y>0</y>
      <width>802</width>
-     <height>26</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

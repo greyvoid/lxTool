@@ -2,9 +2,8 @@
 #include <QPaintEvent>
 #include <QPainter>
 
-CLsxButton::CLsxButton(const QString text, QWidget *parent)
+CLsxButton::CLsxButton(QWidget *parent)
     : QWidget(parent)
-    , m_text(text)
     , m_rect(QRect(0, 0, 90, 25))
     , m_bPress(false)
 {

@@ -15,12 +15,14 @@ SOURCES +=\
     $$PWD/LQtFunc.cpp \
     $$PWD/styles/LIconStyle.cpp \
     $$PWD/util/L9GridImageUtil.cpp \
-    $$PWD/styles/bronzestyle.cpp \
     $$PWD/util/LFileOperateUtil.cpp \
     $$PWD/core/LVersion.cpp \
     $$PWD/util/LXmlOperateUtil.cpp \
     $$PWD/util/LRegExpUtil.cpp \
-    $$PWD/util/LCharacterEncodingUtil.cpp
+    $$PWD/util/LCharacterEncodingUtil.cpp \
+    $$PWD/styles/LBronzeStyle.cpp \
+    $$PWD/styles/LColorStyle.cpp \
+    $$PWD/styles/LTabBarVStyle.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -38,10 +40,12 @@ HEADERS  += \
     $$PWD/LQtDefine.h \
     $$PWD/styles/LIconStyle.h \
     $$PWD/util/L9GridImageUtil.h \
-    $$PWD/styles/bronzestyle.h \
     $$PWD/util/LFileOperateUtil.h \
     $$PWD/core/LVersion.h \
     $$PWD/util/LXmlOperateUtil.h \
     $$PWD/util/LRegExpUtil.h \
-    $$PWD/util/LCharacterEncodingUtil.h
+    $$PWD/util/LCharacterEncodingUtil.h \
+    $$PWD/styles/LBronzeStyle.h \
+    $$PWD/styles/LColorStyle.h \
+    $$PWD/styles/LTabBarVStyle.h
 

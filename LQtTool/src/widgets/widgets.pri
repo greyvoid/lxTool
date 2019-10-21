@@ -1,7 +1,6 @@
 
 HEADERS += \
     $$PWD/buttons/LButtonGroup.h \
-    $$PWD/buttons/LIconTextButton.h \
     $$PWD/buttons/LSliderButtons.h \
     $$PWD/buttons/LSwitchButton.h \
     $$PWD/buttons/LsxButton.h \
@@ -29,11 +28,11 @@ HEADERS += \
     $$PWD/NoTitleMenuMainWidget.h \
     $$PWD/PageNavigator.h \
     $$PWD/TextMovingWidget.h \
-    $$PWD/widgets.h
+    $$PWD/widgets.h \
+    $$PWD/buttons/LsxIconTextButton.h
 
 SOURCES += \
     $$PWD/buttons/LButtonGroup.cpp \
-    $$PWD/buttons/LIconTextButton.cpp \
     $$PWD/buttons/LSliderButtons.cpp \
     $$PWD/buttons/LSwitchButton.cpp \
     $$PWD/buttons/LsxButton.cpp \
@@ -60,7 +59,8 @@ SOURCES += \
     $$PWD/LToast.cpp \
     $$PWD/NoTitleMenuMainWidget.cpp \
     $$PWD/PageNavigator.cpp \
-    $$PWD/TextMovingWidget.cpp
+    $$PWD/TextMovingWidget.cpp \
+    $$PWD/buttons/LsxIconTextButton.cpp
 
 FORMS += \
     $$PWD/LMessageBox.ui \

@@ -3,11 +3,20 @@
 
 #include <QWidget>
 
+///
+/// \brief The CLsxButton class 自定义的button
+/// 所有Lsx开头的的button都继承QWidget
+///
 class CLsxButton: public QWidget
 {
     Q_OBJECT
 public:
-    CLsxButton(const QString text, QWidget *parent = 0);
+    CLsxButton(QWidget *parent = 0);
+
+    void setText(const QString & text)
+    {
+        m_text = text;
+    }
 
 signals:
     void clicked();
