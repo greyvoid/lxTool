@@ -1,5 +1,6 @@
 
 include($$PWD/widgets/widgets.pri)
+include($$PWD/core/core.pri)
 
 SOURCES +=\
     $$PWD/message/LMessageListenner.cpp \
@@ -16,7 +17,6 @@ SOURCES +=\
     $$PWD/styles/LIconStyle.cpp \
     $$PWD/util/L9GridImageUtil.cpp \
     $$PWD/util/LFileOperateUtil.cpp \
-    $$PWD/core/LVersion.cpp \
     $$PWD/util/LXmlOperateUtil.cpp \
     $$PWD/util/LRegExpUtil.cpp \
     $$PWD/util/LCharacterEncodingUtil.cpp \
@@ -41,7 +41,6 @@ HEADERS  += \
     $$PWD/styles/LIconStyle.h \
     $$PWD/util/L9GridImageUtil.h \
     $$PWD/util/LFileOperateUtil.h \
-    $$PWD/core/LVersion.h \
     $$PWD/util/LXmlOperateUtil.h \
     $$PWD/util/LRegExpUtil.h \
     $$PWD/util/LCharacterEncodingUtil.h \
