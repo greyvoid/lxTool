@@ -14,8 +14,8 @@ HEADERS += \
     $$PWD/src/global/bin.h \
     $$PWD/src/patterns/Singleton.h \
     $$PWD/src/template/Utility.h \
-    $$PWD/src/LStdFunc.h \
-    $$PWD/src/LStdTool.h
+    $$PWD/src/LStdTool.h \
+    $$PWD/src/LStd.h
 
 SOURCES += \
     $$PWD/src/crypto/Base64.cpp \
@@ -27,4 +27,4 @@ SOURCES += \
     $$PWD/src/global/bin.c \
     $$PWD/src/patterns/Singleton.cpp \
     $$PWD/src/template/Utility.cpp \
-    $$PWD/src/LStdFunc.cpp
+    $$PWD/src/LStd.cpp

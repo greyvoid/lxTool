@@ -8,14 +8,29 @@
 
 #include <assert.h>
 #include <stdarg.h>
-#include "LStdFunc.h"
+#include "LStd.h"
 
 
 
 // 生成一个随机数
-double lstd::random(double start, double end)
+double CLStd::random(double start, double end)
 {
-	return start + (end - start)*rand() / (RAND_MAX + 1.0);
+    return start + (end - start)*rand() / (RAND_MAX + 1.0);
+}
+
+
+///
+/// \brief CLStd::getBaseName 去除文件后缀 只留文件名
+/// \param fileName
+/// \return
+///
+string CLStd::getBaseName(string fileName)
+{
+    int pos = fileName.rfind(".");
+    if (pos > 0)
+        return fileName.substr(0, pos);
+    else
+        return fileName;
 }
 
 /***********过滤字母数字，128-256******/
@@ -94,7 +109,7 @@ ntel的80x86系列芯片是唯一还在坚持使用小端的芯片，ARM芯片�
 在C语言中，默认是小端（但在一些对于单片机的实现中却是基于大端，比如Keil 51C），Java是平台无关的，默认是大端。在网络上传输数据普遍采用的都是大端
 */
 
-bool lstd::isBigDebian()
+bool CLStd::isBigDebian()
 {
 	short int x;
 	char x0, x1;
@@ -115,7 +130,7 @@ bool lstd::isBigDebian()
  *	@buff: 存放十六进制数据的缓存
  *  @buff_len: 缓存大小
 ********************************************/
-void lstd::public_print_hex(unsigned char *buff, unsigned int buff_len)
+void CLStd::public_print_hex(unsigned char *buff, unsigned int buff_len)
 {
     unsigned int index = 0;
     unsigned char tmp = 0;
@@ -138,6 +153,194 @@ void lstd::public_print_hex(unsigned char *buff, unsigned int buff_len)
 }
 
 
+///
+/// \brief CLStd::saveFileData 写入文件内容 不存在则创建  覆盖写入
+/// \param filePath 文件路径
+/// \param fileData 文件内容
+/// \return
+///
+bool CLStd::saveFileData(string filePath, char *fileData)
+{
+    ofstream outfile(filePath, ios::out);//ios::app表示在原文件末尾追加
+    outfile.write(fileData, strlen(fileData));
+    outfile.close();
+    return true;
+}
+
+/**
+* 说明：字符串替换（不循环重复替换）
+* 参数：1总字符串 2要替换的字符 3替换成的字符
+* 返回：替换后的字符串
+*/
+string &CLStd::replace_all_distinct(string &str, const string &old_value, const string &new_value)
+{
+    for (string::size_type pos(0); pos != string::npos; pos += new_value.length()){
+        if ((pos = str.find(old_value, pos)) != string::npos)
+            str.replace(pos, old_value.length(), new_value);
+        else  break;
+    }
+    return   str;
+}
+
+/**
+* 说明：字符串替换（循环重复替换）
+* 参数：1总字符串 2要替换的字符 3替换成的字符
+* 返回：替换后的字符串
+*/
+string &CLStd::replace_all(string &str, const string &old_value, const string &new_value)
+{
+    while (true) {
+        string::size_type pos(0);
+        if ((pos = str.find(old_value)) != string::npos)
+            str.replace(pos, old_value.length(), new_value);
+        else break;
+    }
+    return str;
+}
+
+/**
+* 说明：判断是否包含子串（A中是否包含B）
+* 参数：A总字符串  B子串
+* 返回：true包含 /false不包含
+*/
+bool CLStd::checkIsStr(string strA, string strB)
+{
+    string::size_type idx = strA.find(strB);
+    if (idx != string::npos)
+    {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+/**
+* 说明：截取字符串（从A到B中间的字符串）
+* 参数：all总字符串  a开始字符串  b结束字符串
+* 返回：处理后的字符串
+*/
+string CLStd::subCString(string all, string a, string b)
+{
+    int ix = all.find(a);
+    int iy = all.find(b);
+    ix += strlen(a.c_str());
+    iy = iy - ix;
+    all = all.substr(ix, iy);
+    return all;
+}
+
+/**
+* 说明：多字符串替换（不循环重复替换）
+* 参数：str总字符串  old_vlaue_Arr要替换的字符（string[]类型）num要替换字符串的个数  new_value替换成的字符
+* 返回：替换后的字符串
+*/
+string &CLStd::replace_all_distinct_list(string &str, string old_vlaue_Arr[], int num, const string &new_value)
+{
+    for (int i = 0; i < num; i++) {
+        const string& old_value = old_vlaue_Arr[i];
+        for (string::size_type pos(0); pos != string::npos; pos += new_value.length()){
+            if ((pos = str.find(old_value, pos)) != string::npos)
+                str.replace(pos, old_value.length(), new_value);
+            else  break;
+        }
+    }
+    return   str;
+}
+
+/**
+* 说明：将字符串中的html标签转义
+* 参数：需要转义的字符串
+* 返回：处理后的字符串
+*/
+string CLStd::replaceHTML(string str)
+{
+    string strAryy[4]{ "</div>", "<em>", "</em>", "</p>"};
+    string replStr = replace_all_distinct_list(str, strAryy, 4, "");
+    replStr = replace_all_distinct(replStr, "&nbsp;", " ");
+    replStr = replace_all_distinct(replStr, "<br />", "\r\n");
+    return replStr.c_str();
+}
+
+std::vector<string> CLStd::split(string str, string pattern)
+{
+    std::string::size_type pos;
+    std::vector<std::string> result;
+    str += pattern;//扩展字符串以方便操作
+    int size = str.size();
+
+    for (int i = 0; i<size; i++)
+    {
+        pos = str.find(pattern, i);
+        if (pos<size)
+        {
+            std::string s = str.substr(i, pos - i);
+            result.push_back(s);
+            i = pos + pattern.size() - 1;
+        }
+    }
+    return result;
+}
+
+/**
+* 说明：中文转为浏览器识别的特殊编码
+* 参数：带转换字符串
+* 返回：处理后的字符串
+*/
+string CLStd::URLEncode(const char *sIn)
+{
+    string sOut;
+    for (size_t ix = 0; ix < strlen(sIn); ix++)
+    {
+        unsigned char buf[4];
+        memset(buf, 0, 4);
+        if (isalnum((unsigned char)sIn[ix]))
+        {
+            buf[0] = sIn[ix];
+        }
+        else
+        {
+            buf[0] = '%';
+            buf[1] = toHex((unsigned char)sIn[ix] >> 4);
+            buf[2] = toHex((unsigned char)sIn[ix] % 16);
+        }
+        sOut += (char *)buf;
+    }
+    return sOut;
+}
+
+/**
+* 说明：浏览器识别的特殊编码转为中文
+* 参数：带转换字符串
+* 返回：处理后的字符串
+*/
+string CLStd::URLDecode(const char *sIn)
+{
+    string sOut;
+    for (size_t ix = 0; ix < strlen(sIn); ix++)
+    {
+        unsigned char ch = 0;
+        if (sIn[ix] == '%')
+        {
+            ch = (fromHex(sIn[ix + 1]) << 4);
+            ch |= fromHex(sIn[ix + 2]);
+            ix += 2;
+        }
+        else if (sIn[ix] == '+')
+        {
+            ch = ' ';
+        }
+        else
+        {
+            ch = sIn[ix];
+        }
+        sOut += (char)ch;
+    }
+
+    return sOut;
+}
+
+
 /**
  * 功能：格式化字符串
  * 参数：
@@ -145,7 +348,7 @@ void lstd::public_print_hex(unsigned char *buff, unsigned int buff_len)
  *  @...，不定参数
  * 返回值：格式化的结果字符串
  */
-string lstd::format(const char *pszFmt, ...)
+string CLStd::format(const char *pszFmt, ...)
 {
     std::string str;
     va_list args;
@@ -176,7 +379,7 @@ string lstd::format(const char *pszFmt, ...)
     */
 }
 
-string lstd::cvtIntToStr(const int n)
+string CLStd::cvtIntToStr(const int n)
 {
     // 方法一， 本方法需要知道结果字节长度大小， int类型格式化成十进制后， 其字节大小不会超过32个字节
     //    char ch[32];
@@ -200,7 +403,7 @@ string lstd::cvtIntToStr(const int n)
 }
 
 
-int lstd::convertStrToInt(char *str, int sign)
+int CLStd::convertStrToInt(char *str, int sign)
 {
     int nResult = 0;
     int nStrLength = strlen(str);
@@ -224,7 +427,7 @@ int lstd::convertStrToInt(char *str, int sign)
     return nResult;
 }
 
-string lstd::formatBytes(double dByteNum, unsigned char unValidDigit)
+string CLStd::formatBytes(double dByteNum, unsigned char unValidDigit)
 {
     string strUnit = "B";
     double dNumber = dByteNum;
@@ -250,10 +453,10 @@ string lstd::formatBytes(double dByteNum, unsigned char unValidDigit)
         dNumber = dNumber / dDivisor;
     }
 
-    return lstd::format("%f%s", dNumber, strUnit.c_str());
+    return CLStd::format("%f%s", dNumber, strUnit.c_str());
 }
 
-bool lstd::isDigit(const string &src)
+bool CLStd::isDigit(const string &src)
 {
     if (src.empty()) return false;
 
@@ -267,7 +470,7 @@ bool lstd::isDigit(const string &src)
     return true;
 }
 
-char *lstd::strcat(char *dst, const char *src)
+char *CLStd::strcat(char *dst, const char *src)
 {
     char *p=dst;  //下面的操作会改变目的指针指向，先定义一个指针记录dst
     while(*p!='\0')p++;

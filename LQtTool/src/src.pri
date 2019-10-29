@@ -13,7 +13,6 @@ SOURCES +=\
     $$PWD/network/LTcpServer.cpp \
     $$PWD/network/LTcpThread.cpp \
     $$PWD/network/LTcpClient.cpp \
-    $$PWD/LQtFunc.cpp \
     $$PWD/styles/LIconStyle.cpp \
     $$PWD/util/L9GridImageUtil.cpp \
     $$PWD/util/LFileOperateUtil.cpp \
@@ -22,7 +21,8 @@ SOURCES +=\
     $$PWD/util/LCharacterEncodingUtil.cpp \
     $$PWD/styles/LBronzeStyle.cpp \
     $$PWD/styles/LColorStyle.cpp \
-    $$PWD/styles/LTabBarVStyle.cpp
+    $$PWD/styles/LTabBarVStyle.cpp \
+    $$PWD/LQt.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -36,7 +36,6 @@ HEADERS  += \
     $$PWD/network/LTcpThread.h \
     $$PWD/network/LTcpClient.h \
     $$PWD/network/LNetDef.h \
-    $$PWD/LQtFunc.h \
     $$PWD/LQtDefine.h \
     $$PWD/styles/LIconStyle.h \
     $$PWD/util/L9GridImageUtil.h \
@@ -46,5 +45,6 @@ HEADERS  += \
     $$PWD/util/LCharacterEncodingUtil.h \
     $$PWD/styles/LBronzeStyle.h \
     $$PWD/styles/LColorStyle.h \
-    $$PWD/styles/LTabBarVStyle.h
+    $$PWD/styles/LTabBarVStyle.h \
+    $$PWD/LQt.h
 

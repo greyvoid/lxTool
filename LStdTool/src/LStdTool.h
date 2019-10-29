@@ -5,7 +5,7 @@
 #include "def/type.h"
 #include "def/common.h"
 #include "def/func.h"
-#include "LStdFunc.h"
+#include "LStd.h"
 #include "patterns/Singleton.h"
 
 

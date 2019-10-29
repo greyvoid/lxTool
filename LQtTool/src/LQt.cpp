@@ -1,4 +1,4 @@
-#include "LQtFunc.h"
+#include "LQt.h"
 
 #include <QTime>
 #include <QCoreApplication>
@@ -7,7 +7,7 @@
 #include <QBuffer>
 
 // 延迟时间-秒
-void Lqt::delayTime(int s)
+void CLQt::delayTime(int s)
 {
     QTime t=QTime::currentTime().addMSecs(s);
     while(QTime::currentTime()<t)
@@ -23,7 +23,7 @@ void Lqt::delayTime(int s)
 /// \param nSplitSize
 /// \return
 ///
-QString Lqt::strRecombine(const QString & strSrc, const QString & strSplit, int nSplitSize)
+QString CLQt::strRecombine(const QString & strSrc, const QString & strSplit, int nSplitSize)
 {
     if (strSrc.size() <= nSplitSize)
     {
@@ -47,7 +47,7 @@ QString Lqt::strRecombine(const QString & strSrc, const QString & strSplit, int 
 
 
 
-QString Lqt::formatBytes(quint64 qu64Size, quint8 u8ValidDigit)
+QString CLQt::formatBytes(quint64 qu64Size, quint8 u8ValidDigit)
 {
     QString strUnit = "B";
     double dNumber = qu64Size;
@@ -75,7 +75,7 @@ QString Lqt::formatBytes(quint64 qu64Size, quint8 u8ValidDigit)
     return QString::number(dNumber, 'f', u8ValidDigit) + strUnit;
 }
 
-void Lqt::saveImgDataToFile(const QString &fromImgData, const QString &toFilePath, const QString &strFormat)
+void CLQt::saveImgDataToFile(const QString &fromImgData, const QString &toFilePath, const QString &strFormat)
 {
     QImage img(fromImgData);
     QByteArray ba;
@@ -100,7 +100,7 @@ void Lqt::saveImgDataToFile(const QString &fromImgData, const QString &toFilePat
     }
 }
 
-void Lqt::dataToPic(const QString &fromFilePath, QString toPic, QString myformat)
+void CLQt::dataToPic(const QString &fromFilePath, QString toPic, QString myformat)
 {
     QFile file(fromFilePath);
     if (file.open(QFile::ReadOnly))
