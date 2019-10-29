@@ -3,73 +3,76 @@
 #include <QTimer>
 #include <QPainter>
 
-TextMovingWidget::TextMovingWidget(const QString str ,QWidget *parent)
-    : QWidget(parent),_text(str),m_direction(1),m_x(0)
+CLTextMovingWidget::CLTextMovingWidget(const QString str ,QWidget *parent)
+    : QWidget(parent),m_strText(str),m_nDirection(1),m_nX(0)
 {
-    _timer=new QTimer(this);
-    connect(_timer,SIGNAL(timeout()),this,SLOT(slot_UpdateTextGeometry()));
-    _timer->start(30);
+    m_pTimer = new QTimer(this);
+    connect(m_pTimer,SIGNAL(timeout()),this,SLOT(slot_updateTextGeometry()));
+    m_pTimer->start(30);
 }
 
-TextMovingWidget::~TextMovingWidget(){}
-
-void TextMovingWidget::setText(const QString &t)
+CLTextMovingWidget::~CLTextMovingWidget()
 {
-    _text=t;
-    m_x=0;
+
+}
+
+void CLTextMovingWidget::setText(const QString &t)
+{
+    m_strText=t;
+    m_nX=0;
     update();
 }
 
-void TextMovingWidget::paintEvent(QPaintEvent *e)
+void CLTextMovingWidget::paintEvent(QPaintEvent *e)
 {
     QWidget::paintEvent(e);
     QPainter p(this);
     p.setPen(Qt::white);
     QFontMetrics metric(font());
     int y=(height()- metric.height())/2;
-    p.drawText(m_x,y,metric.width(_text),metric.height(),Qt::AlignLeft,_text);
+    p.drawText(m_nX,y,metric.width(m_strText),metric.height(),Qt::AlignLeft,m_strText);
 }
 
-inline int TextMovingWidget::getDirection(const QString &text)
+inline int CLTextMovingWidget::getDirection(const QString &text)
 {
     QFontMetrics metrics(font());
     int tw=metrics.width(text);
     if(tw<=width())
     {
-        if(m_x+tw>width())
+        if(m_nX+tw>width())
             return 0;
-        else if(m_x<=0)
+        else if(m_nX<=0)
         return 1;
-        return m_direction;
+        return m_nDirection;
     }
     else
     {
-        if(m_x==10)
+        if(m_nX==10)
           return 0;
-        else if(m_x<=width()-tw-10)
+        else if(m_nX<=width()-tw-10)
         return 1;
-        return m_direction;
+        return m_nDirection;
     }
 }
 
-void TextMovingWidget::slot_UpdateTextGeometry()
+void CLTextMovingWidget::slot_updateTextGeometry()
 {
     QFontMetrics metric(font());
-    int tw= metric.width(_text);
+    int tw= metric.width(m_strText);
     if(tw>width()) //If the text width greater than widget width
     {
-        if(m_direction) //right
-            m_x++;
+        if(m_nDirection) //right
+            m_nX++;
         else          //left
-            m_x--;
+            m_nX--;
     }
     else
     {
-        if(m_direction) //right
-            m_x++;
+        if(m_nDirection) //right
+            m_nX++;
         else          //left
-            m_x--;
+            m_nX--;
     }
-    m_direction=getDirection(_text);
+    m_nDirection=getDirection(m_strText);
     update();
 }
