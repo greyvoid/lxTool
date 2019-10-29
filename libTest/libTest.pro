@@ -24,6 +24,7 @@ FORMS    += mainwindow.ui \
 
 #LIBS += -L$$PWD/../LStdTool/bin/ -lLStdToold
 
+#头文件和提升窗口部件所需
 INCLUDEPATH += $$PWD/../LStdTool/include
 DEPENDPATH += $$PWD/../LStdTool/include
 

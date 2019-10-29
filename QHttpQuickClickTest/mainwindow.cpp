@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , m_strName("ex_leisx")
-    , m_strPasswd("leisx12345678911")
+    , m_strPasswd("Limeilian..1011")
 {
     ui->setupUi(this);
 
@@ -141,7 +141,7 @@ int aesCbcEncrypt(const char* pSource, const char* key, unsigned char* ivec, cha
     //QByteArray bytesKeyMD5Hex = bytesKeyMD5.mid(8).toHex();
 
     // test 不使用md5，自定义key
-    bytesKeyMD5Hex = "asdfwetyhjuytrfd";
+    //bytesKeyMD5Hex = "asdfwetyhjuytrfd";
 
     // 设置加密密钥
     AES_KEY AesKey;
