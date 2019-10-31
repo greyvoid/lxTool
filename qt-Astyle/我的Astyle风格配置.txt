@@ -4,6 +4,7 @@
 #//Broken：大括号从上一个代码块结束后另起一行。(Allman)
 #//Linux：除了函数、类或命名空间之外，大括号风格都是 Attached 。(K&R, Linux)
 --style=break 
+#--style=linux 
 
 #//缩进
 indent=spaces=4	 # 缩进采用4个空格
@@ -15,7 +16,7 @@ indent-preproc-define   # 设置宏定义模块缩进
 
 #//填充选项
 pad-oper                # 操作符前后填充空格
-delete-empty-lines      # 删除函数或方法中的空行。函数或方法之外的空行不会被删除
+#delete-empty-lines      # 删除函数或方法中的空行。函数或方法之外的空行不会被删除
 align-pointer=type      # 指针符靠近类型，type--靠近类型,middle--居中,name--靠近变量名
 align-reference=middle  # 引用符居中
 
