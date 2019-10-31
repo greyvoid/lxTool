@@ -57,3 +57,12 @@ INCLUDEPATH += $$PWD\src
 #DISTFILES += \
 #    .qmake.conf
 #即使注释掉也会隐式执 qmake.conf
+
+#需要添加构建步骤make install  #添加构建-->Make-->填入参数install即可
+#eg jom.exe install in" F:\work\pro\LxMultiMedia\build-TTS_msc-qt5_6
+#target.sources
+target.path = $$PWD/lib
+#target.path = $$[QT_INSTALL_EXAMPLES]/tools/echoplugin
+sources.files = $$HEADERS
+sources.path = $$PWD/include
+INSTALLS += target sources
