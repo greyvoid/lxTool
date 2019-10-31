@@ -287,7 +287,7 @@ std::vector<string> CLStd::split(string str, string pattern)
 * 参数：带转换字符串
 * 返回：处理后的字符串
 */
-string CLStd::URLEncode(const char *sIn)
+string CLStd::urlEncode(const char *sIn)
 {
     string sOut;
     for (size_t ix = 0; ix < strlen(sIn); ix++)
@@ -314,7 +314,7 @@ string CLStd::URLEncode(const char *sIn)
 * 参数：带转换字符串
 * 返回：处理后的字符串
 */
-string CLStd::URLDecode(const char *sIn)
+string CLStd::urlDecode(const char *sIn)
 {
     string sOut;
     for (size_t ix = 0; ix < strlen(sIn); ix++)

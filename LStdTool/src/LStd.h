@@ -93,9 +93,9 @@ public:
         return isdigit(x) ? x - '0' : x - 'A' + 10;
     }
 
-    string URLEncode(const char *sIn);
+    string urlEncode(const char *sIn);
 
-    string URLDecode(const char *sIn);
+    string urlDecode(const char *sIn);
 } // end namespace lstd
 
 
