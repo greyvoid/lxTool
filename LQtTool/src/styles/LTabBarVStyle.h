@@ -11,7 +11,7 @@ class CLTabBarVStyle : public QProxyStyle
 {
     Q_OBJECT
 public:
-    explicit CLTabBarVStyle();
+    explicit CLTabBarVStyle(QStyle *style = Q_NULLPTR);
 
     QSize sizeFromContents(ContentsType type, const QStyleOption *option
                            , const QSize &size, const QWidget *widget) const;

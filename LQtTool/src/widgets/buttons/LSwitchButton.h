@@ -13,67 +13,40 @@
  * 6:可设置圆角角度
  */
 
-#include <QWidget>
 
 class QTimer;
 
+///
+/// \brief The CLSwitchButton class 状态切换按钮， 如播放-暂停，开-关
+///
 class CLSwitchButton: public QWidget
 {
     Q_OBJECT
+        Q_PROPERTY(QString textOff READ getTextOff WRITE setTextOff)
+        Q_PROPERTY(QString textOn READ getTextOn WRITE setTextOn)
+
 public:
-    enum ButtonStyle {
+    enum ButtonStyle
+    {
         ButtonStyle_Rect = 0,     //圆角矩形
         ButtonStyle_CircleIn = 1, //内圆形
         ButtonStyle_CircleOut = 2,//外圆形
         ButtonStyle_Image = 3     //图片
     };
 
-    CLSwitchButton(QWidget *parent = 0);
+    enum E_ButtonStatus
+    {
+        EB_On,
+        EB_Off
+    };
+
+    CLSwitchButton(QWidget* parent = 0);
     ~CLSwitchButton();
-
-protected:
-    void mousePressEvent(QMouseEvent *);
-    void resizeEvent(QResizeEvent *);
-    void paintEvent(QPaintEvent *);
-    void drawBg(QPainter *painter);
-    void drawSlider(QPainter *painter);
-    void drawText(QPainter *painter);
-    void drawImage(QPainter *painter);
-
-private:
-    bool checked;               //是否选中
-    ButtonStyle buttonStyle;    //开关按钮样式
-
-    QColor bgColorOff;          //关闭时背景颜色
-    QColor bgColorOn;           //打开时背景颜色
-
-    QColor sliderColorOff;      //关闭时滑块颜色
-    QColor sliderColorOn;       //打开时滑块颜色
-
-    QColor textColorOff;        //关闭时文本颜色
-    QColor textColorOn;         //打开时文本颜色
-
-    QString textOff;            //关闭时显示的文字
-    QString textOn;             //打开时显示的文字
-
-    QString imageOff;           //关闭时显示的图片
-    QString imageOn;            //打开时显示的图片
-
-    int space;                  //滑块离背景间隔
-    int rectRadius;             //圆角角度
-
-    int step;                   //每次移动的步长
-    int startX;                 //滑块开始X轴坐标
-    int endX;                   //滑块结束X轴坐标
-    QTimer *timer;              //定时器绘制
-
-private slots:
-    void updateValue();
 
 public:
     bool getChecked()const
     {
-        return checked;
+        return m_bChecked;
     }
     ButtonStyle getButtonStyle()const
     {
@@ -109,11 +82,20 @@ public:
 
     QString getTextOff()const
     {
-        return textOff;
+        return m_strTextOff;
     }
+    void setTextOff(QString strTextOff)
+    {
+        m_strTextOff = strTextOff;
+    }
+
     QString getTextOn()const
     {
-        return textOn;
+        return m_strTextOn;
+    }
+    void setTextOn(QString strTextOn)
+    {
+        m_strTextOn = strTextOn;
     }
 
     QString getImageOff()const
@@ -136,7 +118,7 @@ public:
 
 public slots:
     //设置是否选中
-    void setChecked(bool checked);
+    void setChecked(bool m_bChecked);
     //设置风格样式
     void setButtonStyle(ButtonStyle buttonStyle);
 
@@ -147,8 +129,7 @@ public slots:
     //设置文本颜色
     void setTextColor(QColor textColorOff, QColor textColorOn);
 
-    //设置文本
-    void setText(QString textOff, QString textOn);
+
 
     //设置背景图片
     void setImage(QString imageOff, QString imageOn);
@@ -159,6 +140,50 @@ public slots:
     void setRectRadius(int rectRadius);
 
 signals:
-    void checkedChanged(bool checked);
+    void checkedChanged(bool m_bChecked);
+
+protected:
+    void mousePressEvent(QMouseEvent*);
+    void resizeEvent(QResizeEvent*);
+    void paintEvent(QPaintEvent*);
+    void drawBg(QPainter* painter);
+    void drawSlider(QPainter* painter);
+    void drawText(QPainter* painter);
+    void drawImage(QPainter* painter);
+
+    virtual QSize sizeHint() const;
+
+
+private slots:
+    void updateValue();
+
+
+
+private:
+    bool m_bChecked;               //是否选中
+    ButtonStyle buttonStyle;    //开关按钮样式
+
+    QColor bgColorOff;          //关闭时背景颜色
+    QColor bgColorOn;           //打开时背景颜色
+
+    QColor sliderColorOff;      //关闭时滑块颜色
+    QColor sliderColorOn;       //打开时滑块颜色
+
+    QColor textColorOff;        //关闭时文本颜色
+    QColor textColorOn;         //打开时文本颜色
+
+    QString m_strTextOff;            //关闭时显示的文字
+    QString m_strTextOn;             //打开时显示的文字
+
+    QString imageOff;           //关闭时显示的图片
+    QString imageOn;            //打开时显示的图片
+
+    int space;                  //滑块离背景间隔
+    int rectRadius;             //圆角角度
+
+    int step;                   //每次移动的步长
+    int startX;                 //滑块开始X轴坐标
+    int endX;                   //滑块结束X轴坐标
+    QTimer* timer;              //定时器绘制
 };
 #endif // CLSWITCHBUTTON_H

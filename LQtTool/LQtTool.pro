@@ -40,6 +40,10 @@ CONFIG(debug, debug|release){
 win32{
 system(.\copy_head.bat)
     #CONFIG += debug_and_release #一万个草泥马
+#每次构建都会执行
+sources.files = $$HEADERS
+sources.path = $$PWD/include
+INSTALLS += sources
 CONFIG(debug, debug|release) {
             #target_path = ./build_/dist
             #TARGET = LQtTool

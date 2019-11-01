@@ -19,6 +19,26 @@
      <widget class="CCompleteLineEdit" name="completeLineEdit"/>
     </item>
     <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="CLSwitchButton" name="switchButton" native="true"/>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="CLsxTabMenu" name="lsxTabMenu" native="true"/>
@@ -30,7 +50,7 @@
        <widget class="CLLoadingWidget" name="loadingWidget" native="true"/>
       </item>
       <item>
-       <widget class="CLProgressIndicator" name="progressIndicator" native="true"/>
+       <widget class="CLProgressIndicator" name="progressIndicator"/>
       </item>
       <item>
        <widget class="CLTipLabel" name="tipLabel">
@@ -46,12 +66,25 @@
        </widget>
       </item>
       <item>
-       <widget class="CLProgressIndicator" name="progressIndicator_2" native="true"/>
+       <widget class="CLProgressIndicator" name="progressIndicator_2"/>
       </item>
       <item>
        <widget class="CPageNavigator" name="pageNavigator" native="true"/>
       </item>
      </layout>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>
@@ -116,6 +149,12 @@
    <class>CLTipLabel</class>
    <extends>QLabel</extends>
    <header>widgets/labels/LTipLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CLSwitchButton</class>
+   <extends>QWidget</extends>
+   <header>widgets/buttons/LSwitchButton.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -20,7 +20,7 @@ public:
     void dataToPic(const QString &fromFilePath, QString toPic, QString myformat);
 
 
-} // end namespace Lx
+}; // end namespace Lx
 
 
 #endif // end LQt_FUNC_H

@@ -5,10 +5,11 @@
 #include <QTimer>
 #include <QtDebug>
 
-CLSwitchButton::CLSwitchButton(QWidget *parent): QWidget(parent)
+CLSwitchButton::CLSwitchButton(QWidget* parent)
+    : QWidget(parent)
 {
-    checked = false;
-    buttonStyle    = ButtonStyle_Rect;
+    m_bChecked = false;
+    buttonStyle = ButtonStyle_Rect;
 
     bgColorOff = QColor(225, 225, 225);
     bgColorOn = QColor(250, 250, 250);
@@ -19,8 +20,8 @@ CLSwitchButton::CLSwitchButton(QWidget *parent): QWidget(parent)
     textColorOff = QColor(255, 255, 255);
     textColorOn = QColor(10, 10, 10);
 
-    textOff = "";
-    textOn = "";
+    m_strTextOff = "关";
+    m_strTextOn = "开";
 
     imageOff = ":/image/btncheckoff1.png";
     imageOn = ":/image/btncheckon1.png";
@@ -44,84 +45,109 @@ CLSwitchButton::~CLSwitchButton()
 
 }
 
-void CLSwitchButton::mousePressEvent(QMouseEvent *)
+void CLSwitchButton::mousePressEvent(QMouseEvent*)
 {
-    checked = !checked;
-    emit checkedChanged(checked);
+    m_bChecked = !m_bChecked;
+    emit checkedChanged(m_bChecked);
 
     //每次移动的步长为宽度的 50分之一
     step = width() / 50;
 
     //状态切换改变后自动计算终点坐标
-    if (checked) {
-        if (buttonStyle == ButtonStyle_Rect) {
+    if (m_bChecked)
+    {
+        if (buttonStyle == ButtonStyle_Rect)
+        {
             endX = width() - width() / 2;
-            } else if (buttonStyle == ButtonStyle_CircleIn) {
-            endX = width() - height();
-            } else if (buttonStyle == ButtonStyle_CircleOut) {
-            endX = width() - height() + space;
-            }
-        } else {
-        endX = 0;
         }
+        else if (buttonStyle == ButtonStyle_CircleIn)
+        {
+            endX = width() - height();
+        }
+        else if (buttonStyle == ButtonStyle_CircleOut)
+        {
+            endX = width() - height() + space;
+        }
+    }
+    else
+    {
+        endX = 0;
+    }
 
     timer->start();
 }
 
-void CLSwitchButton::resizeEvent(QResizeEvent *)
+void CLSwitchButton::resizeEvent(QResizeEvent*)
 {
     //每次移动的步长为宽度的 50分之一
     step = width() / 50;
 
     //尺寸大小改变后自动设置起点坐标为终点
-    if (checked) {
-        if (buttonStyle == ButtonStyle_Rect) {
+    if (m_bChecked)
+    {
+        if (buttonStyle == ButtonStyle_Rect)
+        {
             startX = width() - width() / 2;
-            } else if (buttonStyle == ButtonStyle_CircleIn) {
-            startX = width() - height();
-            } else if (buttonStyle == ButtonStyle_CircleOut) {
-            startX = width() - height() + space;
-            }
-        } else {
-        startX = 0;
         }
+        else if (buttonStyle == ButtonStyle_CircleIn)
+        {
+            startX = width() - height();
+        }
+        else if (buttonStyle == ButtonStyle_CircleOut)
+        {
+            startX = width() - height() + space;
+        }
+    }
+    else
+    {
+        startX = 0;
+    }
 
     update();
 }
 
-void CLSwitchButton::paintEvent(QPaintEvent *)
+void CLSwitchButton::paintEvent(QPaintEvent*)
 {
     //绘制准备工作,启用反锯齿
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    if (buttonStyle == ButtonStyle_Image) {
+    if (buttonStyle == ButtonStyle_Image)
+    {
         //绘制图片
         drawImage(&painter);
-        } else {
+    }
+    else
+    {
         //绘制背景
         drawBg(&painter);
         //绘制滑块
         drawSlider(&painter);
         //绘制文字
         drawText(&painter);
-        }
+    }
 }
 
-void CLSwitchButton::drawBg(QPainter *painter)
+void CLSwitchButton::drawBg(QPainter* painter)
 {
     painter->save();
     painter->setPen(Qt::NoPen);
 
-    if (!checked) {
+    if (!m_bChecked)
+    {
         painter->setBrush(bgColorOff);
-        } else {
+    }
+    else
+    {
         painter->setBrush(bgColorOn);
-        }
+    }
 
-    if (buttonStyle == ButtonStyle_Rect) {
+    if (buttonStyle == ButtonStyle_Rect)
+    {
         painter->drawRoundedRect(rect(), rectRadius, rectRadius);
-        } else if (buttonStyle == ButtonStyle_CircleIn) {
+    }
+    else if (buttonStyle == ButtonStyle_CircleIn)
+    {
         QRect rect(0, 0, width(), height());
         //半径为高度的一半
         int radius = rect.height() / 2;
@@ -136,71 +162,87 @@ void CLSwitchButton::drawBg(QPainter *painter)
         path.lineTo(radius, rect.top());
 
         painter->drawPath(path);
-        } else if (buttonStyle == ButtonStyle_CircleOut) {
+    }
+    else if (buttonStyle == ButtonStyle_CircleOut)
+    {
         QRect rect(space, space, width() - space * 2, height() - space * 2);
         painter->drawRoundedRect(rect, rectRadius, rectRadius);
-        }
+    }
 
     painter->restore();
 }
 
-void CLSwitchButton::drawSlider(QPainter *painter)
+void CLSwitchButton::drawSlider(QPainter* painter)
 {
     painter->save();
     painter->setPen(Qt::NoPen);
 
-    if (!checked) {
+    if (!m_bChecked)
+    {
         painter->setBrush(sliderColorOff);
-        } else {
+    }
+    else
+    {
         painter->setBrush(sliderColorOn);
-        }
+    }
 
-    if (buttonStyle == ButtonStyle_Rect) {
+    if (buttonStyle == ButtonStyle_Rect)
+    {
         int sliderWidth = width() / 2 - space * 2;
         int sliderHeight = height() - space * 2;
-        QRect sliderRect(startX + space, space, sliderWidth , sliderHeight);
+        QRect sliderRect(startX + space, space, sliderWidth, sliderHeight);
         painter->drawRoundedRect(sliderRect, rectRadius, rectRadius);
-        } else if (buttonStyle == ButtonStyle_CircleIn) {
+    }
+    else if (buttonStyle == ButtonStyle_CircleIn)
+    {
         QRect rect(0, 0, width(), height());
         int sliderWidth = rect.height() - space * 2;
         QRect sliderRect(startX + space, space, sliderWidth, sliderWidth);
         painter->drawEllipse(sliderRect);
-        } else if (buttonStyle == ButtonStyle_CircleOut) {
+    }
+    else if (buttonStyle == ButtonStyle_CircleOut)
+    {
         QRect rect(0, 0, width() - space, height() - space);
         int sliderWidth = rect.height();
         QRect sliderRect(startX, space / 2, sliderWidth, sliderWidth);
         painter->drawEllipse(sliderRect);
-        }
+    }
 
     painter->restore();
 }
 
-void CLSwitchButton::drawText(QPainter *painter)
+void CLSwitchButton::drawText(QPainter* painter)
 {
     painter->save();
 
-    if (!checked) {
+    if (!m_bChecked)
+    {
         painter->setPen(textColorOff);
-        painter->drawText(width() / 2, 0, width() / 2 - space, height(), Qt::AlignCenter, textOff);
-        } else {
+        painter->drawText(width() / 2, 0, width() / 2 - space, height(), Qt::AlignCenter, m_strTextOff);
+    }
+    else
+    {
         painter->setPen(textColorOn);
-        painter->drawText(0, 0, width() / 2 + space * 2, height(), Qt::AlignCenter, textOn);
-        }
+        painter->drawText(0, 0, width() / 2 + space * 2, height(), Qt::AlignCenter, m_strTextOn);
+    }
 
     painter->restore();
 }
 
-void CLSwitchButton::drawImage(QPainter *painter)
+void CLSwitchButton::drawImage(QPainter* painter)
 {
     painter->save();
 
     QPixmap pix;
 
-    if (!checked) {
+    if (!m_bChecked)
+    {
         pix = QPixmap(imageOff);
-        } else {
+    }
+    else
+    {
         pix = QPixmap(imageOn);
-        }
+    }
 
     //自动等比例平滑缩放居中显示
     int targetWidth = pix.width();
@@ -215,34 +257,49 @@ void CLSwitchButton::drawImage(QPainter *painter)
     painter->restore();
 }
 
+QSize CLSwitchButton::sizeHint() const
+{
+    return QSize(80, 40);
+}
+
 void CLSwitchButton::updateValue()
 {
-    if (checked) {
-        if (startX < endX) {
+    if (m_bChecked)
+    {
+        if (startX < endX)
+        {
             startX = startX + step;
-            } else {
-            startX = endX;
-            timer->stop();
-            }
-        } else {
-        if (startX > endX) {
-            startX = startX - step;
-            } else {
-            startX = endX;
-            timer->stop();
-            }
         }
+        else
+        {
+            startX = endX;
+            timer->stop();
+        }
+    }
+    else
+    {
+        if (startX > endX)
+        {
+            startX = startX - step;
+        }
+        else
+        {
+            startX = endX;
+            timer->stop();
+        }
+    }
 
     update();
 }
 
 void CLSwitchButton::setChecked(bool checked)
 {
-    if (this->checked != checked) {
-        this->checked = checked;
+    if (this->m_bChecked != checked)
+    {
+        this->m_bChecked = checked;
         emit checkedChanged(checked);
         update();
-        }
+    }
 }
 
 void CLSwitchButton::setButtonStyle(CLSwitchButton::ButtonStyle buttonStyle)
@@ -272,12 +329,7 @@ void CLSwitchButton::setTextColor(QColor textColorOff, QColor textColorOn)
     update();
 }
 
-void CLSwitchButton::setText(QString textOff, QString textOn)
-{
-    this->textOff = textOff;
-    this->textOn = textOn;
-    update();
-}
+
 
 void CLSwitchButton::setImage(QString imageOff, QString imageOn)
 {

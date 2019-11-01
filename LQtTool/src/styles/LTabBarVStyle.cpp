@@ -1,6 +1,9 @@
 #include "LTabBarVStyle.h"
+#include <QPainter>
+#include <QStyleOptionTab>
 
-CLTabBarVStyle::CLTabBarVStyle(QObject *parent) : QObject(parent)
+CLTabBarVStyle::CLTabBarVStyle(QStyle *style)
+    : QProxyStyle(style)
 {
 
 }

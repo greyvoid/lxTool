@@ -96,7 +96,7 @@ public:
     string urlEncode(const char *sIn);
 
     string urlDecode(const char *sIn);
-} // end namespace lstd
+}; // end namespace lstd
 
 
 #endif //__LSTD_FUNC_H__

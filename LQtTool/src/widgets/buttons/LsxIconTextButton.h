@@ -18,11 +18,11 @@
 class CLsxIconTextButton : public CLsxButton
 {
     Q_OBJECT
-    Q_PROPERTY(QColor colorDisabled READ setColorDisabled WRITE getColorDisabled)
-    Q_PROPERTY(QColor colorNormal READ setColorNormal WRITE getColorNormal)
-    Q_PROPERTY(QColor colorHover READ setColorHover WRITE getColorHover)
-    Q_PROPERTY(QIcon iconNormal READ getIconNormal WRITE setIconNormal)
-    Q_PROPERTY(QIcon iconHover READ getIconHover WRITE setIconHover)
+//    Q_PROPERTY(QColor colorDisabled READ getColorDisabled WRITE setColorDisabled)
+//    Q_PROPERTY(QColor colorNormal READ getColorNormal WRITE setColorNormal)
+//    Q_PROPERTY(QColor colorHover READ getColorHover WRITE setColorHover)
+//    Q_PROPERTY(QIcon iconNormal READ setIconNormal WRITE getIconNormal)
+//    Q_PROPERTY(QIcon iconHover READ setIconHover WRITE getIconHover)
 public:
     explicit CLsxIconTextButton(QWidget *parent = 0);
 

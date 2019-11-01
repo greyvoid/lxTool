@@ -1,16 +1,15 @@
-#ifndef LREDLABELPLUGIN_H
-#define LREDLABELPLUGIN_H
+#ifndef CLSWITCHBUTTONPLUGIN_H
+#define CLSWITCHBUTTONPLUGIN_H
 
 #include <QDesignerCustomWidgetInterface>
 
-class CLProgressIndicatorPlugin : public QObject, public QDesignerCustomWidgetInterface
+class CLSwitchButtonPlugin : public QObject, public QDesignerCustomWidgetInterface
 {
     Q_OBJECT
-
-    // 告诉moc第二个基类为一个插件接口类
     Q_INTERFACES(QDesignerCustomWidgetInterface)
+
 public:
-    CLProgressIndicatorPlugin(QObject *parent = 0);
+    CLSwitchButtonPlugin(QObject *parent = 0);
 
     bool isContainer() const;
     bool isInitialized() const;
@@ -28,4 +27,4 @@ private:
     bool m_initialized;
 };
 
-#endif
+#endif // CLSWITCHBUTTONPLUGIN_H
