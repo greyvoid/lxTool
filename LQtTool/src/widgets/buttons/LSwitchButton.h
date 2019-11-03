@@ -17,41 +17,50 @@
 class QTimer;
 
 ///
-/// \brief The CLSwitchButton class 状态切换按钮， 如播放-暂停，开-关
+/// \brief The CLSwitchButton class 开关按钮
+///  如播放-暂停，开-关
 ///
 class CLSwitchButton: public QWidget
 {
     Q_OBJECT
         Q_PROPERTY(QString textOff READ getTextOff WRITE setTextOff)
         Q_PROPERTY(QString textOn READ getTextOn WRITE setTextOn)
-
+        Q_PROPERTY(bool checked READ isChecked WRITE setChecked)
+        Q_PROPERTY(E_ButtonStyle buttonStyle READ getButtonStyle WRITE setButtonStyle)
 public:
-    enum ButtonStyle
+    // 定义按钮的风格
+    enum E_ButtonStyle
     {
-        ButtonStyle_Rect = 0,     //圆角矩形
-        ButtonStyle_CircleIn = 1, //内圆形
-        ButtonStyle_CircleOut = 2,//外圆形
-        ButtonStyle_Image = 3     //图片
+        EBS_Rect = 0,     //圆角矩形
+        EBS_CircleIn = 1, //内圆形
+        EBS_CircleOut = 2,//外圆形
+        EBS_Image = 3     //图片
     };
+    Q_ENUM(E_ButtonStyle)
 
-    enum E_ButtonStatus
-    {
-        EB_On,
-        EB_Off
-    };
+//    enum E_ButtonStatus
+//    {
+//        EB_On,
+//        EB_Off
+//    };
 
     CLSwitchButton(QWidget* parent = 0);
     ~CLSwitchButton();
 
 public:
-    bool getChecked()const
+    bool isChecked()const
     {
         return m_bChecked;
     }
-    ButtonStyle getButtonStyle()const
+    //设置是否选中
+    void setChecked(bool bChecked);
+
+    E_ButtonStyle getButtonStyle()const
     {
-        return buttonStyle;
+        return m_eButtonStyle;
     }
+    //设置风格样式
+    void setButtonStyle(E_ButtonStyle eButtonStyle);
 
     QColor getBgColorOff()const
     {
@@ -87,6 +96,7 @@ public:
     void setTextOff(QString strTextOff)
     {
         m_strTextOff = strTextOff;
+        update();
     }
 
     QString getTextOn()const
@@ -96,6 +106,7 @@ public:
     void setTextOn(QString strTextOn)
     {
         m_strTextOn = strTextOn;
+        update();
     }
 
     QString getImageOff()const
@@ -117,10 +128,9 @@ public:
     }
 
 public slots:
-    //设置是否选中
-    void setChecked(bool m_bChecked);
-    //设置风格样式
-    void setButtonStyle(ButtonStyle buttonStyle);
+
+
+
 
     //设置背景颜色
     void setBgColor(QColor bgColorOff, QColor bgColorOn);
@@ -161,7 +171,7 @@ private slots:
 
 private:
     bool m_bChecked;               //是否选中
-    ButtonStyle buttonStyle;    //开关按钮样式
+    E_ButtonStyle m_eButtonStyle;    //开关按钮样式
 
     QColor bgColorOff;          //关闭时背景颜色
     QColor bgColorOn;           //打开时背景颜色

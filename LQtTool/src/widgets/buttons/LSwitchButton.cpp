@@ -9,7 +9,7 @@ CLSwitchButton::CLSwitchButton(QWidget* parent)
     : QWidget(parent)
 {
     m_bChecked = false;
-    buttonStyle = ButtonStyle_Rect;
+    m_eButtonStyle = EBS_Rect;
 
     bgColorOff = QColor(225, 225, 225);
     bgColorOn = QColor(250, 250, 250);
@@ -56,15 +56,15 @@ void CLSwitchButton::mousePressEvent(QMouseEvent*)
     //状态切换改变后自动计算终点坐标
     if (m_bChecked)
     {
-        if (buttonStyle == ButtonStyle_Rect)
+        if (m_eButtonStyle == EBS_Rect)
         {
             endX = width() - width() / 2;
         }
-        else if (buttonStyle == ButtonStyle_CircleIn)
+        else if (m_eButtonStyle == EBS_CircleIn)
         {
             endX = width() - height();
         }
-        else if (buttonStyle == ButtonStyle_CircleOut)
+        else if (m_eButtonStyle == EBS_CircleOut)
         {
             endX = width() - height() + space;
         }
@@ -85,15 +85,15 @@ void CLSwitchButton::resizeEvent(QResizeEvent*)
     //尺寸大小改变后自动设置起点坐标为终点
     if (m_bChecked)
     {
-        if (buttonStyle == ButtonStyle_Rect)
+        if (m_eButtonStyle == EBS_Rect)
         {
             startX = width() - width() / 2;
         }
-        else if (buttonStyle == ButtonStyle_CircleIn)
+        else if (m_eButtonStyle == EBS_CircleIn)
         {
             startX = width() - height();
         }
-        else if (buttonStyle == ButtonStyle_CircleOut)
+        else if (m_eButtonStyle == EBS_CircleOut)
         {
             startX = width() - height() + space;
         }
@@ -112,7 +112,7 @@ void CLSwitchButton::paintEvent(QPaintEvent*)
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
 
-    if (buttonStyle == ButtonStyle_Image)
+    if (m_eButtonStyle == EBS_Image)
     {
         //绘制图片
         drawImage(&painter);
@@ -142,11 +142,11 @@ void CLSwitchButton::drawBg(QPainter* painter)
         painter->setBrush(bgColorOn);
     }
 
-    if (buttonStyle == ButtonStyle_Rect)
+    if (m_eButtonStyle == EBS_Rect)
     {
         painter->drawRoundedRect(rect(), rectRadius, rectRadius);
     }
-    else if (buttonStyle == ButtonStyle_CircleIn)
+    else if (m_eButtonStyle == EBS_CircleIn)
     {
         QRect rect(0, 0, width(), height());
         //半径为高度的一半
@@ -163,7 +163,7 @@ void CLSwitchButton::drawBg(QPainter* painter)
 
         painter->drawPath(path);
     }
-    else if (buttonStyle == ButtonStyle_CircleOut)
+    else if (m_eButtonStyle == EBS_CircleOut)
     {
         QRect rect(space, space, width() - space * 2, height() - space * 2);
         painter->drawRoundedRect(rect, rectRadius, rectRadius);
@@ -186,21 +186,21 @@ void CLSwitchButton::drawSlider(QPainter* painter)
         painter->setBrush(sliderColorOn);
     }
 
-    if (buttonStyle == ButtonStyle_Rect)
+    if (m_eButtonStyle == EBS_Rect)
     {
         int sliderWidth = width() / 2 - space * 2;
         int sliderHeight = height() - space * 2;
         QRect sliderRect(startX + space, space, sliderWidth, sliderHeight);
         painter->drawRoundedRect(sliderRect, rectRadius, rectRadius);
     }
-    else if (buttonStyle == ButtonStyle_CircleIn)
+    else if (m_eButtonStyle == EBS_CircleIn)
     {
         QRect rect(0, 0, width(), height());
         int sliderWidth = rect.height() - space * 2;
         QRect sliderRect(startX + space, space, sliderWidth, sliderWidth);
         painter->drawEllipse(sliderRect);
     }
-    else if (buttonStyle == ButtonStyle_CircleOut)
+    else if (m_eButtonStyle == EBS_CircleOut)
     {
         QRect rect(0, 0, width() - space, height() - space);
         int sliderWidth = rect.height();
@@ -259,7 +259,8 @@ void CLSwitchButton::drawImage(QPainter* painter)
 
 QSize CLSwitchButton::sizeHint() const
 {
-    return QSize(80, 40);
+
+    return QSize(80, 28);
 }
 
 void CLSwitchButton::updateValue()
@@ -292,19 +293,19 @@ void CLSwitchButton::updateValue()
     update();
 }
 
-void CLSwitchButton::setChecked(bool checked)
+void CLSwitchButton::setChecked(bool bChecked)
 {
-    if (this->m_bChecked != checked)
+    if (this->m_bChecked != bChecked)
     {
-        this->m_bChecked = checked;
-        emit checkedChanged(checked);
+        this->m_bChecked = bChecked;
+        emit checkedChanged(bChecked);
         update();
     }
 }
 
-void CLSwitchButton::setButtonStyle(CLSwitchButton::ButtonStyle buttonStyle)
+void CLSwitchButton::setButtonStyle(CLSwitchButton::E_ButtonStyle eButtonStyle)
 {
-    this->buttonStyle = buttonStyle;
+    this->m_eButtonStyle = eButtonStyle;
     update();
 }
 
