@@ -12,6 +12,15 @@
 //主版本号 . 子版本号 [. 修正版本号 [. 编译版本号 ]]
 //Major_Version_Number.Minor_Version_Number[.Revision_Number[.Build_Number]]
 //示例 : 1.2.1, 2.0, 5.0.0 build-13124
+// 主版本号 . 子版本号为必选
+
+/**************************** X.Y.Z.build windows软件版本 --与上面一样 ****************************/
+/**************************** X.Y.Z.build windows产品版本 ****************************/
+
+///
+/// \brief The CLVersion class 规则都是由人定的，自定义的版本号比较规则， 与Windows，gun风格相同
+/// x.y.z.build
+///
 class CLVersion : public QObject
 {
     Q_OBJECT
@@ -20,13 +29,16 @@ public:
     explicit CLVersion(QString strVersion, QObject *parent = 0);
     ~CLVersion();
 
+    bool operator = (const CLVersion & rhs);
     bool operator > (const CLVersion & rhs);
+    bool operator < (const CLVersion & rhs);
 
 
 public:
     int m_nMajor;           // 主版本号
     int m_nMinor;           // 子版本号
     int m_nRevision;        // 修正版本号
+                            // 编译版本号可以不用管
 
     QString m_strVersion;
 };

@@ -43,6 +43,15 @@ CLVersion::~CLVersion()
 
 }
 
+bool CLVersion::operator =(const CLVersion &rhs)
+{
+    if (m_nMajor == rhs.m_nMajor && m_nMinor == rhs.m_nMinor && m_nRevision == rhs.m_nRevision)
+    {
+        return true;
+    }
+    return false;
+}
+
 bool CLVersion::operator >(const CLVersion &rhs)
 {
     // 比较主版本号
@@ -74,6 +83,20 @@ bool CLVersion::operator >(const CLVersion &rhs)
     }
     return false;
 
+}
+
+bool CLVersion::operator <(const CLVersion &rhs)
+{
+    if (*this == rhs)
+    {
+        return false;
+    }
+    else if (*this > rhs)
+    {
+        return false;
+    }
+
+    return true;
 }
 
 int compareVersion(QString strVer1, QString strVer2)
