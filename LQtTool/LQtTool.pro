@@ -102,19 +102,19 @@ win32{
 #PRE_TARGETDEPS += pre_build_cmds
 }
 
-#contains(QMAKE_COMPILER, gcc) { #由于使用mingw应该用sh
-#    message("qmake compiler is gcc")
-#}
+contains(QMAKE_COMPILER, gcc) { #由于使用mingw应该用sh
+    message("qmake compiler is gcc")
+}
 
-#contains(QMAKE_COMPILER, msvc) {
-#    message("qmake compiler is msvc")
-#    }
+contains(QMAKE_COMPILER, msvc) {
+    message("qmake compiler is msvc")
+    }
 
-#contains(DEFINES,USE_QT4){
-#    message("use qt4")
-#}else{
-#    message("use qt5")
-#}
+contains(DEFINES, USE_QT4){
+    message("use qt4")
+}else{
+    message("use qt5")
+}
 
 # 头文件搜索路径INCLUDEPATH:
 

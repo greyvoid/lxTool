@@ -22,18 +22,7 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     CustomMainWidget.ui
 
-#LIBS += -L$$PWD/../LStdTool/bin/ -lLStdToold
 
-#头文件和提升窗口部件所需
-INCLUDEPATH += $$PWD/../LStdTool/include
-DEPENDPATH += $$PWD/../LStdTool/include
-
-#不行啊
-#Debug:LIBS += -L$$PWD/../LQtTool/bin/ -lLQtToold
-#Release:LIBS += -L$$PWD/../LQtTool/bin/ -lLQtTool
-
-#Debug:LIBS += -L$$PWD/../LStdTool/bin/ -lLStdToold
-#Release:LIBS += -L$$PWD/../LStdTool/bin/ -lLStdTool
 
 INCLUDEPATH += $$PWD/../LQtTool/include
 DEPENDPATH += $$PWD/../LQtTool/include

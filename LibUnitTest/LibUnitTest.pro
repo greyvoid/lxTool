@@ -21,8 +21,5 @@ DEFINES += SRCDIR=\\\"$$PWD/\\\"
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../LQtTool/bin/ -lLQtTool
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../LQtTool/bin/ -lLQtToold
 
-INCLUDEPATH += $$PWD/../LStdTool/include
-DEPENDPATH += $$PWD/../LStdTool/include
-
 INCLUDEPATH += $$PWD/../LQtTool/include
 DEPENDPATH += $$PWD/../LQtTool/include
