@@ -1,5 +1,5 @@
 include(../common.pri)
-
+# std模块
 HEADERS += \
     $$PWD/src/crypto/Base64.h \
     $$PWD/src/crypto/LAes.h \

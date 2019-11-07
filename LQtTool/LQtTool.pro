@@ -37,13 +37,22 @@ CONFIG(debug, debug|release){
 # 要执行copy_head.bat需要清除项目重新构建
 # 定义输出路径
 #{不可换行
-win32{
-system(.\copy_head.bat)
+#win32{
+#system(.\copy_head.bat)
     #CONFIG += debug_and_release #一万个草泥马
+
+#需要添加构建步骤make install  #添加构建-->Make-->填入参数install即可
+#eg jom.exe install in" F:\work\pro\LxMultiMedia\build-TTS_msc-qt5_6
 #每次构建都会执行
+CONFIG(release, debug|release) {
+#target.sources
+#target.path = $$[QT_INSTALL_EXAMPLES]/tools/echoplugin
+target.path = $$PWD/bin
 sources.files = $$HEADERS
 sources.path = $$PWD/include
-INSTALLS += sources
+INSTALLS += target sources
+}
+
 CONFIG(debug, debug|release) {
             #target_path = ./build_/dist
             #TARGET = LQtTool
@@ -67,6 +76,31 @@ CONFIG(debug, debug|release) {
     #system(xcopy $$src_dir $$dst_dir /y /s)
 }
 
+win32{
+#1-在项目构建前执行命令
+#    system(.\copy_head.bat)
+#优化后的表达式如下，这样此命令只会在构建前执
+#!build_pass:system(.\copy_head.bat)
+
+#2-在链接前后执行，(只有在源码修改导致重新链接成目标文件时才会执
+#在链接执行前执行命令cmd
+#QMAKE_PRE_LINK += .\copy_head.bat
+#在链接执行后执行命令cmd
+#QMAKE_POST_LINK += .\copy_head.bat
+
+#3-在构建前后插入命 使用的QMake变量是QMAKE_EXTRA_TARGETS和PRE_TARGETDEPENS变量
+#eg:
+# 构造自定义生成目标对象
+#mybuild.target=pre_build_cmds
+#win32{
+#mybuild.commands=$$PWD/UpdatePluginLib.cmd
+#}else{
+#}
+# 加入到自定义目标对象列表#QMAKE_EXTRA_TARGETS += mybuild
+
+# 加入到构建依赖列表最前面，会最先被执行，这里必须写目标对象名称，不能是mybuild
+#PRE_TARGETDEPS += pre_build_cmds
+}
 
 #contains(QMAKE_COMPILER, gcc) { #由于使用mingw应该用sh
 #    message("qmake compiler is gcc")

@@ -1,8 +1,7 @@
 TEMPLATE = subdirs
 CONFIG += ordered
 
-SUBDIRS = LStdTool \
-    LQtTool \
+SUBDIRS = LQtTool \
     LQtPlugin \
     libTest \
     LibUnitTest
