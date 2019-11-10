@@ -34,7 +34,11 @@ public:
     static QString getFileBaseName(QString strFilePath);
     static bool s_copyFileToPath(const QString &strFileName, const QString &strDirDest, bool bCover = false);
     static bool s_copyDirFiles(const QString &strDirSrc, const QString &strDirDest, bool bCover = false);
+    // 递归创建目录拷贝文件
     static bool s_copyRecursionNoSignal(const QString &strDirSrc, const QString &strDirDest, bool bCover = false);
+
+    // 递归获取文件目录及子目录下所有的文件
+    static QStringList getListFiles(QString strFilePath);
 
 public:
     bool copyDirFiles(const QString &strDirSrc, const QString &strDirDest, bool bCover = false);

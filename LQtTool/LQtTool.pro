@@ -24,35 +24,19 @@ DEFINES += L_QT_TOOL
 
 # 指明编译的目标文件的输出路径
 #工程的所在目录
-DESTDIR = $$PWD/bin
+
 #DESTDIR = ../bin #编译的所在目录
 
 CONFIG(debug, debug|release){
 
     # DEBUG base name add 'd' suffix
     TARGET = $$join(TARGET,,,d)
+    DESTDIR = $$PWD/bin
 }
 
 
-# 要执行copy_head.bat需要清除项目重新构建
-# 定义输出路径
-#{不可换行
-#win32{
-#system(.\copy_head.bat)
-    #CONFIG += debug_and_release #一万个草泥马
 
-#需要添加构建步骤make install  #添加构建-->Make-->填入参数install即可
-#eg jom.exe install in" F:\work\pro\LxMultiMedia\build-TTS_msc-qt5_6
-#每次构建都会执行
-CONFIG(release, debug|release) {
-#target.sources
-#target.path = $$[QT_INSTALL_EXAMPLES]/tools/echoplugin
-target.path = $$PWD/bin
-sources.files = $$HEADERS
-sources.path = $$PWD/include
-INSTALLS += target sources
-}
-
+win32{
 CONFIG(debug, debug|release) {
             #target_path = ./build_/dist
             #TARGET = LQtTool
@@ -149,6 +133,27 @@ DEPENDPATH += $$PWD\..\LStdTool\src
 #modules
 include($$PWD/../LStdTool/LStdTool.pri)
 include(LQtTool.pri)
+
+
+# 要执行copy_head.bat需要清除项目重新构建
+# 定义输出路径
+#{不可换行
+#win32{
+#system(.\copy_head.bat)
+    #CONFIG += debug_and_release #一万个草泥马
+
+#需要添加构建步骤make install  #添加构建-->Make-->填入参数install即可
+#eg jom.exe install in" F:\work\pro\LxMultiMedia\build-TTS_msc-qt5_6
+#每次构建都会执行, 注意$$HEADERS的值，应放在最后
+CONFIG(release, debug|release) {
+#target.sources
+#target.path = $$[QT_INSTALL_EXAMPLES]/tools/echoplugin
+target.path = $$PWD/bin
+sources.files = $$HEADERS
+sources.path = $$PWD/include
+INSTALLS += target sources
+}
+
 
 #contains(DEFINES,L_STD_TOOL){
 #    message("包含了stdTool")

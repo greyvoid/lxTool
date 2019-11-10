@@ -29,7 +29,7 @@ public:
     explicit CLVersion(QString strVersion, QObject *parent = 0);
     ~CLVersion();
 
-    bool operator = (const CLVersion & rhs);
+    bool operator == (const CLVersion & rhs);
     bool operator > (const CLVersion & rhs);
     bool operator < (const CLVersion & rhs);
 

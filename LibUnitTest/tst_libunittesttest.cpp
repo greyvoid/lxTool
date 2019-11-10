@@ -1,10 +1,10 @@
 #include <QString>
 #include <QtTest>
 #include <QtDebug>
-#include "crypto/LAesEx.h"
-#include "crypto/Base64.h"
-#include "crypto/LMd5.h"
-#include "LStdFunc.h"
+#include "LAesEx.h"
+#include "Base64.h"
+#include "LMd5.h"
+#include "LStd.h"
 
 
 /// ---   结果可视化-AutoTest插件 --------

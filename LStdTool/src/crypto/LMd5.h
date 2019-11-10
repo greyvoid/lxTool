@@ -4,7 +4,7 @@
 
 #include <string>
 #include <fstream>
-#include "def/type.h"
+#include "type.h"
 
 using std::string;
 using std::ifstream;

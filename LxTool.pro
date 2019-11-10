@@ -4,7 +4,8 @@ CONFIG += ordered
 SUBDIRS = LQtTool \
     LQtPlugin \
     libTest \
-    LibUnitTest
+    LibUnitTest \
+    VesionTool
 
 
 

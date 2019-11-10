@@ -1,4 +1,16 @@
 include(../common.pri)
+
+#import path to system
+SRC = $$PWD/src
+INCLUDEPATH += \
+    $$SRC \
+    $$SRC/def \
+    $$SRC/crypto \
+    $$SRC/datastructure \
+    $$SRC/global \
+    $$SRC/template \
+    $$SRC/patterns
+
 # std模块
 HEADERS += \
     $$PWD/src/crypto/Base64.h \

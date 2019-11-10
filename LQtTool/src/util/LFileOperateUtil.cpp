@@ -169,6 +169,41 @@ bool CLFileOperateUtil::s_copyRecursionNoSignal(const QString &strDirSrc, const 
     return true;
 }
 
+QStringList CLFileOperateUtil::getListFiles(QString strFilePath)
+{
+    QStringList strListFiles;
+    QDir dir(strFilePath);
+    if (!dir.exists())
+    {
+        qDebug()<< "the dir:" << strFilePath << "is not exists";
+        return strListFiles;
+    }
+
+    dir.setFilter(QDir::Dirs | QDir::Files);//除了目录或文件，其他的过滤掉
+    dir.setSorting(QDir::DirsFirst);//优先显示目录
+    QFileInfoList lstFileInfo = dir.entryInfoList();//获取文件信息列表
+    // 和上句等价 QFileInfoList lstFileInfo = dir.entryInfoList(filter, QDir::Dirs|QDir::Files,  QDir::DirsFirst);
+
+    foreach(QFileInfo fileInfo, lstFileInfo)
+    {
+        if(fileInfo.isFile())
+        {
+            strListFiles.append(fileInfo.filePath());
+        }
+        else
+        {
+            if(fileInfo.fileName() == "." || fileInfo.fileName() == "..")
+            {
+                continue;
+            }
+
+            strListFiles.append(getListFiles(fileInfo.absoluteFilePath())); //递归
+        }
+    }
+
+    return strListFiles;
+}
+
 
 bool CLFileOperateUtil::copyRecursion(const QString &strDirSrc, const QString &strDirDest, bool bCover)
 {

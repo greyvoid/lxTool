@@ -43,7 +43,7 @@ CLVersion::~CLVersion()
 
 }
 
-bool CLVersion::operator =(const CLVersion &rhs)
+bool CLVersion::operator ==(const CLVersion &rhs)
 {
     if (m_nMajor == rhs.m_nMajor && m_nMinor == rhs.m_nMinor && m_nRevision == rhs.m_nRevision)
     {
@@ -85,7 +85,7 @@ bool CLVersion::operator >(const CLVersion &rhs)
 
 }
 
-bool CLVersion::operator <(const CLVersion &rhs)
+bool CLVersion::operator < (const CLVersion &rhs)
 {
     if (*this == rhs)
     {

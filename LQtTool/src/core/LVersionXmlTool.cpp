@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QtDebug>
+#include "LVersion.h"
 
 CLVersionXmlTool::CLVersionXmlTool(QObject* parent) : QObject(parent)
 {
@@ -101,22 +102,28 @@ QList<T_BinFileNodeMsg> CLVersionXmlTool::getListVersionDownload(const QList<T_B
     // 以新更新文件为基准进行校验
     foreach (T_BinFileNodeMsg tBinFileNodeNew, lstBinFileNodeNew)
     {
-        lstBinFileNodeOld.Find()
+        // contains底层实现是std::find
         // 本地XML没有此文件,加入下载列表
-        if (tBinFileMsgOld.version.isEmpty())
+        if (!lstBinFileNodeOld.contains(tBinFileNodeNew))
         {
-            m_lstBinFileMsg.append(tBinFileMsgNew);
-            return;
+            lstBinFileNodeMsg.append(tBinFileNodeNew);
+            continue;
         }
 
         // 检查版本，如果本地版本低于下载的版本，则加入下载列表
-        if ( LVersion(tBinFileMsgNew.version) > LVersion(tBinFileMsgOld.version) )
+        int nPos = lstBinFileNodeOld.indexOf(tBinFileNodeNew);
+        if (-1 == nPos)
         {
-            m_lstBinFileMsg.append(tBinFileMsgNew);
+            qDebug() << "error, not find";
+        }
+        T_BinFileNodeMsg tBinFileNodeOld = lstBinFileNodeOld[nPos];
+        if ( CLVersion(tBinFileNodeNew.version) > CLVersion(tBinFileNodeOld.version) )
+        {
+            lstBinFileNodeMsg.append(tBinFileNodeNew);
         }
         else
         {
-            qDebug()<< tBinFileMsgNew.name <<"文件是最新版本，不需要更新";
+            qDebug()<< tBinFileNodeNew.name <<"文件是最新版本，不需要更新";
         }
     }
     return lstBinFileNodeMsg;
