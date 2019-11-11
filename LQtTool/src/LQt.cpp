@@ -9,10 +9,10 @@
 // 延迟时间-秒
 void CLQt::delayTime(int s)
 {
-    QTime t=QTime::currentTime().addMSecs(s);
-    while(QTime::currentTime()<t)
+    QTime t = QTime::currentTime().addMSecs(s);
+    while(QTime::currentTime() < t)
     {
-        QCoreApplication::processEvents(QEventLoop::AllEvents,100);
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
     }
 }
 
@@ -75,21 +75,21 @@ QString CLQt::formatBytes(quint64 qu64Size, quint8 u8ValidDigit)
     return QString::number(dNumber, 'f', u8ValidDigit) + strUnit;
 }
 
-void CLQt::saveImgDataToFile(const QString &fromImgData, const QString &toFilePath, const QString &strFormat)
+void CLQt::saveImgDataToFile(const QString & fromImgData, const QString & toFilePath, const QString & strFormat)
 {
     QImage img(fromImgData);
     QByteArray ba;
     QBuffer buf(&ba);
-    img.save(&buf,"JPG");//按照JPG解码保存数据
-    QByteArray cc=qCompress(ba,1);
+    img.save(&buf, "JPG"); //按照JPG解码保存数据
+    QByteArray cc = qCompress(ba, 1);
     QByteArray hh;
-    if (strFormat=="Hex")
+    if (strFormat == "Hex")
     {
-        hh=cc.toHex();//16进制数据
+        hh = cc.toHex(); //16进制数据
     }
     else
     {
-        hh=cc.toBase64();//base64数据
+        hh = cc.toBase64(); //base64数据
     }
     QString str(hh);
     QFile file(toFilePath);
@@ -100,27 +100,44 @@ void CLQt::saveImgDataToFile(const QString &fromImgData, const QString &toFilePa
     }
 }
 
-void CLQt::dataToPic(const QString &fromFilePath, QString toPic, QString myformat)
+void CLQt::dataToPic(const QString & fromFilePath, QString toPic, QString myformat)
 {
     QFile file(fromFilePath);
     if (file.open(QFile::ReadOnly))
     {
-        QByteArray read=file.readAll();
+        QByteArray read = file.readAll();
         file.close();
-        QString ss=QString::fromLatin1(read.data(),read.size());
+        QString ss = QString::fromLatin1(read.data(), read.size());
         QByteArray rc;
-        if (myformat=="Hex")
+        if (myformat == "Hex")
         {
-            rc=QByteArray::fromHex(ss.toLatin1());
+            rc = QByteArray::fromHex(ss.toLatin1());
         }
         else
         {
-            rc=QByteArray::fromBase64(ss.toLatin1());
+            rc = QByteArray::fromBase64(ss.toLatin1());
         }
-        QByteArray rdc=qUncompress(rc);
+        QByteArray rdc = qUncompress(rc);
 
         QImage img;
         img.loadFromData(rdc);
         img.save(toPic);
     }
+}
+
+void CLQt::Sleep(int ms)
+{
+    QTime dieTime = QTime::currentTime().addMSecs(ms);
+    while ( QTime::currentTime() < dieTime )
+    {
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+    }
+
+//#ifdef _WIN32
+//Sleep(sec);
+//#else
+//#include <unistd.h>
+//usleep(sec*1000);
+//#endif
+
 }

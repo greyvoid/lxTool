@@ -10,14 +10,16 @@ class CLQt : public CLStd
 {
 
 public:
-    void delayTime(int s);
-    QString strRecombine(const QString &strSrc, const QString &strSplit, int nSplitSize);
+    static void delayTime(int s);
+    static QString strRecombine(const QString &strSrc, const QString &strSplit, int nSplitSize);
 
-    QString formatBytes(quint64 qu64Size, quint8 u8ValidDigit);
+    static QString formatBytes(quint64 qu64Size, quint8 u8ValidDigit = 2);
 
     // 图片处理
-    void saveImgDataToFile(const QString &fromImgData, const QString &toFilePath, const QString &strFormat);
-    void dataToPic(const QString &fromFilePath, QString toPic, QString myformat);
+    static void saveImgDataToFile(const QString &fromImgData, const QString &toFilePath, const QString &strFormat);
+    static void dataToPic(const QString &fromFilePath, QString toPic, QString myformat);
+
+    static void Sleep(int ms);
 
 
 }; // end namespace Lx

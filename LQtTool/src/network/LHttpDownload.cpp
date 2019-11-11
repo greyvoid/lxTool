@@ -8,13 +8,11 @@
 #include <QDir>
 
 
-#define B       1
-#define KB      1024
-#define MB      1024*1024
-#define GB      1024*1024*1024
 
-LHttpDownload::LHttpDownload(QObject *parent)
+LHttpDownload::LHttpDownload(QObject* parent)
     : LHttpClient(parent)
+    , m_nCurTaskId(-1)
+    , m_nIdAutoIncrementIndex(-1)
 {
 
 }
@@ -25,51 +23,29 @@ LHttpDownload::~LHttpDownload()
 }
 
 
-
-void LHttpDownload::download(const QUrl &urlRequest, const QString &strFileName, QString strDir, int nTimeout)
+///
+/// \brief LHttpDownload::download  下载单个文件
+/// \param urlRequest   url
+/// \param strFileName  保存的文件名
+/// \param strDir   保存的目录路径
+/// \param nTimeout
+///
+void LHttpDownload::download(const QUrl & urlRequest, const QString & strFileName, const QString & strPath, int nTimeout)
 {
-    m_tTaskCur.reset();
-    // 文件名
-    if(strFileName.isEmpty())
-    {
-        QFileInfo fileInfo(urlRequest.path());
-        m_tTaskCur.rename = fileInfo.fileName();
-    }
-    else
-    {
-        m_tTaskCur.rename = strFileName;
-    }
-
-    //文件夹为空则默认当前程序运行路径
-    if(strDir.isEmpty())
-    {
-        m_tTaskCur.dirSaveTo = QDir::currentPath();
-    }
-    else
-    {
-        QDir dir(strDir);
-        //没有此文件夹，则创建
-        if( !dir.exists() )
-        {
-            dir.mkpath(strDir);
-        }
-        m_tTaskCur.dirSaveTo = strDir;
-    }
-    m_tTaskCur.taskInfoListId = m_listTaskDownloadInfo.size();
-    m_tTaskCur.url = urlRequest;
-    m_tTaskCur.size = getFileTotalSize(m_tTaskCur.url.url());
-    m_listTaskDownloadInfo.append(m_tTaskCur);
-    get(urlRequest, nTimeout);
+    addTask(urlRequest, strFileName, strPath);
+    start();
 }
 
-void LHttpDownload::downloadList(const QStringList &urlsStringList)
+///
+/// \brief LHttpDownload::downloadList  下载多个文件
+/// \param strlstUrls
+/// \param strPath
+///
+void LHttpDownload::downloadList(const QStringList & strlstUrls, const QString & strPath)
 {
-    foreach(QString url, urlsStringList)
+    foreach(QString url, strlstUrls)
     {
-        T_TaskDownloadInfo tTaskDownloadInfo;
-        tTaskDownloadInfo.url = url;
-        tTaskDownloadInfo.size = getFileTotalSize(url);
-        m_listTaskDownloadInfo.append(tTaskDownloadInfo);
+        addTask(url, "", strPath);
     }
     start();
 }
@@ -96,6 +72,7 @@ qint64 LHttpDownload::getFileTotalSize(QString url, int tryTimes)
         connect(m_netReply, SIGNAL(finished()), &loop, SLOT(quit()));
         connect(&timer, SIGNAL(timeout()), &loop, SLOT(quit()));
 
+        // 阻塞2000ms等待获取文件大小信息
         timer.start(2000);
         loop.exec();
 
@@ -116,7 +93,8 @@ qint64 LHttpDownload::getFileTotalSize(QString url, int tryTimes)
         size = varSize.toLongLong();
         m_netReply->deleteLater();
         break;
-    } while (tryTimes--);
+    }
+    while (tryTimes--);
 
     return size;
 }
@@ -132,37 +110,83 @@ T_TaskDownloadInfo LHttpDownload::getTaskInfoById(int nTaskId)
     }
 }
 
+///
+/// \brief LHttpDownload::start 开始下载
+///
 void LHttpDownload::start()
 {
-    if (m_listTaskDownloadInfo.empty())
+    if (m_listTaskDownloadInfo.isEmpty())
     {
         return;
     }
-    foreach (T_TaskDownloadInfo tTaskDownloadInfo, m_listTaskDownloadInfo)
+
+    // 正在下载
+    if (m_nCurTaskId != -1)
     {
-        if(tTaskDownloadInfo.eDowlLoadState == ED_Downloading)
-        {
-            return;
-        }
+        return;
     }
+
+    // 指向下个任务
     foreach (T_TaskDownloadInfo tTaskDownloadInfo, m_listTaskDownloadInfo)
     {
         if(tTaskDownloadInfo.eDowlLoadState == ED_Ready)
         {
-            download(tTaskDownloadInfo.url, tTaskDownloadInfo.rename, tTaskDownloadInfo.dirSaveTo);
+            m_tTaskCur = tTaskDownloadInfo;
+            m_nCurTaskId = tTaskDownloadInfo.taskInfoListId;
+            get(tTaskDownloadInfo.url);
             break;
         }
     }
 }
 
+void LHttpDownload::pause()
+{
+
+}
+
 void LHttpDownload::stop()
 {
-    disconnect(m_netReply,SIGNAL(readyRead()), this, SLOT(onReadyRead()));
-    disconnect(m_netReply, SIGNAL(finished()), this, SLOT(onFinished()));
-    disconnect(m_netReply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
-    disconnect(m_netReply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(onDownloadProgress(qint64,qint64)));
-    m_netReply->abort();
-    m_netReply->deleteLater();
+//    disconnect(m_netReply, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+//    disconnect(m_netReply, SIGNAL(finished()), this, SLOT(onFinished()));
+//    disconnect(m_netReply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
+//    disconnect(m_netReply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(onDownloadProgress(qint64, qint64)));
+
+}
+
+void LHttpDownload::addTask(const QUrl & urlRequest, const QString & strFileName, const QString & strPath)
+{
+    // 添加新文件任务到任务列表
+    T_TaskDownloadInfo tTaskDownloadInfo;
+    // 文件名
+    if(strFileName.isEmpty())
+    {
+        QFileInfo fileInfo(urlRequest.path());
+        tTaskDownloadInfo.rename = fileInfo.fileName();
+    }
+    else
+    {
+        tTaskDownloadInfo.rename = strFileName;
+    }
+
+    //文件夹为空则默认当前程序运行路径
+    if(strPath.isEmpty())
+    {
+        tTaskDownloadInfo.dirSaveTo = QDir::currentPath();
+    }
+    else
+    {
+        QDir dir(strPath);
+        //没有此文件夹，则创建
+        if( !dir.exists() )
+        {
+            dir.mkpath(strPath);
+        }
+        tTaskDownloadInfo.dirSaveTo = strPath;
+    }
+    tTaskDownloadInfo.taskInfoListId = ++m_nIdAutoIncrementIndex;
+    tTaskDownloadInfo.url = urlRequest;
+    tTaskDownloadInfo.size = getFileTotalSize(tTaskDownloadInfo.url.url());
+    m_listTaskDownloadInfo.append(tTaskDownloadInfo);
 }
 
 void LHttpDownload::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
@@ -170,7 +194,7 @@ void LHttpDownload::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
     // 更新单个任务进度
     for (QList<T_TaskDownloadInfo>::iterator iter = m_listTaskDownloadInfo.begin() ; iter != m_listTaskDownloadInfo.end() ; ++iter)
     {
-        if((*iter).taskInfoListId == m_tTaskCur.taskInfoListId)
+        if((*iter).taskInfoListId == m_nCurTaskId)
         {
             (*iter).completed = bytesReceived;
             break;
@@ -198,25 +222,30 @@ void LHttpDownload::onFinished()
         QFile::remove(m_tTaskCur.filePath());
     }
 
+    // 单个任务下载完成
     QFile file(m_tTaskCur.filePath());
     if (!file.open(QIODevice::WriteOnly))
     {
-        qDebug()<<"不能存储文件："<< m_tTaskCur.filePath();
+        qDebug() << "不能存储文件：" << m_tTaskCur.filePath();
         return;
     }
     file.write(m_httpDataBuffer.readAll());
     file.flush();//注意需要刷新
     file.close();
+    m_httpDataBuffer.clear();   // 注意清除
+    m_netReply->deleteLater();
+    m_netReply = NULL;
     for (QList<T_TaskDownloadInfo>::iterator iter = m_listTaskDownloadInfo.begin() ; iter != m_listTaskDownloadInfo.end() ; ++iter)
     {
-        if((*iter).taskInfoListId == m_tTaskCur.taskInfoListId)
+        if((*iter).taskInfoListId == m_nCurTaskId)
         {
             (*iter).eDowlLoadState = ED_Completed;
             break;
         }
     }
-    // 单个任务下载完成
     emit downloadCompleted(m_tTaskCur);
+
+    // 任务列表状态更新
     bool bCompletedAll = true;
     foreach(T_TaskDownloadInfo tTaskDownloadInfo, m_listTaskDownloadInfo)
     {
@@ -229,7 +258,12 @@ void LHttpDownload::onFinished()
     if (bCompletedAll)
     {
         emit finishedAllTask();
+        return;
     }
+
+    // 开始下个任务
+    m_nCurTaskId = -1;
+    start();
 
     //        // 写文件-形式为追加
     //        QFile file(m_strBaseName + ".jpg");
@@ -250,31 +284,6 @@ void LHttpDownload::onFinished()
 
 }
 
-const char *LHttpDownload::formatByte(double dByteNum)
-{
-    std::string unit = "B";
-    double dByteNumFormat = dByteNum;
-    char byteFormat[32];
-
-    if (dByteNumFormat > GB)
-    {
-        unit = "G";
-        dByteNumFormat /= GB;
-    }
-    else if (dByteNumFormat > MB)
-    {
-        unit = "M";
-        dByteNumFormat /= MB;
-    }
-    else if (dByteNumFormat > KB)
-    {
-        unit = "kB";
-        dByteNumFormat /= KB;
-    }
-
-    sprintf(byteFormat, "%d%s", dByteNumFormat, unit.c_str());
-    return byteFormat;
-}
 
 
 

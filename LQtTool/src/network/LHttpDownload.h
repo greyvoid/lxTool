@@ -42,7 +42,16 @@ struct T_TaskDownloadInfo
 
     T_TaskDownloadInfo()
     {
+        init();
+    }
 
+    void init()
+    {
+        taskInfoListId = -1;
+        eDowlLoadState = ED_Ready;
+        completed = 0;
+        size = 0;
+        speed = 0;
     }
 
     QString filePath()
@@ -56,6 +65,13 @@ struct T_TaskDownloadInfo
         eDowlLoadState = ED_Ready;
         completed = 0;
         size = 0;
+        speed = 0;
+    }
+
+    // 任务是否有效
+    bool isInvalid()
+    {
+        return (-1 == taskInfoListId);
     }
 
 };
@@ -68,14 +84,19 @@ class LHttpDownload : public LHttpClient
 public:
     LHttpDownload(QObject *parent = 0);
     virtual ~LHttpDownload();
-    static const char* formatByte(double dByteNum);
 
 public:
-    void download(const QUrl& urlRequest, const QString & strFileName="", QString strDir="", int nTimeout = 6000);
-    void downloadList(const QStringList & urlsStringList);
+    void download(const QUrl& urlRequest, const QString & strFileName="", const QString &strPath="", int nTimeout = 6000);
+    void downloadList(const QStringList & strlstUrls, const QString & strPath);
     qint64 getFileTotalSize(QString url, int tryTimes = 2);
     T_TaskDownloadInfo getTaskInfoById(int nTaskId);
+    T_TaskDownloadInfo* getCurTask()
+    {
+        return &m_tTaskCur;
+    }
+
     void start();
+    void pause();
     void stop();
 
 signals:
@@ -86,13 +107,19 @@ signals:
 
     void finishedAllTask();
 
+private:
+    void addTask(const QUrl& urlRequest, const QString & strFileName="", const QString &strPath="");
+
 private slots:
     virtual void onDownloadProgress(qint64 bytesReceived,qint64 bytesTotal);
     void onFinished();
 
 private:
-    T_TaskDownloadInfo m_tTaskCur;
+    T_TaskDownloadInfo m_tTaskCur;  // 当前任务
     QList<T_TaskDownloadInfo> m_listTaskDownloadInfo;
+
+    int m_nIdAutoIncrementIndex;    // 自增的id分配序号，保证分配的id唯一性，如果没有setting，程序退出为-1
+    int m_nCurTaskId;
 };
 
 #endif // LHTTPDOWNLOAD_H

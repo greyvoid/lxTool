@@ -10,7 +10,7 @@
 //其他库的 .h 文件
 //本项目内 .h 文件
 
-LHttpClient::LHttpClient(QObject *parent)
+LHttpClient::LHttpClient(QObject* parent)
     : QObject(parent)
 {
     init();
@@ -19,26 +19,19 @@ LHttpClient::LHttpClient(QObject *parent)
 
 LHttpClient::~LHttpClient()
 {
-    m_netAccessManager->deleteLater();
-    if (NULL != m_netReply)
-    {
-//		if (bAbort)
-//		{
-//			m_netReply->abort();
-//		}
-        m_netReply->deleteLater();
-        m_netReply = NULL;
-    }
+    //m_netAccessManager->deleteLater();
+
 }
 
 void LHttpClient::init()
 {
-    m_netAccessManager=new QNetworkAccessManager(this);
+
+    m_netAccessManager = new QNetworkAccessManager(this);
     //connect(m_netAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(onFinished(QNetworkReply*)));
 }
 
 
-void LHttpClient::get(const QUrl &urlRequest, int nTimeout)
+void LHttpClient::get(const QUrl & urlRequest, int nTimeout)
 {
     if (urlRequest.isEmpty())
     {
@@ -48,13 +41,13 @@ void LHttpClient::get(const QUrl &urlRequest, int nTimeout)
 //     m_request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-protobuf");
 //    m_request.setRawHeader("Connection", "keep-alive");
     m_netReply = m_netAccessManager->get(m_request);
-    connect(m_netReply,SIGNAL(readyRead()), this, SLOT(onReadyRead()));
+    connect(m_netReply, SIGNAL(readyRead()), this, SLOT(onReadyRead()));
     connect(m_netReply, SIGNAL(finished()), this, SLOT(onFinished()));
     connect(m_netReply, SIGNAL(error(QNetworkReply::NetworkError)), this, SLOT(onError(QNetworkReply::NetworkError)));
-    connect(m_netReply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(onDownloadProgress(qint64,qint64)));
+    connect(m_netReply, SIGNAL(downloadProgress(qint64, qint64)), this, SLOT(onDownloadProgress(qint64, qint64)));
 }
 
-void LHttpClient::post(const QUrl &urlRequest, const void *pData, int nDataLen, int nTimeout)
+void LHttpClient::post(const QUrl & urlRequest, const void* pData, int nDataLen, int nTimeout)
 {
     if (urlRequest.isEmpty())
     {
@@ -82,16 +75,19 @@ void LHttpClient::onFinished()
     if(m_netReply->error() == QNetworkReply::NoError)
     {
         emit finished(m_httpDataBuffer.readAll());
+        m_httpDataBuffer.clear();
         qDebug() << "success"  << status_code; //200
     }
     else
     {
         qDebug() << "failed" << status_code;
     }
+    m_netReply->deleteLater();
+    m_netReply = NULL;
 }
 
 
-void LHttpClient::onFinished(QNetworkReply *)
+void LHttpClient::onFinished(QNetworkReply*)
 {
 
 }

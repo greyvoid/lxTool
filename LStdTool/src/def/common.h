@@ -13,12 +13,7 @@
 #define SAFE_FREE(p)             do { if(p) { free(p); (p) = nullptr; } } while(0)
 #define BREAK_IF(cond)           if(cond) break
 
-#ifdef _WIN32
-#define	SLEEP(longTime) Sleep(longTime)
-#else
-#include <unistd.h>
-#define	SLEEP(longTime) usleep(longTime*1000)
-#endif
+
 
 // 数字转字符
 #define NUM_TO_CHAR(x)      ((x)+0x30)
