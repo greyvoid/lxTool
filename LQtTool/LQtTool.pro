@@ -161,24 +161,11 @@ sources.path = $$PWD/include
 INSTALLS += target sources
 }
 
+#$$()或$${}：获取环境变量；
+#$$：展开变量；
+#$()：将会把$()传入Makefile中，在Makefile中使用$()
+#$$[]：从qmake中获取属性，qmake中内置了很多属性，如下：
 
-#contains(DEFINES,L_STD_TOOL){
-#    message("包含了stdTool")
-#}else {
-#    CONFIG(debug, debug|release){
-#    LIBS += -L$$PWD\..\LStdTool\bin -lLStdToold
-#    } else {
-#    LIBS += -L$$PWD\..\LStdTool\bin -lLStdTool
-#    }
-
-#    INCLUDEPATH += $$PWD\..\LStdTool\include
-
-#    DEPENDPATH += $$PWD\..\LStdTool\include
-#}
-
-
-#假如你所有的应用程序都必须和一个特定的库连接，你可以把这个信息添加到相应的qmake.conf文件中。
-#验证结果证明，.qmake.conf里面的内容总是最先执行,即使注释掉也会隐式执行.qmake.conf
 
 DISTFILES += \
     $$files(conf/*.conf)
