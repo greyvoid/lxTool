@@ -6,6 +6,8 @@ SUBDIRS = LQtTool \
     libTest \
     LibUnitTest \
     VesionTool
-
+# 依赖关系
+libTest.depends = LQtTool
+LibUnitTest.depends = LQtTool
 
 

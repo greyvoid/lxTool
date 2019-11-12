@@ -1,6 +1,6 @@
-include(../common.pri)
 
-#import path to system
+# like common pri
+# import path to system
 SRC = $$PWD/src
 INCLUDEPATH += \
     $$SRC \

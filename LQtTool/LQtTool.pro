@@ -34,7 +34,14 @@ CONFIG(debug, debug|release){
     DESTDIR = $$PWD/bin
 }
 
-
+VERSION = 0.1.0.0
+QMAKE_TARGET_PRODUCT = LQtTool.dll
+QMAKE_TARGET_COMPANY = Lx
+QMAKE_TARGET_DESCRIPTION = tool
+# 版权信息
+QMAKE_TARGET_COPYRIGHT = Lx
+# 中文（简体）
+RC_LANG = 0x0004
 
 win32{
 CONFIG(debug, debug|release) {
@@ -169,12 +176,10 @@ INSTALLS += target sources
 #    DEPENDPATH += $$PWD\..\LStdTool\include
 #}
 
-#此文件用于同一构建树中项目的依赖，如果不是同一构建树则不需要，本例QtTool依赖StdTool
+
 #假如你所有的应用程序都必须和一个特定的库连接，你可以把这个信息添加到相应的qmake.conf文件中。
-#验证结果证明，去掉qmake.conf， 太垃圾， 因为里面的内容最先执行，打乱次序
-#DISTFILES += \
-#    .qmake.conf
-#即使注释掉也会隐式执行.qmake.conf
+#验证结果证明，.qmake.conf里面的内容总是最先执行,即使注释掉也会隐式执行.qmake.conf
+
 DISTFILES += \
     $$files(conf/*.conf)
 

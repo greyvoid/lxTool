@@ -31,3 +31,6 @@ DEPENDPATH += $$PWD/../LQtTool/include
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../LQtTool/bin/ -lLQtTool
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../LQtTool/bin/ -lLQtToold
 
+#DISTFILES += \
+#    .qmake.conf
+
