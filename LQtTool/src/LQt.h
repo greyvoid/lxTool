@@ -21,6 +21,15 @@ public:
 
     static void Sleep(int ms);
 
+    //窗体相对桌面居中显示
+    static void moveToDeskCenter(QWidget *widget);
+
+    //判断是否是IP地址
+    static bool isIP(QString strIP);
+
+    //设置为开机启动
+    static void autoRunWithSystem(bool bAutoRun, const QString & strAppName, const QString & strAppPath);
+
 
 }; // end namespace Lx
 

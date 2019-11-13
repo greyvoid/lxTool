@@ -34,14 +34,17 @@ CONFIG(debug, debug|release){
     DESTDIR = $$PWD/bin
 }
 
-VERSION = 0.1.0.0
-QMAKE_TARGET_PRODUCT = LQtTool.dll
-QMAKE_TARGET_COMPANY = Lx
-QMAKE_TARGET_DESCRIPTION = tool
-# 版权信息
-QMAKE_TARGET_COPYRIGHT = Lx
-# 中文（简体）
-RC_LANG = 0x0004
+RC_FILE += version.rc
+#warning: if not use .rc file, the dll name will rename to TARGET+major.dll
+#, becase the created rc. OriginalFilename is changed to TARGET+major.dll
+#VERSION = 0.1.0.0
+#QMAKE_TARGET_PRODUCT = LQtTool.dll
+#QMAKE_TARGET_COMPANY = Lx
+#QMAKE_TARGET_DESCRIPTION = tool
+## 版权信息
+#QMAKE_TARGET_COPYRIGHT = Lx
+## 中文（简体）
+#RC_LANG = 0x0004
 
 win32{
 CONFIG(debug, debug|release) {

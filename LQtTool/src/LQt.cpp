@@ -3,6 +3,7 @@
 #include <QTime>
 #include <QCoreApplication>
 #include <QWidget>
+#include <QDesktopWidget>
 #include <QFile>
 #include <QBuffer>
 
@@ -139,5 +140,27 @@ void CLQt::Sleep(int ms)
 //#include <unistd.h>
 //usleep(sec*1000);
 //#endif
+
+}
+
+void CLQt::moveToDeskCenter(QWidget *widget)
+{
+    int frmX = widget->width();
+    int frmY = widget->height();
+    QDesktopWidget w;
+    int deskWidth = w.width();
+    int deskHeight = w.height();
+    QPoint movePoint(deskWidth / 2 - frmX / 2, deskHeight / 2 - frmY / 2);
+    widget->move(movePoint);
+}
+
+bool CLQt::isIP(QString strIP)
+{
+    QRegExp RegExp("((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)");
+    return RegExp.exactMatch(strIP);
+}
+
+void CLQt::autoRunWithSystem(bool bAutoRun, const QString &strAppName, const QString &strAppPath)
+{
 
 }
