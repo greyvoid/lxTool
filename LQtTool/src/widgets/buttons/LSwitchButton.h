@@ -150,7 +150,7 @@ public slots:
     void setRectRadius(int rectRadius);
 
 signals:
-    void checkedChanged(bool m_bChecked);
+    void checkedChanged(bool bChecked);
 
 protected:
     void mousePressEvent(QMouseEvent*);
