@@ -5,6 +5,9 @@
 #include <QTimer>
 #include <QtDebug>
 
+static const int s_nWidthThis = 80;
+static const int s_nHeightThis = 28;
+
 CLSwitchButton::CLSwitchButton(QWidget* parent)
     : QWidget(parent)
 {
@@ -108,6 +111,7 @@ void CLSwitchButton::resizeEvent(QResizeEvent*)
 
 void CLSwitchButton::paintEvent(QPaintEvent*)
 {
+
     //绘制准备工作,启用反锯齿
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing);
@@ -217,13 +221,29 @@ void CLSwitchButton::drawText(QPainter* painter)
 
     if (!m_bChecked)
     {
+        if (m_eButtonStyle == EBS_Rect)
+        {
         painter->setPen(textColorOff);
         painter->drawText(width() / 2, 0, width() / 2 - space, height(), Qt::AlignCenter, m_strTextOff);
+        }
+        else
+        {
+            painter->setPen(textColorOff);
+            painter->drawText(height(), 0, width() - height(), height(), Qt::AlignCenter, m_strTextOff);
+        }
     }
     else
     {
+        if (m_eButtonStyle == EBS_Rect)
+        {
         painter->setPen(textColorOn);
         painter->drawText(0, 0, width() / 2 + space * 2, height(), Qt::AlignCenter, m_strTextOn);
+        }
+        else
+        {
+            painter->setPen(textColorOn);
+            painter->drawText(0, 0, width() - height(), height(), Qt::AlignCenter, m_strTextOn);
+        }
     }
 
     painter->restore();
@@ -259,8 +279,16 @@ void CLSwitchButton::drawImage(QPainter* painter)
 
 QSize CLSwitchButton::sizeHint() const
 {
+    // 注意const 函数
+    const QFontMetrics fontMetrics = this->fontMetrics();
+    int nWidthTextOn = fontMetrics.width(getTextOn());
+    int nWidthTextOff = fontMetrics.width(getTextOff());
 
-    return QSize(80, 28);
+    int nWidthTextLarger = qMax(nWidthTextOn, nWidthTextOff);;
+    int nWidthThis = height() + nWidthTextLarger;
+    int nWidthThisLarger = qMax(nWidthThis, s_nWidthThis);
+
+    return QSize(nWidthThisLarger, s_nHeightThis);
 }
 
 void CLSwitchButton::updateValue()
@@ -292,6 +320,8 @@ void CLSwitchButton::updateValue()
 
     update();
 }
+
+
 
 void CLSwitchButton::setChecked(bool bChecked)
 {

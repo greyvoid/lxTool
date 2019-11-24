@@ -166,7 +166,7 @@ protected:
 
 private slots:
     void updateValue();
-
+    //void recalculateWidth();
 
 
 private:
