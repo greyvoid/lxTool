@@ -29,7 +29,8 @@ HEADERS += \
     $$PWD/PageNavigator.h \
     $$PWD/TextMovingWidget.h \
     $$PWD/widgets.h \
-    $$PWD/buttons/LsxIconTextButton.h
+    $$PWD/buttons/LsxIconTextButton.h \
+    $$PWD/LLoopLoading.h
 
 SOURCES += \
     $$PWD/buttons/LButtonGroup.cpp \
@@ -60,7 +61,8 @@ SOURCES += \
     $$PWD/NoTitleMenuMainWidget.cpp \
     $$PWD/PageNavigator.cpp \
     $$PWD/TextMovingWidget.cpp \
-    $$PWD/buttons/LsxIconTextButton.cpp
+    $$PWD/buttons/LsxIconTextButton.cpp \
+    $$PWD/LLoopLoading.cpp
 
 FORMS += \
     $$PWD/LMessageBox.ui \

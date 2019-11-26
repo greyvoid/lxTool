@@ -47,6 +47,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Tomast控件
 
+    //
+    //ui->roundProgressBar->
+
 }
 
 MainWindow::~MainWindow()

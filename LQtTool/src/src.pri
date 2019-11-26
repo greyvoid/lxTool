@@ -22,7 +22,8 @@ SOURCES +=\
     $$PWD/styles/LBronzeStyle.cpp \
     $$PWD/styles/LColorStyle.cpp \
     $$PWD/styles/LTabBarVStyle.cpp \
-    $$PWD/LQt.cpp
+    $$PWD/LQt.cpp \
+    $$PWD/util/LDrawUtil.cpp
 
 HEADERS  += \
     $$PWD/message/LMessageListenner.h \
@@ -46,5 +47,6 @@ HEADERS  += \
     $$PWD/styles/LBronzeStyle.h \
     $$PWD/styles/LColorStyle.h \
     $$PWD/styles/LTabBarVStyle.h \
-    $$PWD/LQt.h
+    $$PWD/LQt.h \
+    $$PWD/util/LDrawUtil.h
 

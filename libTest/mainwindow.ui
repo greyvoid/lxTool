@@ -21,7 +21,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="CLSwitchButton" name="switchButton" native="true"/>
+       <widget class="CLSwitchButton" name="switchButton"/>
       </item>
       <item>
        <spacer name="horizontalSpacer">
@@ -48,6 +48,9 @@
       </item>
       <item>
        <widget class="CLLoadingWidget" name="loadingWidget" native="true"/>
+      </item>
+      <item>
+       <widget class="CLRoundProgressBar" name="roundProgressBar" native="true"/>
       </item>
       <item>
        <widget class="CLProgressIndicator" name="progressIndicator"/>
@@ -117,6 +120,12 @@
    <container>1</container>
   </customwidget>
   <customwidget>
+   <class>CLSwitchButton</class>
+   <extends>QWidget</extends>
+   <header>LxWidgets/LSwitchButton.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
    <class>CLSliderButtons</class>
    <extends>QWidget</extends>
    <header>widgets/buttons/LSliderButtons.h</header>
@@ -151,9 +160,9 @@
    <header>widgets/labels/LTipLabel.h</header>
   </customwidget>
   <customwidget>
-   <class>CLSwitchButton</class>
+   <class>CLRoundProgressBar</class>
    <extends>QWidget</extends>
-   <header>widgets/buttons/LSwitchButton.h</header>
+   <header>widgets/LRoundProgressBar.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
