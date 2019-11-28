@@ -8,7 +8,7 @@
 
 
 ///
-/// \brief CLBronzeStyle::polish //抛光 --改变调色板为样式指定的颜色调色板
+/// \brief CLBronzeStyle::polish //通常在此函数内指定配色方案，也即配置调色板
 /// \param palette
 ///
 void CLBronzeStyle::polish(QPalette &palette)
@@ -40,7 +40,7 @@ void CLBronzeStyle::polish(QPalette &palette)
 
 
 ///
-/// \brief CLBronzeStyle::polish //初始化给定窗口部件的外观, 此函数在窗口部件每一次创建后首次显示之前调用
+/// \brief CLBronzeStyle::polish //当样式应用到窗口部件时调用 初始化给定窗口部件的外观, 此函数在窗口部件每一次创建后首次显示之前调用
 /// \param widget
 ///
 void CLBronzeStyle::polish(QWidget *widget)
@@ -53,7 +53,11 @@ void CLBronzeStyle::polish(QWidget *widget)
     }
 }
 
-//取消polish的作用
+
+///
+/// \brief CLBronzeStyle::unpolish  取消polish的作用当动态改变样式的时候调用
+/// \param widget
+///
 void CLBronzeStyle::unpolish(QWidget *widget)
 {
     if (qobject_cast<QAbstractButton *>(widget) || qobject_cast<QAbstractSpinBox *>(widget))

@@ -32,7 +32,7 @@ CLLoopLoading::CLLoopLoading(QWidget* parent)
     , m_unAngle(0)
 {
     setFixedSize(120, 120);
-    if(!parent())
+    if(!parentWidget())
     {
         setWindowFlags(Qt::FramelessWindowHint
                        | Qt::WindowSystemMenuHint
